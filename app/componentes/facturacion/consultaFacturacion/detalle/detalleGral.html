@@ -1,0 +1,98 @@
+<div class="row">
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 style="border-bottom: 1px solid #337ab7;">Datos
+					Per&iacute;odo</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<label class="control-label">Fecha de Ejecuci&oacute;n:</label> <br />
+				<br /> <label style="font-weight: normal;">{{consultaFacturacionCtrl.periodoSeleccionado.fechaEjecucion
+					| fecha}}</label>
+			</div>
+
+			<div class="col-md-4">
+				<label class="control-label">Usuario que Ejecuto:</label><br /> <br />
+				<label style="font-weight: normal;">{{consultaFacturacionCtrl.periodoSeleccionado.loginUsr}}</label>
+			</div>
+
+			<div class="col-md-4">
+				<label class="control-label">Archivos de Soporte:</label><br /> <br />
+				<label style="font-weight: normal; margin-left: 50px;">{{consultaFacturacionCtrl.periodoSeleccionado.bndLayouts
+					| palomaotache}}</label>
+			</div>
+		</div>
+		<br />
+		<div class="row"
+			ng-if="consultaFacturacionCtrl.periodoSeleccionado.bndLayouts != 'S'">
+			<div class="col-md-6">
+				<label class="control-label">Mensaje de error:</label> <label>{{consultaFacturacionCtrl.periodoSeleccionado.mensajeErr}}</label>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<adea-proforma
+				parametros="consultaFacturacionCtrl.parametrosProforma" periodo="consultaFacturacionCtrl.periodoSeleccionado.periodo"></adea-proforma>
+		</div>
+
+	</div>
+	<div class="col-md-6"
+		ng-if="consultaFacturacionCtrl.periodoSeleccionado.bndLayouts == 'S'">
+
+		<div class="row">
+			<div class="col-md-12">
+				<h4 style="border-bottom: 1px solid #337ab7;">Archivos de
+					Soporte Facturaci&oacute;n</h4>
+			</div>
+		</div>
+		<div class="row">
+			<br />
+			<div class="col-md-12">
+				<h4>Conceptos</h4>
+				<table class="table table-hover">
+					<thead
+						style="height: 15px; background-color: #337ab7; color: white;">
+						<tr>
+							<th>Tipo</th>
+							<th style="text-align: center;">Archivo Soporte</th>
+							<th style="text-align: center;">Archivo Resumen</th>
+							<th style="text-align: center;">Archivo Validaci&oacute;n</th>
+						</tr>
+					</thead>
+					<tr ng-repeat="concepto in consultaFacturacionCtrl.catalogoFac">
+						<td>{{concepto.tipo}}</td>
+
+						<td style="text-align: center;"><a role="button"
+							ng-if="concepto.nombreArc != '---'" style="color: green;"
+							class="fa fa-download"
+							ng-click="consultaFacturacionCtrl.downloadArchivoFact(concepto.nombreArc)"
+							tooltip title="{{concepto.nombreArc}}"></a>
+
+							<div ng-if="concepto.nombreArc == '---'" style="color: green;"
+								tooltip>--</div></td>
+
+						<td style="text-align: center;"><a role="button"
+							ng-if="concepto.archivoResumen != '---'" style="color: green;"
+							class="fa fa-download"
+							ng-click="consultaFacturacionCtrl.downloadArchivoFact(concepto.archivoResumen)"
+							tooltip title="{{concepto.archivoResumen}}"></a>
+
+							<div ng-if="concepto.archivoResumen == '---'"
+								style="color: green;" tooltip>---</div></td>
+
+						<td style="text-align: center;"><a role="button"
+							ng-if="concepto.archivoVal != '---'" style="color: green;"
+							class="fa fa-download"
+							ng-click="consultaFacturacionCtrl.downloadArchivoFact(concepto.archivoVal)"
+							tooltip title="{{concepto.archivoVal}}"></a>
+
+							<div ng-if="concepto.archivoVal == '---'" style="color: green;"
+								tooltip>---</div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

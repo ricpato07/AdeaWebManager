@@ -1,0 +1,134 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+<div class="container-fluid adeaWeb">
+	<div ng-if="planeacionProyectoCtrl.modoVista == 'C'">
+		<div class="panel panel-default panel-primary">
+			<div class="panel-heading" style="height: 35px;">
+				<h4 class="panel-title pull-left" style="margin-top: 0px;">
+					<i class="fa fa-filter"> &nbsp;&nbsp;Filtros Subproyectos</i>
+				</h4>
+			</div>
+
+
+			<div class="panel-body">
+
+				<div class="row">
+					<form class="form-horizontal" name="form" novalidate>
+						<div class="col-md-4">
+							<label class="control-label">Seleccione un cliente:</label> <select
+								class="form-control input-md" id="cliente" name="cliente"
+								ng-disabled="planeacionProyectoCtrl.listClientes == null || planeacionProyectoCtrl.listClientes == undefined || planeacionProyectoCtrl.listClientes.length == 0"
+								ng-required="true" ng-model="planeacionProyectoCtrl.cliente"
+								ng-change="planeacionProyectoCtrl.consultaProyectos()"
+								ng-options="opt as opt.nomCliente for opt in planeacionProyectoCtrl.listClientes">
+								<option value="">Seleccione</option>
+							</select>
+
+						</div>
+						<div class="col-md-4">
+							<label class="control-label">Seleccione un proyecto:</label> <select
+								class="form-control input-md" id="proyecto" name="proyecto"
+								ng-required="true"
+								ng-change="planeacionProyectoCtrl.consultaSubProyectos()"
+								ng-model="planeacionProyectoCtrl.proyecto"
+								ng-options="opt as opt.nombre for opt in planeacionProyectoCtrl.listProyectos">
+								<option value="">Seleccione</option>
+							</select>
+						</div>
+						<div class="col-md-4 text-right" style="margin-top: 24px;"
+							ng-if="planeacionProyectoCtrl.cliente != null && planeacionProyectoCtrl.proyecto != null">
+							<a class="btn btn-primary" role="button"
+								ng-click="planeacionProyectoCtrl.cambioModo('A')" tooltip
+								title="Agregar SubProyecto">Agregar SubProyecto </a> <a
+								class="btn btn-primary" role="button"
+								ng-click="planeacionProyectoCtrl.cambioModo('M')"
+								ng-if="planeacionProyectoCtrl.subProyectoSeleccionado != null && planeacionProyectoCtrl.subProyectoSeleccionado != undefined"
+								tooltip title="Editar SubProyecto">Editar SubProyecto </a> <a
+								class="btn btn-primary" role="button"
+								ng-click="planeacionProyectoCtrl.cambioModo('P')"
+								ng-if="planeacionProyectoCtrl.subProyectoSeleccionado != null && planeacionProyectoCtrl.subProyectoSeleccionado != undefined"
+								tooltip title="Planear Tareas">Planear Tareas </a>
+						</div>
+					</form>
+				</div>
+
+				<br />
+
+
+				<uib-tabset> <uib-tab
+					ng-click="planeacionProyectoCtrl.data = null;" index="0"
+					heading="SubProyectos">
+
+				<div class="col-md-12"
+					uib-collapse="planeacionProyectoCtrl.mostrarSubProyectos">
+					<adea-tabla dt-data-source="planeacionProyectoCtrl.subProyectos"
+						config="planeacionProyectoCtrl.tblSubProyectos"
+						registro-seleccionado="planeacionProyectoCtrl.subProyectoSeleccionado"
+						seleccionar-registro="planeacionProyectoCtrl.seleccionarSubProyecto(reg);">
+
+					</adea-tabla>
+				</div>
+
+
+				</uib-tab> <uib-tab
+					ng-click="planeacionProyectoCtrl.construyeObjGantt(planeacionProyectoCtrl.subProyectos)"
+					ng-if="planeacionProyectoCtrl.subProyectos.length > 0" index="1"
+					heading="Planeaci&oacute;n"> <br />
+				<div class="row">
+					<div class="col-md-12">
+						<div style="font-size: 12px;" gantt
+							data=planeacionProyectoCtrl.data headers="['month', 'week']"
+							headers-formats="planeacionProyectoCtrl.headersFormats"
+							time-frames=planeacionProyectoCtrl.timeFrames
+							date-frames=planeacionProyectoCtrl.dateFrames
+							time-frames-non-working-mode=visible>
+							<gantt-table columns="['model.name', 'model.from', 'model.to']"
+								headers="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+								formatter="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+								formatters="planeacionProyectoCtrl.formatters"></gantt-table>
+							<gantt-progress></gantt-progress>
+							<gantt-tooltips content="planeacionProyectoCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
+							<gantt-dependencies conflict-checker="true"></gantt-dependencies>
+						</div>
+					</div>
+				</div>
+				</uib-tab> </uib-tabset>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="planeacionProyectoCtrl.modoVista == 'A'"
+		ng-include="'app/componentes/proyectos/mantenimiento/agregarSubProyecto.html'">
+	</div>
+
+	<div ng-if="planeacionProyectoCtrl.modoVista == 'M'"
+		ng-include="'app/componentes/proyectos/mantenimiento/editarSubProyecto.html'"></div>
+
+	<div ng-if="planeacionProyectoCtrl.modoVista == 'P'"
+		ng-include="'app/componentes/proyectos/mantenimiento/planeacionActividades.html'"></div>
+</div>
+
+
+
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/confirmCambioFecha.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/confirmCambioFechaFin.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/confirmActividadTraslape.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/eliminarActividad.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/confirmActividadTraslapeMod.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/graficaGanttAct.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/reprogramacionAct.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/traslapesActividad.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/altaRecursoActividad.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/eliminarActividadPlantilla.html'"></div>
+

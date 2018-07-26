@@ -1,0 +1,214 @@
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+
+		<div class="panel-heading" style="height: 35px; margin-top: -12px;">
+			<a
+				style="color: white; padding-right: 29px; cursor: pointer; font-size: 20px !important;"
+				ng-click="planeacionProyectoCtrl.cambioModo('C')" title="Regresar a Subproyectos"
+				class="fa fa-mail-reply"></a> <i style="font-size: 14px !important;"
+				class="fa fa-book"> &nbsp;&nbsp;Planeación de Tareas:
+				{{planeacionProyectoCtrl.cliente.nomCliente}}&nbsp;|&nbsp;{{planeacionProyectoCtrl.subProyectoSeleccionado.nombre}}</i>
+		</div>
+		<a class="fa fa-angle-up pull-right" role="button"
+			style="font-size: 35px; color: white; margin-top: -32px; margin-right: -2px;"
+			data-toggle="tooltip" tooltip title="Ocultar" data-placement="top"
+			ng-if="!planeacionProyectoCtrl.mostrarActividades"
+			ng-click="planeacionProyectoCtrl.mostrarActividades = true;"> </a> 
+		<a class="fa fa-angle-down pull-right" role="button"
+			style="font-size: 17px; color: white; margin-top: -24px; margin-right: -2px;"
+			data-toggle="tooltip" tooltip title="Registrar Actividad"
+			data-placement="top"
+			ng-if="planeacionProyectoCtrl.mostrarActividades"
+			ng-click="planeacionProyectoCtrl.registrarActividades()"> Registrar Actividad</a>
+	</div>
+
+
+
+	<div class="panel-body"
+		uib-collapse="planeacionProyectoCtrl.mostrarActividades">
+		<div class="row"
+			style="width: 100%; border-bottom: 1px solid #3a709e;">
+			<div class="col-md-8">
+				<h4 class="box-title" style="margin-top: 0px;">Planear Tarea</h4>
+			</div>
+		</div>
+		<br />
+		<form class="form-horizontal" name="form" novalidate>
+			<div class="row">
+				<div class="col-md-6"
+					ng-class="{
+                             'has-success': form.nombreAct.$dirty || form.nombreAct.$valid ,
+                             'has-error': form.nombreAct.$dirty && form.nombreAct.$invalid}">
+					<label class="control-label">*Nombre Tarea:</label> <input
+						id="nombreAct" name="nombreAct" type="text" maxlength="100"
+						class="form-control input-md" ng-required="true"
+						ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+						ng-model="planeacionProyectoCtrl.actividad.nombreActividad">
+				</div>
+				<div class="col-md-3"
+					ng-class="{
+                             'has-success': form.fecIniA.$dirty || form.fecIniA.$valid ,
+                             'has-error': form.fecIniA.$dirty && form.fecIniA.$invalid}">
+					<label class=" control-label" for="fecIniA">*Fecha Inicio:</label> <input
+						type="text" class="form-control" id="fecIniA" name="fecIniA"
+						uib-datepicker-popup="dd/MM/yyyy"
+						ng-change="planeacionProyectoCtrl.setDateAct()" ng-required="true"
+						ng-click="planeacionProyectoCtrl.abrirFechaIniAct()"
+						ng-model="planeacionProyectoCtrl.actividad.fecIni"
+						is-open="planeacionProyectoCtrl.fechaIniAct.abierto"
+						close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+						datepicker-options="{minDate: planeacionProyectoCtrl.fecActIni, maxDate: planeacionProyectoCtrl.fecActFin, dateDisabled: planeacionProyectoCtrl.disabled, initDate: planeacionProyectoCtrl.fecActiveIni}" />
+				</div>
+				<div class="col-md-3"
+					ng-class="{
+                             'has-success': form.fecFinA.$dirty || form.fecFinA.$valid ,
+                             'has-error': form.fecFinA.$dirty && form.fecFinA.$invalid}">
+					<label class=" control-label" for="fecFinA">*Fecha Fin:</label> <input
+						type="text" class="form-control" id="fecFinA" name="fecFinA"
+						uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
+						ng-click="planeacionProyectoCtrl.abrirFechaFinAct()"
+						ng-model="planeacionProyectoCtrl.actividad.fecFin"
+						is-open="planeacionProyectoCtrl.fechaFinAct.abierto"
+						close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+						datepicker-options="{minDate: planeacionProyectoCtrl.actividad.fecIni, maxDate: planeacionProyectoCtrl.fecActFin, dateDisabled: planeacionProyectoCtrl.disabled, initDate: planeacionProyectoCtrl.actividad.fecIni}" />
+
+				</div>
+
+
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.areaAWM.$dirty || form.areaAWM.$valid ,
+                             'has-error': form.areaAWM.$dirty && form.areaAWM.$invalid}">
+					<label class="control-label">*Seleccione una Area:</label> <select
+						class="form-control input-md" id="areaAWM" name="areaAWM"
+						ng-required="true"
+						ng-model="planeacionProyectoCtrl.actividad.area"
+						ng-options="opt as opt.nombre for opt in planeacionProyectoCtrl.subproyectoEditable.areas">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+
+
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.ticketA.$dirty || form.ticketA.$valid ,
+                             'has-error': form.ticketA.$dirty && form.ticketA.$invalid}">
+
+					<label class=" control-label">Ticket:</label>
+					<ui-select id="ticketA" name="ticketA"
+						ng-model="planeacionProyectoCtrl.actividad.idTicket"
+						style="min-width: 300px;" title="Elige un Ticket"> <ui-select-match
+						placeholder="Selecciona un Ticket">{{$select.selected.resumen}}</ui-select-match>
+					<ui-select-choices
+						repeat="ticket.idTicket as ticket in planeacionProyectoCtrl.listTickets | propsFilter: {resumen: $select.search, idTicket: $select.search}">
+					<div ng-bind-html="ticket.resumen | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+				</div>
+
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.actividadPre.$dirty || form.actividadPre.$valid ,
+                             'has-error': form.actividadPre.$dirty && form.actividadPre.$invalid}">
+					<label class="control-label">Actividad Predecesora:</label> <select
+						class="form-control input-md" id="actividadPre"
+						name="actividadPre"
+						ng-model="planeacionProyectoCtrl.actividad.predecesora"
+						ng-options="opt as opt.nombreActividad for opt in planeacionProyectoCtrl.listActividadesSub">
+						<option value="">Seleccione Actividad</option>
+					</select>
+
+				</div>
+
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-4"
+					ng-if="planeacionProyectoCtrl.actividad.area.nombre == 'SISTEMAS DESARROLLO' || planeacionProyectoCtrl.actividad.area.nombre == 'SOPORTE APLICATIVO'"
+					ng-class="{
+                             'has-success': form.tecnologias.$dirty || form.tecnologias.$valid ,
+                             'has-error': form.tecnologias.$dirty && form.tecnologias.$invalid}">
+					<label class="control-label">*Seleccione una Tecnología:</label> <select
+						class="form-control input-md" id="tecnologias" name="areaAWM"
+						ng-required="true"
+						ng-model="planeacionProyectoCtrl.actividad.tecnologia"
+						ng-options="opt.claveCat as opt.descripcionCat for opt in planeacionProyectoCtrl.tecnologias">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+
+				<div class="col-md-8 text-right" ng-if="form.$valid">
+					<a class="btn btn-primary " style="margin-top: 23px;" role="button"
+						ng-click="planeacionProyectoCtrl.planearActividadMod()" tooltip
+						title="Planear Tarea" data-placement="midle">Planear Tarea </a>
+				</div>
+			</div>
+
+		</form>
+
+		<br /> <br />
+	</div>
+</div>
+
+
+<uib-tabset active="planeacionProyectoCtrl.indexTabActive">
+<uib-tab index="0" heading="Tareas"
+	ng-click="planeacionProyectoCtrl.seleccionActividades()"> <br />
+<div class="row" style="width: 100%; border-bottom: 1px solid #3a709e;">
+	<div class="col-md-8">
+		<h4 class="box-title" style="margin-top: 0px;">Tareas Planeadas</h4>
+	</div>
+	<div class="col-md-4" style="text-align: right;"></div>
+</div>
+<div class="row" style="margin: auto;">
+	<div class="col-md-12" style="padding-left: 0;">
+		<adea-tabla
+			dt-data-source="planeacionProyectoCtrl.listActividadesSubProy"
+			muestra-detalle="planeacionProyectoCtrl.mostrarDetalleAct"
+			titulo-detalle="planeacionProyectoCtrl.actividadSeleccionada.nombreActividad"
+			ejecuta-regresar="planeacionProyectoCtrl.regresar();"
+			config="planeacionProyectoCtrl.tblActividadesPlan" paginar="false"
+			options="planeacionProyectoCtrl.dtColumnDefsAct"
+			registro-seleccionado="planeacionProyectoCtrl.actividadSeleccionada"
+			seleccionar-registro="planeacionProyectoCtrl.seleccionarActividad(reg);">
+		<div
+			ng-include="'app/componentes/proyectos/mantenimiento/modificarActividad.html'"></div>
+		</adea-tabla>
+	</div>
+</div>
+</uib-tab> <uib-tab
+	ng-if="planeacionProyectoCtrl.listActividadesSubProy.length > 0"
+	ng-click="planeacionProyectoCtrl.graficaGantActividades(planeacionProyectoCtrl.listActividadesSubProy)"
+	index="1" heading="Planeación"> <br />
+<div class="row">
+	<div style="font-size: 12px;" gantt
+		ng-if="planeacionProyectoCtrl.actvidadesGantt.length > 0"
+		data=planeacionProyectoCtrl.actvidadesGantt headers="['month', 'day']"
+		headers-formats="planeacionProyectoCtrl.headersFormats"
+		time-frames=planeacionProyectoCtrl.timeFrames
+		date-frames=planeacionProyectoCtrl.dateFrames
+		time-frames-non-working-mode="visible">
+		<gantt-table columns="['model.name', 'model.from', 'model.to']"
+			headers="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+			formatter="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+			formatters="planeacionProyectoCtrl.formatters"></gantt-table>
+		<gantt-progress></gantt-progress>
+		<gantt-tooltips content="planeacionProyectoCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
+		<gantt-dependencies enabled="true" conflict-checker="true"></gantt-dependencies>
+	</div>
+</div>
+</uib-tab> <uib-tab ng-if="planeacionProyectoCtrl.recursosSubproyecto.length > 0"
+	ng-click="planeacionProyectoCtrl.seleccionRecursos()"
+	index="2" heading="Personas Asignadas"> 
+	<div class="row">
+		<adea-tabla
+			dt-data-source="planeacionProyectoCtrl.recursosSubproyecto"
+			config="planeacionProyectoCtrl.tblRecursosSubproyecto" paginar="false">
+	</div>
+	
+</uib-tab> </uib-tabset>

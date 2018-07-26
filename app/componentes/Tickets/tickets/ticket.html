@@ -1,0 +1,109 @@
+<div class="row">
+	<form ng-submit="ticketCtrl.buscarTicket()">
+		<div class="col-md-10" style=""></div>
+		<div class="col-md-2" style="">
+			<label>No. Ticket:</label> <input id="numticket" name="numticket"
+				maxlength="10" type="text" class="form-control input-md"
+				ng-keyup="$event.keyCode == 13 && ticketCtrl.buscarTicket()"
+				ng-pattern="/^[0-9]*$/" ng-model="ticketCtrl.idTicketBusqueda"
+				ng-required="true">
+		</div>
+	</form>
+</div>
+<br />
+<div ng-if="ticketCtrl.modoVista == 'C'">
+
+	<div class="row">
+
+		<div
+			ng-class="{'col-md-6': ticketCtrl.bndAdmin, 'col-md-12': !ticketCtrl.bndAdmin}">
+			<div class="panel panel-default panel-primary">
+				<div class="panel-heading" style="height: 35px;">
+					<h4 class="panel-title pull-left" style="margin-top: 0px;">
+						<i class="fa fa-chevron-right"> Asignadas a Mi</i>
+					</h4>
+				</div>
+			</div>
+
+			<div class="panel-body" style="padding: 0px;">
+				<div class="row" style="margin: auto;">
+					<div class="col-md-12" style="padding-left: 0;">
+						<adea-tabla dt-data-source="ticketCtrl.ticketsAsignados"
+							config="ticketCtrl.tblMisTickets"
+							registro-seleccionado="ticketCtrl.miTicketSeleccionado"
+							seleccionar-registro="ticketCtrl.seleccionarmiTicket(reg);">
+
+						</adea-tabla>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-6" ng-if="ticketCtrl.bndAdmin">
+			<div class="panel panel-default panel-primary">
+				<div class="panel-heading" style="height: 35px;">
+					<h4 class="panel-title pull-left" style="margin-top: 0px;">
+						<i class="fa fa-chevron-right"> No Asignadas</i>
+					</h4>
+				</div>
+			</div>
+
+			<div class="panel-body" style="padding: 0px;">
+				<adea-tabla dt-data-source="ticketCtrl.ticketsNoAsignados"
+					config="ticketCtrl.tblMisTickets"
+					registro-seleccionado="ticketCtrl.miTicketSeleccionado"
+					seleccionar-registro="ticketCtrl.seleccionarmiTicket(reg);">
+
+				</adea-tabla>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+
+		<div class="col-md-6">
+			<div class="panel panel-default panel-primary">
+				<div class="panel-heading" style="height: 35px;">
+					<h4 class="panel-title pull-left" style="margin-top: 0px;">
+						<i class="fa fa-chevron-right"> Reportadas por Mi</i>
+					</h4>
+				</div>
+			</div>
+
+			<div class="panel-body" style="padding: 0px;">
+
+				<adea-tabla dt-data-source="ticketCtrl.ticketsRegistrados"
+					config="ticketCtrl.tblMisTickets"
+					registro-seleccionado="ticketCtrl.miTicketSeleccionado"
+					seleccionar-registro="ticketCtrl.seleccionarmiTicket(reg);">
+
+				</adea-tabla>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="panel panel-default panel-primary">
+				<div class="panel-heading" style="height: 35px;">
+					<h4 class="panel-title pull-left" style="margin-top: 0px;">
+						<i class="fa fa-chevron-right"> Resueltas</i>
+					</h4>
+				</div>
+			</div>
+
+			<div class="panel-body" style="padding: 0px;">
+				<adea-tabla dt-data-source="ticketCtrl.ticketsResueltas"
+					config="ticketCtrl.tblMisTickets"
+					registro-seleccionado="ticketCtrl.miTicketSeleccionado"
+					seleccionar-registro="ticketCtrl.seleccionarmiTicket(reg);">
+
+				</adea-tabla>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div ng-if="ticketCtrl.modoVista == 'M'"
+	ng-include="'app/componentes/Tickets/tickets/mantenimiento/viewTicket.html'"></div>

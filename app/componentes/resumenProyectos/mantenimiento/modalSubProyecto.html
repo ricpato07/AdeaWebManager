@@ -1,0 +1,123 @@
+<div class="modal fade" id="mdlSubProyecto" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" style="width: 1100px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">SubProyecto
+					{{resumenProyectosCtrl.subProyectoSeleccionado.nombre}}</h4>
+			</div>
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-md-3">
+						<div class="info-box">
+							<span class="info-box-icon bg-yellow"><i
+								class="fa fa-barcode"></i></span>
+
+							<div class="info-box-content">
+								<span class="info-box-text">% Avance</span> <span
+									class="info-box-number">{{resumenProyectosCtrl.porcentajeP}}</span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="info-box" style="cursor: pointer;"
+							ng-click="resumenProyectosCtrl.cambioActividades()">
+							<span class="info-box-icon bg-green"><i
+								class="fa fa-tasks"></i></span>
+
+							<div class="info-box-content">
+								<span class="info-box-text">Actividades</span> <span
+									class="info-box-number">{{resumenProyectosCtrl.listActividadesSubProy.length}}</span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="info-box"  style="cursor: pointer;"
+							ng-click="resumenProyectosCtrl.cambioRecursos()">
+							<span class="info-box-icon bg-aqua"><i class="fa fa-users"></i></span>
+
+							<div class="info-box-content">
+								<span class="info-box-text">Recursos</span> <span
+									class="info-box-number">{{resumenProyectosCtrl.subProyectoSeleccionado.recursos}}</span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="info-box"  style="cursor: pointer;"
+							ng-click="resumenProyectosCtrl.cambioPlaneacion()">
+							<span class="info-box-icon bg-yellow"><i
+								class="fa fa-calendar"></i></span>
+
+							<div class="info-box-content">
+								<span class="info-box-text">Planeaci&oacute;n</span>
+								<span
+									class="info-box-number">{{resumenProyectosCtrl.subProyectoSeleccionado.costo | moneda}}</span>
+							</div>
+							<!-- /.info-box-content -->
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row" ng-if="resumenProyectosCtrl.bndActividades">
+					<div class="col-md-12">
+						<span style="font-size: 20px;">Actividades</span>
+					</div>
+					<br />
+					<div class="col-md-12">
+						<adea-tabla
+							dt-data-source="resumenProyectosCtrl.listActividadesSubProy"
+							config="resumenProyectosCtrl.tblActividadesPlan"
+							options="resumenProyectosCtrl.dtColumnDefsAct"> </adea-tabla>
+					</div>
+				</div>
+
+
+				<div class="row" ng-if="resumenProyectosCtrl.bndRecursos">
+					<div class="col-md-12">
+						<span style="font-size: 20px;">Recursos</span>
+					</div>
+					<br />
+					<div class="col-md-12">
+						<adea-tabla
+							dt-data-source="resumenProyectosCtrl.recursosSubproyecto"
+							config="resumenProyectosCtrl.tblRecursosSubproyecto"
+							paginar="false"> </adea-tabla>
+					</div>
+
+
+				</div>
+
+				<div class="row" ng-if="resumenProyectosCtrl.bndPlaneacion" style="    padding: 0px 15px 0px 15px;">
+					<div class="col-md-12">
+						<span style="font-size: 20px;">Planeaci&oacute;n</span> <br />
+					</div>
+					<div style="font-size: 12px;" gantt
+						ng-if="resumenProyectosCtrl.actvidadesGantt.length > 0"
+						data=resumenProyectosCtrl.actvidadesGantt
+						headers="['month', 'week']" show-side="false"
+						headers-formats="resumenProyectosCtrl.headersFormats"
+						time-frames=resumenProyectosCtrl.timeFrames
+						date-frames=resumenProyectosCtrl.dateFrames
+						time-frames-non-working-mode="visible">
+						<gantt-table columns="['model.name', 'model.from', 'model.to']"
+							headers="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+							formatter="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+							formatters="planeacionProyectoCtrl.formatters"></gantt-table>
+						<gantt-progress></gantt-progress>
+						<gantt-tooltips content="resumenProyectosCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
+						<gantt-dependencies enabled="true" conflict-checker="true"></gantt-dependencies>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+
+	</div>

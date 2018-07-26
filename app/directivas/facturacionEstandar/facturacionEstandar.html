@@ -1,0 +1,148 @@
+<div class="row" ng-if="facturacionEstandarCtrl.bndFacEValida == 'V'">
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 style="border-bottom: 1px solid #337ab7;">Per&iacute;odo de
+					Facturaci&oacute;n</h4>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-6">
+				<label class="control-label">Fechas del Per&iacute;odo:</label><label
+					class="form-control input-md" style="text-align: center;">{{facturacionEstandarCtrl.periodoFac}}</label>
+			</div>
+
+			<div class="col-md-6"
+				ng-if="facturacionEstandarCtrl.periodo.bndLayout != 'S'">
+
+				<a class="btn btn-primary" role="button" style="margin: 22px;"
+					ng-click="facturacionEstandarCtrl.procesaFacturacionGral()" tooltip
+					title="Procesar Facturaci&oacute;n">Procesar Facturaci&oacute;n</a>
+			</div>
+		</div>
+		<div class="row"
+			ng-if="facturacionEstandarCtrl.erroresFacGral != null">
+			<div class="col-md-12" style="text-align: center">
+				<label ng-bind-html="facturacionEstandarCtrl.erroresFacGral"
+					class="control-label" style="color: red; font-size: 16px;">Ocurrio
+					un Error al Ejecutar el procesamiento:
+					{{facturacionEstandarCtrl.erroresFacGral.descripcionError}}.</label>
+			</div>
+		</div>
+		<br />
+		<div class="row" ng-if="facturacionEstandarCtrl.bndProforma">
+			<adea-proforma
+				parametros="facturacionEstandarCtrl.parametrosProforma"
+				periodo="facturacionEstandarCtrl.periodoFac" modo="'A'"></adea-proforma>
+		</div>
+	</div>
+
+	<div class="col-md-6"
+		ng-if="facturacionEstandarCtrl.periodo.bndLayout == 'S' || facturacionEstandarCtrl.periodo.bndLayout == 'C'">
+
+		<div class="row">
+			<div class="col-md-8" style="padding-right: 0;">
+				<h4 style="border-bottom: 1px solid #337ab7;">Descarga de
+					Layout Soporte</h4>
+			</div>
+			<div class="col-md-4"
+				ng-if="facturacionEstandarCtrl.periodo.bndLayout == 'S'"
+				style="border-bottom: 1px solid #337ab7; text-align: right;">
+				<a role="button"
+					style="font-size: 29px; padding-right: 10px; text-decoration: none;"
+					style="color: green;" class="fa fa-refresh"
+					ng-click="facturacionEstandarCtrl.procesaFacturacionGral()" tooltip
+					title="Reprocesar Soporte"></a> <a role="button"
+					ng-if="facturacionEstandarCtrl.msgVal == null || facturacionEstandarCtrl.msgVal == undefined || facturacionEstandarCtrl.msgVal == ''"
+					style="font-size: 29px; text-decoration: none;"
+					style="color: green;" class="fa fa-check-circle"
+					ng-click="facturacionEstandarCtrl.confirmarLayouts()" tooltip
+					title="Actualizar Preforma"></a>
+			</div>
+		</div>
+		<div class="row">
+			<br />
+			<div class="col-md-12">
+				<h4>Conceptos</h4>
+				<table class="table table-hover">
+					<thead
+						style="height: 15px; background-color: #337ab7; color: white;">
+						<tr>
+							<th>Tipo</th>
+							<th style="text-align: center;">Archivo Soporte</th>
+							<th style="text-align: center;">Archivo Resumen</th>
+							<th style="text-align: center;">Archivo Validaci&oacute;n</th>
+						</tr>
+					</thead>
+					<tr ng-repeat="concepto in facturacionEstandarCtrl.catalogoFac">
+						<td>{{concepto.tipo}}</td>
+
+						<td style="text-align: center;"><a role="button"
+							ng-if="concepto.nombreArc != '---'" style="color: green;"
+							class="fa fa-download"
+							ng-click="facturacionEstandarCtrl.downloadArchivoFact(concepto.nombreArc)"
+							tooltip title="{{concepto.nombreArc}}"></a>
+
+							<div ng-if="concepto.nombreArc == '---'" style="color: green;"
+								tooltip>--</div></td>
+
+						<td style="text-align: center;"><a role="button"
+							ng-if="concepto.archivoResumen != '---'" style="color: green;"
+							class="fa fa-download"
+							ng-click="facturacionEstandarCtrl.downloadArchivoFact(concepto.archivoResumen)"
+							tooltip title="{{concepto.archivoResumen}}"></a>
+
+							<div ng-if="concepto.archivoResumen == '---'"
+								style="color: green;" tooltip>---</div></td>
+
+						<td style="text-align: center;"><a role="button"
+							ng-if="concepto.archivoVal != '---'" style="color: green;"
+							class="fa fa-download"
+							ng-click="facturacionEstandarCtrl.downloadArchivoFact(concepto.archivoVal)"
+							tooltip title="{{concepto.archivoVal}}"></a>
+
+							<div ng-if="concepto.archivoVal == '---'" style="color: green;"
+								tooltip>---</div></td>
+					</tr>
+				</table>
+
+				<h4
+					ng-if="facturacionEstandarCtrl.msgVal != null && facturacionEstandarCtrl.msgVal != undefined && facturacionEstandarCtrl.msgVal != ''">{{facturacionEstandarCtrl.msgVal}}</h4>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div ng-if="facturacionEstandarCtrl.bndFacEValida == 'F'">
+	<p
+		style="font-size: 15px; color: red; font-weight: bold; text-align: center;">No
+		existen por el momento per&iacute;odos de Facturaci&oacute;n, ya que
+		la fecha del d&iacute;a de hoy ya no es una fecha Valida para la
+		Ejecuci&oacute;n, Si desea ejecutar un proceso de Facturaci&oacute;n
+		especifico.</p>
+	<p
+		style="font-size: 15px; color: red; font-weight: bold; text-align: center;">Favor
+		de ponerse en contacto con el Area de Soporte.</p>
+</div>
+
+<div ng-if="facturacionEstandarCtrl.bndFacEValida == 'P'">
+	<p
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Se
+		env&iacute;o la solicitud de procesamiento, este proceso puede tomar
+		varios minutos, favor de regresar mas tarde.
+</div>
+
+<div ng-if="facturacionEstandarCtrl.bndFacEValida == 'N'">
+	<p
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">La
+		cartera Seleccionada no cuenta con un proceso configurado.
+</div>
+
+<div ng-if="facturacionEstandarCtrl.bndFacEValida == 'L'">
+	<p
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Hay
+		un proceso en Ejecuci&oacute;n que no ha concluido, favor de validar
+		mas tarde.</p>
+
+</div>

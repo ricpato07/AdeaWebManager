@@ -1,0 +1,54 @@
+<div>
+	<div class="container col-md-12" nv-file-drop="" uploader="uploader"
+		filters="queueLimit, customFilter">
+
+		<div class="row" ng-if="uploader.queue.length == 0">
+			<div class="col-md-12">
+				<label><b><i><h5>Adjuntar Documento Solicitado</h5></i></b></label>
+			</div>
+			<div class="col-md-6 botonseleccionaracrhivo">
+				<label for="file-upload" class="custom-file-upload">
+					Seleccionar archivo </label> <input id="file-upload" type="file"
+					class="borrarFile2" nv-file-select="" uploader="uploader"
+					ng-if="uploader.queue.length <= 0 " />
+			</div>
+		</div>
+
+
+
+
+		<div class="row" ng-if="uploader.queue.length != 0 ">
+			<div class="col-md-12" style="margin-bottom: 10px">
+
+				<label><b><i><h5>Archivo Seleccionado</h5></i></b></label>
+				<div class="table-responsive">
+
+
+					<table class="table ">
+						<thead>
+							<tr>
+								<th width="50%">Nombre</th>
+								<th ng-show="uploader.isHTML5">Tamaño</th>
+								<th>Acci&oacute;n</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in uploader.queue">
+								<td><strong>{{ item.file.name }}</strong></td>
+								<td ng-show="uploader.isHTML5" nowrap>{{
+									item.file.size/1024/1024|number:2 }} MB</td>
+								<td nowrap><a type="button"
+									style="color: white !important;" class="btn btn-danger btn-xs"
+									ng-click="adeaDocumentosGeneralesCtrl.eliminarArchivo(item)">
+										<span class="glyphicon glyphicon-trash"></span> Eliminar
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

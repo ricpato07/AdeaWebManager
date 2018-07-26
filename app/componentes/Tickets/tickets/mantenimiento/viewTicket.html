@@ -1,0 +1,422 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+
+		<div class="panel-heading" style="height: 35px; margin-top: -12px;">
+			<a
+				style="color: white; padding-right: 29px; cursor: pointer; font-size: 20px !important;"
+				ng-click="ticketCtrl.cambioModo('C')" title="Regresar a Tickets 2"
+				class="fa fa-mail-reply"></a> <i style="font-size: 14px !important;"
+				class="fa fa-book"> &nbsp;&nbsp;Ticket:
+				{{ticketCtrl.miTicketSeleccionado.idTicket}}&nbsp;|&nbsp;{{ticketCtrl.miTicketSeleccionado.nomCat}}</i>
+		</div>
+	</div>
+
+	<div class="panel-body">
+
+		<form class="form-horizontal" name="form" novalidate>
+
+			<div class="row">
+
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.asignar.$dirty || form.asignar.$valid ,
+                             'has-error': form.asignar.$dirty && form.asignar.$invalid}">
+					<label class="control-label">Area:</label> <br /> <label
+						class="control-label" style="font-size: 17px;">{{ticketCtrl.miTicketSeleccionado.area}}</label>
+				</div>
+
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.categoria.$dirty || form.categoria.$valid ,
+                             'has-error': form.categoria.$dirty && form.categoria.$invalid}">
+					<label class="control-label">Seleccione una Categoría:</label> <select
+						class="form-control input-md" id="categoria" name="categoria"
+						ng-required="true"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						ng-model="ticketCtrl.miTicketEditable.categoria"
+						ng-options="opt.idCategoria as opt.nombreCategoria for opt in  ticketCtrl.listCategorias">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.login.$dirty || form.login.$valid ,
+                             'has-error': form.login.$dirty && form.login.$invalid}">
+					<label class=" control-label">Asignar a:</label>
+					<ui-select id="login" name="login"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						ng-model="ticketCtrl.miTicketEditable.usuarioAsignado"
+						style="min-width: 300px;" title="Elige un Usuario"> <ui-select-match
+						placeholder="Selecciona un Usuario">{{$select.selected.nombre}}</ui-select-match>
+					<ui-select-choices
+						repeat="recurso.login as recurso in ticketCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
+					<div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+					<label class=" control-label">Cliente:</label>
+					<ui-select id="cliente" name="cliente"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						ng-model="ticketCtrl.miTicketEditable.idCliente"
+						style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+						placeholder="Selecciona un Cliente">{{$select.selected.acltrzsc}}</ui-select-match>
+					<ui-select-choices
+						repeat="cliente.scltcod as cliente in ticketCtrl.clientes | propsFilter: {acltrzsc: $select.search, scltcod: $select.search}">
+					<div ng-bind-html="cliente.acltrzsc | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+				</div>
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.prioridad.$dirty || form.prioridad.$valid ,
+                             'has-error': form.prioridad.$dirty && form.prioridad.$invalid}">
+					<label class="control-label">Prioridad:</label> <select
+						class="form-control input-md" id="prioridad" name="prioridad"
+						ng-required="true"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						ng-model="ticketCtrl.miTicketEditable.prioridad"
+						ng-options="opt.id as opt.descripcionCat for opt in ticketCtrl.prioridad">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.extension.$dirty || form.extension.$valid ,
+                             'has-error': form.extension.$dirty && form.extension.$invalid}">
+					<label class=" control-label" for="extension">Extensión:</label> <input
+						id="extension" name="extension" type="number" max="999999"
+						class="form-control input-md" maxlength="6"
+						ng-pattern="/^[0-9]*$/"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						ng-model="ticketCtrl.miTicketEditable.extension"
+						ng-required="true">
+				</div>
+
+
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.resumen.$dirty || form.resumen.$valid ,
+                             'has-error': form.resumen.$dirty && form.resumen.$invalid}">
+					<label class=" control-label" for="resumen">Resumen:</label> <input
+						id="resumen" name="resumen" type="text"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						class="form-control input-md" maxlength="1000"
+						ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+						ng-model="ticketCtrl.miTicketEditable.resumen" ng-required="true">
+				</div>
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.estatus.$dirty || form.estatus.$valid ,
+                             'has-error': form.estatus.$dirty && form.estatus.$invalid}">
+					<label class="control-label">Estatus:</label> <select
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						class="form-control input-md" id="estatus" name="estatus"
+						ng-required="true" ng-model="ticketCtrl.miTicketEditable.estatus"
+						ng-options="opt.claveCat as opt.descripcionCat for opt in ticketCtrl.estatusTicket">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.planta.$dirty || form.planta.$valid ,
+                             'has-error': form.planta.$dirty && form.planta.$invalid}">
+					<label class="control-label">Planta:</label> <select
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						class="form-control input-md" id="planta" name="planta"
+						ng-required="true" ng-model="ticketCtrl.miTicketEditable.planta"
+						ng-options="opt.id as opt.descripcionCat for opt in ticketCtrl.plantas">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+
+
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-12"
+					ng-class="{
+                             'has-success': form.descripcion.$dirty || form.descripcion.$valid ,
+                             'has-error': form.descripcion.$dirty && form.descripcion.$invalid}">
+					<label class=" control-label" for="descripcion">Descripción:</label>
+					<textarea id="descripcion" name="descripcion" ng-required="true"
+						maxlength="4000" minlength="10"
+						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
+						ng-model="ticketCtrl.miTicketEditable.descripcion"
+						class="input-md"
+						style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+						rows="10"></textarea>
+				</div>
+
+			</div>
+			<br />
+
+			<div class="row">
+				<div class="col-md-12 text-right">
+					<a class="btn btn-primary" style="margin-top: 41px;" role="button"
+						ng-click="ticketCtrl.modificarTicket()"
+						ng-if="form.$valid && ticketCtrl.noHaCambiado() && ticketCtrl.miTicketEditable.estatus != 6"
+						tooltip title="Guarda Ticket" data-placement="midle">Modificar
+						Ticket </a>
+				</div>
+			</div>
+
+		</form>
+
+		<br />
+
+
+		<div class="row">
+			<div class="col-md-12"
+				style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+				<label>Documentos</label>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div
+				ng-class="{
+                             'col-md-6': ticketCtrl.miTicketEditable.estatus != 6,
+                             'col-md-12': ticketCtrl.miTicketEditable.estatus == 6}">
+				<table class="table table-hover">
+					<thead
+						style="height: 15px; background-color: #337ab7; color: white;">
+						<tr>
+							<th style="text-align: left;">Nombre Archivo</th>
+							<th style="text-align: center;">Fecha Alta</th>
+							<th ng-if="ticketCtrl.miTicketEditable.estatus != 6"></th>
+						</tr>
+					</thead>
+					<tr ng-if="ticketCtrl.listArchivosTicket.length > 0"
+						ng-repeat="archivo in ticketCtrl.listArchivosTicket">
+						<td style="text-align: left;"><a style="cursor: pointer;"
+							ng-click="ticketCtrl.descargarArchivo(archivo)">{{archivo.nombreArchivo}}</a></td>
+						<td style="text-align: center;">{{archivo.fecReg | fecha}}</td>
+						<td ng-if="ticketCtrl.miTicketEditable.estatus != 6" style="text-align: center;"><a class="fa fa-times"
+							style="color: red; font-weight: bold; cursor: pointer; font-size: 16px;"
+							tooltip title="Eliminar"
+							ng-click="ticketCtrl.eliminarArchivo(archivo)"></a></td>
+					</tr>
+					<tr ng-if="ticketCtrl.listArchivosTicket.length == 0">
+						<td colspan="3" style="text-align: center;">El ticket no
+							cuenta Archivos registrados</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-6"
+				ng-if="ticketCtrl.miTicketEditable.estatus != 6">
+				<div class="row">
+					<div class="col-md-12" ng-if="ticketCtrl.bndArchivos">
+						<adea-documentos-generales file="ticketCtrl.archivo"></adea-documentos-generales>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12" style="text-align: right;">
+						<a class="btn btn-primary" role="button"
+							ng-click="ticketCtrl.agregarArchivo()"
+							ng-if="ticketCtrl.archivo != null" tooltip
+							title="Adjuntar Archivo" data-placement="midle">Adjuntar
+							Archivo </a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<br />
+
+
+		<div class="row">
+			<div class="col-md-12"
+				style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+				<label>Relaciones</label>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div
+				ng-class="{
+                             'col-md-6': ticketCtrl.miTicketEditable.estatus != 6,
+                             'col-md-12': ticketCtrl.miTicketEditable.estatus == 6}">
+				<table class="table table-hover">
+					<thead
+						style="height: 15px; background-color: #337ab7; color: white;">
+						<tr>
+							<th style="text-align: left;">Relación</th>
+							<th style="text-align: left;">Ticket</th>
+							<th style="text-align: center;">Estatus</th>
+							<th style="text-align: center;">Asignado</th>
+							<th>Resumen</th>
+							<th ng-if="ticketCtrl.miTicketEditable.estatus != 6"></th>
+						</tr>
+					</thead>
+					<tr ng-if="ticketCtrl.listRelacionTicket.length > 0"
+						ng-repeat="relacion in ticketCtrl.listRelacionTicket">
+						<td style="text-align: left;">{{relacion.relacion}}
+							[{{relacion.fecRel | fecha}}]</td>
+						<td style="text-align: center;"><a style="cursor: pointer;"
+							ng-click="ticketCtrl.buscarTicket(relacion.idTicketRel)">{{relacion.idTicketRel}}</a></td>
+						<td style="text-align: center;">{{relacion.estatusDesc}}</td>
+						<td style="text-align: center;">{{relacion.usuarioAsignado |
+							cadenaVacia}}</td>
+						<td style="text-align: center;">{{relacion.resumen}}</td>
+						<td ng-if="ticketCtrl.miTicketEditable.estatus != 6" style="text-align: center;"><a class="fa fa-times"
+							tooltip title="Eliminar"
+							style="font-size: 16px; color: red; font-weight: bold; cursor: pointer;"
+							ng-click="ticketCtrl.eliminarRelacion(relacion.idTicketRelacion)"></a></td>
+					</tr>
+
+					<tr ng-if="ticketCtrl.listRelacionTicket.length == 0">
+						<td colspan="6" style="text-align: center;">El ticket no
+							cuenta con Relaciones asociadas</td>
+					</tr>
+				</table>
+
+			</div>
+			<div class="col-md-6" ng-if="ticketCtrl.miTicketEditable.estatus != 6">
+				<form class="form-horizontal" name="formRel" novalidate>
+					<div class="col-md-5"
+						ng-class="{
+                             'has-success': formRel.catRel.$dirty || formRel.catRel.$valid ,
+                             'has-error': formRel.catRel.$dirty && formRel.catRel.$invalid}">
+						<label>Incidencias actual:</label> <select
+							class="form-control input-md" id="catRel" name="catRel"
+							ng-model="ticketCtrl.relacion" ng-required="true"
+							ng-options="opt.claveCat as opt.descripcionCat for opt in ticketCtrl.catRel">
+							<option value="">Seleccione</option>
+						</select>
+					</div>
+					<div class="col-md-5"
+						ng-class="{
+                             'has-success': formRel.idTicke.$dirty || formRel.idTicke.$valid ,
+                             'has-error': formRel.idTicke.$dirty && formRel.idTicke.$invalid}">
+						<label>No. Ticket:</label> <input id="idTicke" name="idTicke"
+							maxlength="10" type="text" class="form-control input-md"
+							ng-pattern="/^[0-9]*$/" ng-model="ticketCtrl.idTicket"
+							ng-required="true">
+
+					</div>
+					<div class="col-md-2">
+						<a class="btn btn-primary" role="button"
+							style="margin-top: 20px; cursor: pointer"
+							ng-click="ticketCtrl.guardarRelacion()" ng-if="formRel.$valid"
+							tooltip title="Guardar Relación" data-placement="midle">Guardar
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"
+				style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+				<label>Notas</label>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<form class="form-horizontal" name="formNota" novalidate>
+				<div ng-class="{
+                             'col-md-6': ticketCtrl.miTicketEditable.estatus != 6,
+                             'col-md-12': ticketCtrl.miTicketEditable.estatus == 6}">
+					<table class="table table-hover">
+						<thead
+							style="height: 15px; background-color: #337ab7; color: white;">
+							<tr>
+								<th style="text-align: left;">Usuario</th>
+								<th style="text-align: center;">Nota:</th>
+								<th ng-if="ticketCtrl.miTicketEditable.estatus != 6"></th>
+								<th ng-if="ticketCtrl.miTicketEditable.estatus != 6"></th>
+							</tr>
+						</thead>
+						<tr ng-if="ticketCtrl.listNotasTicket.length > 0"
+							ng-repeat="nota in ticketCtrl.listNotasTicket">
+							<td style="text-align: left;">{{nota.usuarioReg}}
+								[{{nota.fechaReg | fecha}}]</td>
+							<td>{{nota.observacion}}</td>
+							<td ng-if="ticketCtrl.miTicketEditable.estatus != 6" style="text-align: center;"><a tooltip title="Editar"
+								class="fa fa-pencil-square-o"
+								style="font-size: 16px; color: #5aaf0d; font-weight: bold; cursor: pointer;"
+								ng-click="ticketCtrl.editarNota(nota)"></a></td>
+							<td ng-if="ticketCtrl.miTicketEditable.estatus != 6" style="text-align: center;"><a class="fa fa-times"
+								tooltip title="Eliminar"
+								style="font-size: 16px; color: red; font-weight: bold; cursor: pointer;"
+								ng-click="ticketCtrl.eliminarNota(nota.idObservacionesTicket)"></a></td>
+						</tr>
+
+						<tr ng-if="ticketCtrl.listNotasTicket.length == 0">
+							<td colspan="6" style="text-align: center;">El ticket no
+								cuenta con Notas.</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="col-md-6" style="text-align: left;" ng-if="ticketCtrl.miTicketEditable.estatus != 6"
+					ng-class="{'has-success': formNota.nota.$dirty || formNota.nota.$valid ,
+                             'has-error': formNota.nota.$dirty && formNota.nota.$invalid}">
+					<label>Nota</label>
+					<textarea id="nota" name="nota" ng-required="true" maxlength="1000"
+						minlength="10" ng-model="ticketCtrl.nota" class="input-md"
+						style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+						rows="5"></textarea>
+					<div style="width: 100%; text-align: right;">
+						<a class="btn btn-primary" role="button"
+							style="margin-top: 20px; cursor: pointer;"
+							ng-click="ticketCtrl.guardarNota()"
+							ng-if="formNota.$valid && ticketCtrl.modoGuardar" tooltip
+							title="Guardar Nota" data-placement="midle">Guardar </a> <a
+							class="btn btn-primary" role="button"
+							style="margin-top: 20px; cursor: pointer;"
+							ng-click="ticketCtrl.modificaNota()"
+							ng-if="formNota.$valid && !ticketCtrl.modoGuardar && ticketCtrl.noHaCambiadoNota()"
+							tooltip title="Guardar Nota" data-placement="midle">Modificar
+						</a>
+					</div>
+				</div>
+
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-md-12"
+				style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+				<label>Bitacora</label>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-12">
+				<table class="table table-hover">
+					<thead
+						style="height: 15px; background-color: #337ab7; color: white;">
+						<tr>
+							<th style="text-align: center;">Fecha</th>
+							<th style="text-align: center;">Usuario:</th>
+							<th>Campo</th>
+						</tr>
+					</thead>
+					<tr ng-if="ticketCtrl.listLogTicket.length > 0"
+						ng-repeat="log in ticketCtrl.listLogTicket">
+						<td style="text-align: center;">{{log.fecha | fecha}}</td>
+						<td style="text-align: center;">{{log.usuario}}</td>
+						<td>{{log.campo}}</td>
+					</tr>
+
+					<tr ng-if="ticketCtrl.listLogTicket.length == 0">
+						<td colspan="6" style="text-align: center;">El ticket no
+							cuenta con registros en la Bitacora.</td>
+					</tr>
+				</table>
+			</div>
+		</div>

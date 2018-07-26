@@ -1,0 +1,132 @@
+<div class="modal fade" id="editarConcepto" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Agregar Soporte
+					Facturación</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+				<form class="form-horizontal" name="form" novalidate>
+					<div class="row">
+						<div class="col-md-8"
+							ng-class="{
+                             'has-success': form.clienteN.$dirty || form.clienteN.$valid ,
+                             'has-error': form.clienteN.$dirty && form.clienteN.$invalid}">
+
+							<label class=" control-label">Items Relación Facturación:</label>
+
+							<multiselect show-search="true" id="clienteN" name="clienteN"
+								labels="mntConceptoFacCtrl.labelsMultiselect"
+								ng-if="mntConceptoFacCtrl.items.length > 0" ng-required="true"
+								ng-model="mntConceptoFacCtrl.concepEditable.soporteItems"
+								options="mntConceptoFacCtrl.items" id-prop="idCatalogoItem"
+								display-prop="descripcion"></multiselect>
+						</div>
+						<div class="col-md-4"
+							ng-class="{
+                             'has-success': form.tipo.$dirty || form.tipo.$valid ,
+                             'has-error': form.tipo.$dirty && form.tipo.$invalid}">
+							<label class=" control-label" for="tipo">Tipo:</label> <input
+								id="tipo" name="tipo" maxlength="50" type="text"
+								class="form-control input-md"
+								ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑÜü:\(\)]*$/"
+								ng-model="mntConceptoFacCtrl.concepEditable.tipo"
+								ng-required="true">
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-4"
+							ng-class="{
+                             'has-success': form.codigo.$dirty || form.codigo.$valid ,
+                             'has-error': form.codigo.$dirty && form.codigo.$invalid}">
+							<label class=" control-label" for="codigo">Codigo:</label> <input
+								id="codigo" name="codigo" maxlength="20" type="text"
+								class="form-control input-md"
+								ng-pattern="/^[0-9a-zA-Z_-\s,.ñÑÜü:\(\)]*$/"
+								ng-model="mntConceptoFacCtrl.concepEditable.codigo">
+						</div>
+						<div class="col-md-4"
+							ng-class="{
+                             'has-success': form.tabla.$dirty || form.tabla.$valid ,
+                             'has-error': form.tabla.$dirty && form.tabla.$invalid}">
+							<label class=" control-label" for="tabla">Tabla Soporte:</label>
+							<input id="tabla" name="tabla" maxlength="500" type="text"
+								class="form-control input-md"
+								ng-change="mntConceptoFacCtrl.concepEditable.tablaDet = mntConceptoFacCtrl.concepEditable.tablaDet.toUpperCase();"
+								ng-pattern="/^[0-9a-zA-Z_-\s,.:\(\)'|=><*+"
+								\/]*$/"
+								ng-model="mntConceptoFacCtrl.concepEditable.tablaDet">
+						</div>
+						<div class="col-md-4"
+							ng-class="{
+                             'has-success': form.archivo.$dirty || form.archivo.$valid ,
+                             'has-error': form.archivo.$dirty && form.archivo.$invalid}">
+							<label class=" control-label" for="archivo">Nombre
+								Archivo Soporte:</label> <input id="archivo" name="archivo"
+								maxlength="50" type="text" class="form-control input-md"
+								ng-pattern="/^[0-9a-zA-Z_-]*$/"
+								ng-model="mntConceptoFacCtrl.concepEditable.nombreArc">
+						</div>
+
+
+					</div>
+					<br />
+					<div class="row">
+
+						<div class="col-md-12"
+							ng-class="{
+                             'has-success': form.queryR.$dirty || form.queryR.$valid ,
+                             'has-error': form.queryR.$dirty && form.queryR.$invalid}">
+							<label class=" control-label" for="tabla">Query Resumen:</label>
+
+							<textarea id="queryR" name="queryR" minlength="10"
+								ng-maxlength="4000"
+								ng-model="mntConceptoFacCtrl.concepEditable.queryResumen"
+								class="input-md"
+								ng-pattern="/^[0-9a-zA-Z_-\s,áéíóúÁÉÍÓÚñÑÜü.:\(\)'%|=><*+\/"]*$/"
+								style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+								rows="5"></textarea>
+						</div>
+					</div>
+
+					<div class="row">
+
+						<div class="col-md-12"
+							ng-class="{
+                             'has-success': form.queryVal.$dirty || form.queryVal.$valid ,
+                             'has-error': form.queryVal.$dirty && form.queryVal.$invalid}">
+							<label class=" control-label" for="queryVal">Query
+								Validación:</label>
+
+							<textarea id="queryVal" name="queryVal" minlength="10"
+								ng-maxlength="4000"
+								ng-model="mntConceptoFacCtrl.concepEditable.queryValidacion"
+								class="input-md"
+								ng-pattern="/^[0-9a-zA-Z_-\s,áéíóúÁÉÍÓÚñÑÜü.:\(\)'%|=><*+\/"]*$/"
+								style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+								rows="5"></textarea>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 text-right"></div>
+						<div class="col-md-6 text-right">
+							<a class="btn btn-primary" style="margin-top: 41px;"
+								role="button" ng-click="mntConceptoFacCtrl.editarConcepto()"
+								ng-if="form.$valid && mntConceptoFacCtrl.noHaCambiado()" tooltip
+								title="Editar Concepto" data-placement="midle">Editar
+								Concepto </a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>

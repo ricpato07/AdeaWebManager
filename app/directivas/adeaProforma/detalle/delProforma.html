@@ -1,0 +1,29 @@
+<div class="modal fade" id="eliminarProforma" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Eliminar Item a
+					Preforma</h4>
+			</div>
+			<div class="modal-body">
+				<blockquote>
+					<p>¿Esta seguro que desea eliminar el Item seleccionado?</p>
+
+					<p style="color: red;">El resultado de la Preforma se
+						re-calcular&aacute; en base a los Items existentes</p>
+				</blockquote>
+
+			</div>
+			<div class="modal-footer">
+
+				<a type="button" ng-click="proformaCtrl.eliminarItem()"
+					class="btn btn-primary btn-danger "> Eliminar Item</a>
+			</div>
+		</div>
+
+	</div>
+
+</div>

@@ -1,0 +1,98 @@
+<div class="row">
+	<div class="col-md-6">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 style="border-bottom: 1px solid #337ab7;">Datos
+					Per&iacute;odo</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<label class="control-label">Fecha de Ejecuci&oacute;n:</label> <br />
+				<br /> <label style="font-weight: normal;">{{consultaFacturacionCtrl.periodoSeleccionado.fechaEjecucion
+					| fecha}}</label>
+			</div>
+
+			<div class="col-md-4">
+				<label class="control-label">Usuario que Ejecuto:</label><br /> <br />
+				<label style="font-weight: normal;">{{consultaFacturacionCtrl.periodoSeleccionado.loginUsr}}</label>
+			</div>
+
+			<div class="col-md-4">
+				<label class="control-label">Archivos de Soporte:</label><br /> <br />
+				<label style="font-weight: normal;  margin-left: 50px;">{{consultaFacturacionCtrl.periodoSeleccionado.bndLayouts | palomaotache}}</label>
+			</div>
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-md-4">
+				<label class="control-label">Archivo de Carga:</label> <br /> <br />
+				<label style="font-weight: normal;">{{consultaFacturacionCtrl.periodoSeleccionado.nombreArchivo
+					| cadenaVacia}}</label>
+			</div>
+
+			<div class="col-md-4">
+				<label class="control-label">Numero de Registros:</label> <br /> <br />
+				<label style="font-weight: normal;">{{consultaFacturacionCtrl.periodoSeleccionado.numRegistros
+					| cadenaVacia}}</label>
+			</div>
+		</div>
+		<br />
+		<div class="row"
+			ng-if="consultaFacturacionCtrl.periodoSeleccionado.bndLayouts != 'S'">
+			<div class="col-md-6">
+				<label class="control-label">Mensaje de error:</label> <label>{{consultaFacturacionCtrl.periodoSeleccionado.mensajeError}}</label>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="col-md-6"
+		ng-if="consultaFacturacionCtrl.periodoSeleccionado.bndLayouts == 'S'">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 style="border-bottom: 1px solid #337ab7;">Archivos de
+					Soporte Facturaci&oacute;n</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label class="control-label">Seleccione un Grupo:</label> <select
+					class="form-control input-md" id="grpFac" name="grpFac"
+					ng-required="true"
+					ng-model="consultaFacturacionCtrl.grpSeleccionado"
+					ng-change="consultaFacturacionCtrl.consultaCatalogos(consultaFacturacionCtrl.periodoSeleccionado.idPeriodosFacturados, consultaFacturacionCtrl.grpSeleccionado)"
+					ng-options="opt.key as opt.value for opt in consultaFacturacionCtrl.grpCatalogo">
+					<option value="">Seleccione</option>
+				</select>
+			</div>
+			<br /> <br />
+			<div class="col-md-12"
+				ng-if="consultaFacturacionCtrl.grpSeleccionado != null && consultaFacturacionCtrl.grpSeleccionado != undefined">
+				<h4>Conceptos</h4>
+				<table class="table table-hover">
+					<thead
+						style="height: 15px; background-color: #337ab7; color: white;">
+						<tr>
+							<th>Concepto</th>
+							<th style="text-align: center;">Archivo</th>
+							<th style="text-align: center;">N&uacute;mero de Registros</th>
+						</tr>
+					</thead>
+					<tr ng-repeat="concepto in consultaFacturacionCtrl.catalogoFac">
+						<td>{{concepto.tipo}}</td>
+						<td><a role="button" ng-if="concepto.numRegGen > 0"
+							style="color: green;"
+							ng-click="consultaFacturacionCtrl.downloadArchivoFact(concepto)"
+							tooltip title="Descargar Archivo">{{concepto.nombreArc}}</a>
+
+							<div ng-if="concepto.numRegGen == 0" style="color: green;"
+								tooltip>{{concepto.nombreArc}}</div></td>
+						<td style="text-align: center;">{{concepto.numRegGen}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>

@@ -1,0 +1,54 @@
+<!-- TABLA -->
+<div ng-if="muestraDetalles">
+	<table class="table table-hover" style="font-size: 12px;" width="100%"
+		dt-options="tablaCtrl.dtOptions" dt-columns="tablaCtrl.dtColumnNames"
+		dt-column-defs="tablaCtrl.dtColumnOptions" datatable="ng">
+		<thead style="height: 15px; background-color: #337ab7; color: white;">
+			<tr>
+				<th ng-repeat="columna in config.columnas"
+					ng-class="{'text-center': columna.alinear == 'center', 'text-right': columna.alinear == 'right', 'text-left': columna.alinear == 'left'}">
+					<input type="checkbox" ng-if="columna.chekbox == true"
+					ng-model="tablaCtrl.seleccionadoTodo"
+					ng-click="tablaCtrl.seleccionarTodo(tablaCtrl.seleccionadoTodo)">
+					<p ng-if="columna.chekbox == undefined">{{columna.titulo}}</p>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr
+				ng-class="{'selected': reg == registroSeleccionado}"
+				ng-style="{'background-color': reg.bgcolor}"
+				style="cursor: pointer" ng-repeat="reg in dtDataSource"
+				ng-click="tablaCtrl.seleccionar(reg);">
+
+				<td ng-repeat="columna in config.columnas"
+					ng-class="{'text-center': columna.alinear == 'center', 'text-right': columna.alinear == 'right', 'text-left': columna.alinear == 'left'}">
+					<span ng-if="columna.filtro != undefined">{{reg[columna.valor]|
+						filtroDinamico:columna.filtro:columna.formato}}</span> 
+					<span ng-if="columna.filtro == undefined" ng-bind-html="reg[columna.valor]">{{reg[columna.valor]}}</span>
+					<span ng-if="columna.valor == undefined "> <input
+						type="checkbox" ng-model="reg.seleccionado"
+						ng-click="tablaCtrl.seleccionarPropiedadDeObjeto(reg); ">
+				</span>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<!-- ENCABEZADO PARA EL DETALLE INTERNO -->
+<div ng-if="!muestraDetalles">
+	<br>
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<a class="fa fa-arrow-left btn-regresar pull-left" role="button"
+				style="font-size: 20px;" data-placement="midle"
+				ng-click="tablaCtrl.ocultarDetalle()"> </a>
+			<div class="text-center tamanoLeraDetalle" style="font-weight: bold;">{{tituloDetalle}}</div>
+		</div>
+		<div class="panel-body">
+			<div ng-transclude></div>
+		</div>
+	</div>
+</div>
+

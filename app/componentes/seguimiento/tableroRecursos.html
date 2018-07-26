@@ -1,0 +1,130 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+<div class="container-fluid adeaWeb">
+	<div>
+		<div class="panel panel-default panel-primary">
+			<div class="panel-heading" style="height: 35px;">
+				<h4 class="panel-title pull-left" style="margin-top: 0px;">
+					<i class="fa fa-filter"> &nbsp;&nbsp;Filtros de Tareas</i>
+				</h4>
+			</div>
+
+
+			<div class="panel-body">
+				<form class="form-horizontal" name="form" novalidate>
+					<div class="row" ng-if="tableroRecursosCtrl.bndAdmin">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.area.$dirty || form.area.$valid ,
+                             'has-error': form.area.$dirty && form.area.$invalid}">
+							<label class="control-label">*Seleccione un Area:</label> <select
+								class="form-control input-md" id="area" name="area"
+								ng-required="true" ng-model="tableroRecursosCtrl.filtro.area"
+								ng-change="tableroRecursosCtrl.consultaPlantillaArea()"
+								ng-options="opt.idArea as opt.nombre for opt in tableroRecursosCtrl.areasAWM">
+								<option value="">Seleccione</option>
+							</select>
+						</div>
+
+						<div class="col-md-6"
+							ng-class="{'has-success': form.recursos.$dirty || form.recursos.$valid ,
+                             'has-error': form.recursos.$dirty && form.recursos.$invalid}">
+
+							<label class=" control-label">Selecciona una Persona :</label>
+							<ui-select id="recursos" name="recursos"
+								ng-model="tableroRecursosCtrl.filtro.recurso"
+								title="Elige una Persona"> <ui-select-match
+								placeholder="Selecciona una Persona">{{$select.selected.nombre}}
+							</ui-select-match> <ui-select-choices
+								repeat="recurso.idPlantilla as recurso in tableroRecursosCtrl.plantillaArea | propsFilter: {nombre: $select.search, idPlantilla: $select.search}">
+							<div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
+							</ui-select-choices> </ui-select>
+						</div>
+
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-3"
+							ng-class="{
+                             'has-success': form.fecIni.$dirty || form.fecIni.$valid ,
+                             'has-error': form.fecIni.$dirty && form.fecIni.$invalid}">
+							<label class=" control-label" for="fecIni">*Fecha Inicio:</label>
+							<input type="text" class="form-control" id="fecIni" name="fecIni"
+								uib-datepicker-popup="dd/MM/yyyy"
+								ng-change="tableroRecursosCtrl.setDate()"
+								ng-click="tableroRecursosCtrl.abrirFechaIni()"
+								ng-model="tableroRecursosCtrl.filtro.fecIni"
+								is-open="tableroRecursosCtrl.fechaIni.abierto"
+								close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+								datepicker-options="{dateDisabled: tableroRecursosCtrl.disabled}" />
+
+
+						</div>
+						<div class="col-md-3"
+							ng-class="{
+                             'has-success': form.fecFin.$dirty || form.fecFin.$valid ,
+                             'has-error': form.fecFin.$dirty && form.fecFin.$invalid}">
+							<label class=" control-label" for="fecFin">*Fecha Fin:</label> <input
+								type="text" class="form-control" id="fecFin" name="fecFin"
+								uib-datepicker-popup="dd/MM/yyyy"
+								ng-click="tableroRecursosCtrl.abrirFechaFin()"
+								ng-model="tableroRecursosCtrl.filtro.fecFin"
+								is-open="tableroRecursosCtrl.fechaFin.abierto"
+								close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+								datepicker-options="{minDate: tableroRecursosCtrl.filtro.fecIni, dateDisabled: planeacionProyectoCtrl.disabled}" />
+
+						</div>
+						<div class="col-md-6" style="text-align: right">
+							<a class="btn btn-primary" role="button"
+								style="margin-top: 23px;"
+								ng-click="tableroRecursosCtrl.filtrarActividades()"
+								ng-if="form.$valid && tableroRecursosCtrl.validaForm()" tooltip
+								title="Planear Tareas">Filtrar Tareas </a>
+
+						</div>
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<br />
+	<div class="row" ng-if="tableroRecursosCtrl.items.length > 0">
+		<uib-tabset> 
+		
+		<uib-tab index="0" heading="Tablero">
+			<br/>
+			<ds-kanban-board items="tableroRecursosCtrl.items"
+				groups="tableroRecursosCtrl.groups" state-label="'Estatus'"
+				states="tableroRecursosCtrl.states" are-items-read-only="true"
+				are-groups-read-only="true" can-move-item="false"
+				can-move-group="false"> </ds-kanban-board> 
+		</uib-tab> 
+		
+		<uib-tab
+			ng-click="tableroRecursosCtrl.construyeObjGantt(tableroRecursosCtrl.actividadesRecList)"
+			index="1" heading="Grafico"> <br />
+			
+			<div style="font-size: 12px;" gantt
+				data=tableroRecursosCtrl.actividadesGantt headers="['month', 'week']"
+				headers-formats="tableroRecursosCtrl.headersFormats"
+				time-frames=tableroRecursosCtrl.timeFrames
+				date-frames=tableroRecursosCtrl.dateFrames
+				time-frames-non-working-mode=visible>
+				<gantt-tree header="'Actividad'" header-content="tableroRecursosCtrl.headersContentTree"></gantt-tree>
+				<gantt-table columns="['from', 'to']"
+					headers="{'model.name': 'Nombre', 'from': 'De', 'to': 'Hasta'}"
+					formatters="tableroRecursosCtrl.formatters"
+					header-contents="tableroRecursosCtrl.columnsHeaderContents"></gantt-table>
+				<gantt-progress></gantt-progress>
+				<gantt-tooltips content="tableroRecursosCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
+				<gantt-dependencies conflict-checker="true"></gantt-dependencies>
+			</div>
+
+		</uib-tab> </uib-tabset>
+	</div>
+
+</div>

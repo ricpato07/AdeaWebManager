@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Web Manager | AdeA México</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="../../dist/img/favicon.ico">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome         
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        -->
+        <link rel="stylesheet" href="../../dist/css/css/font-awesome.css">
+        <link rel="stylesheet" href="../../dist/css/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="../../plugins/iCheck/all.css">
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" href="../../plugins/colorpicker/bootstrap-colorpicker.min.css">
+        <!-- Bootstrap time Picker -->
+        <link rel="stylesheet" href="../../plugins/timepicker/bootstrap-timepicker.min.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="../../plugins/select2/select2.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini" onload="myFunction()">
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-content">
+                <!-- Modal content-->
+                <div class="modal-content ">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title"><b>EXPEDIENTE DE CLIENTE </b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class=" box-body ">
+                            <div class=" ">
+                                <div class="col-md-12 ">
+                                    <div class="col-md-3">
+                                        <label>Numero de Cliente</label>
+                                        <input type="text" class="form-control" placeholder="228" disabled>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Grupo Empresarial</label>
+                                        <input type="text" class="form-control" placeholder="Bancomer" disabled>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <label>Nombre de Cliente </label>
+                                        <input type="text" class="form-control" placeholder="HIP CASA MEXICANA" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 " style="padding-top: 30px;">
+
+                                    <div class="col-md-12 ">
+                                        <div class="nav-tabs-custom">
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#tab_1-1" data-toggle="tab">Proyectos</a></li>
+                                                <li><a href="#tab_2-2" data-toggle="tab">Expediente</a></li>  
+                                                <li><a href="#tab_4-4" data-toggle="tab">General</a></li>            
+                                                <li><a href="#tab_3-3" data-toggle="tab">Contactos</a></li>           
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane " id="tab_4-4">
+                                        <div class="col-md-12">
+                                            <div class="col-md-12" style="padding-top: 10px;">
+
+                                                <div class="col-md-12" style="padding-top :15px;">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Nombre del Cliente</label>
+                                                            <input type="text" class="form-control" placeholder="Nombre de Cliente" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Razón Social</label>
+                                                        <input type="text" class="form-control" placeholder="Razón Social" disabled>
+                                                    </div>                        
+                                                    <div class="col-md-4">
+                                                        <label>RFC</label>
+                                                        <input type="text" class="form-control" placeholder="############" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input type="text" class="form-control" placeholder="Nombre de Cliente" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Teléfono</label>
+                                                        <input type="text" class="form-control" placeholder="Razón Social" disabled>
+                                                    </div>                        
+                                                    <div class="col-md-4">
+                                                        <label>Estado</label>
+                                                        <select class="form-control select2" style="width: 100%;" disabled>
+                                                            <option selected="selected">Activo</option>
+                                                        </select>
+                                                    </div>
+                                                </div>     
+                                                <h4 style="padding-left: 25px; padding-top: 30px;">Domicilio</h4>
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>País</label>
+                                                            <select class="form-control select2" style="width: 100%;" disabled>
+                                                                <option selected="selected" disabled="">México</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Estado</label>
+                                                        <select class="form-control select2" style="width: 100%;" disabled>
+                                                            <option value="19">Nuevo León</option>
+                                                        </select>
+                                                    </div>                        
+                                                    <div class="col-md-4">
+                                                        <label>Colónia</label>
+                                                        <input type="text" class="form-control" placeholder="Colónia" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12" >
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label>Calle</label>
+                                                            <input type="text" class="form-control" placeholder="Calle" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Número</label>
+                                                        <input type="text" class="form-control" placeholder="Número" disabled>
+                                                    </div>                        
+                                                    <div class="col-md-4">
+                                                        <label>Codigo Postal</label>
+                                                        <input type="text" class="form-control" placeholder="Codigo Postal" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="tab_3-3">
+                                        <div class="col-md-12">
+                                            <div class="col-md-12" style="padding-top: 10px;">
+
+                                                <div class="col-md-12 col-sm-12" style="padding-top: 10px;">
+                                                    <table class="table table-responsive table-hover ">
+                                                        <tr style="background-color: #0480BE; color: #ffffff">
+                                                            <th>Nombre</th>
+                                                            <th>Cargo</th>
+                                                            <th>Email</th>
+                                                            <th>Teléfono</th>
+                                                        </tr>                                      
+                                                        <tr >
+                                                            <td>JUAN CARLOS ANTON MORATO</td>
+                                                            <td>Jefe Comercial</td>
+                                                            <td>jacarlos@mail.com</td>
+                                                            <td>755 2 36 95 54</td>                                     
+                                                        </tr>                                     
+                                                        <tr>
+                                                            <td>LORENA DOMINGUEZ SOSA</td>
+                                                            <td>Facturación</td>
+                                                            <td>lorena.dom@mail.com.mx</td>
+                                                            <td>755 4 25 69 95</td>                                                 
+                                                        </tr>                                
+                                                        <tr>
+                                                            <td>MARIA TERESA MORCILLO HUETE</td>
+                                                            <td>Project Manager</td>
+                                                            <td>teresamorcillo@mail.mx</td>
+                                                            <td>522 4 58 41 10</td>                                                    
+                                                        </tr>                                
+
+                                                    </table>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane active" id="tab_1-1">
+                                        <div class="col-md-3">
+                                            <div class="box box-widget widget-user-1 with-border" >
+                                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                                <div class="widget-user-header bg-olive" style="padding: 10px;">                                                  
+                                                    <h5 class="widget-user-username"><b>Proyecto 45</b></h5>         
+                                                    <b>Expediente:</b> <small>U1205478563</small>                                                      
+                                                </div>
+                                                <div class="box-body no-padding" >
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li ><a href="#">Propuesta Técnica<span class="pull-right "> <i class="fa fa-check-square-o"></i></span></a></li>
+                                                    </ul>
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li ><a href="#">Propuesta Económica<span class="pull-right "> <i class="fa fa-square-o"></i></span></a></li>
+                                                    </ul>
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li ><a href="#">Contrato<span class="pull-right "> <i class="fa fa-check-square-o"></i></span></a></li>
+                                                    </ul>
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4; padding-left: 1.8em">
+                                                        <li ><a href="#"><b>ANEXOS</b></a></li>
+                                                        <li style="padding-left: 1.8em "><a href="#">A<span class="pull-right " ><i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li style="padding-left: 1.8em "><a href="#">B<span class="pull-right " ><i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li style="padding-left: 1.8em " ><a href="#">C<span class="pull-right " ><i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li ><a href="#"><b>PÓLIZAS</b></a></li>
+                                                        <li style="padding-left: 1.8em " ><a href="#">Seguro<span class="pull-right " ><i class="fa fa-square-o"></i></span></a></li>
+                                                        <li style="padding-left: 1.8em " ><a href="#">Garantía<span class="pull-right " ><i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li ><a href="#"><b>CONVENIOS</b></a></li>
+                                                        <li style="padding-left: 1.8em " ><a href="#">Responsabilidades<span class="pull-right " ><i class="fa fa-square-o"></i></span></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="box box-widget widget-user-1 with-border" >
+                                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                                <div class="widget-user-header bg-olive" style="padding: 10px;">                                                  
+                                                    <h5 class="widget-user-username"><b>Proyecto 53</b></h5>      
+                                                    <b>Expediente:</b> <small>U7853254785</small>                                                         
+                                                </div>
+                                                <div class="box-body no-padding" >
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li ><a href="#">Propuesta Técnica<span class="pull-right "> <i class="fa fa-check-square-o"></i></span></a></li>
+                                                    </ul>
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li ><a href="#">Propuesta Económica<span class="pull-right "> <i class="fa fa-square-o"></i></span></a></li>
+                                                    </ul>
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li ><a href="#">Contrato<span class="pull-right "> <i class="fa fa-check-square-o"></i></span></a></li>
+                                                    </ul>                                                   
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4; padding-left: 1.8em">
+                                                        <li ><a href="#"><b>ANEXOS</b></a></li>
+                                                        <li style="padding-left: 1.8em "><a href="#">A<span class="pull-right " ><i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li ><a href="#"><b>PÓLIZAS</b></a></li>
+                                                        <li style="padding-left: 1.8em "><a href="#">Garantía<span class="pull-right " ><i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li ><a href="#"><b>CONVENIOS</b></a></li>
+
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+
+
+                                            <!-- /. box -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-md-9">
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title"><i class="fa fa-fw fa-bars "></i>Captura</h3>
+                                                    <div class="box-tools pull-right">
+                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="box-title">
+                                                        <h4><b>Proyecto 45</b></h4>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4"> 
+                                                            <label>Fecha de Contrato </label>
+                                                            <input type="text" class="form-control" value="03/ENE/2013" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Vencimiento de Contrato </label>
+                                                            <input type="text" class="form-control" value="03/ENE/2014" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Mes de Contrato </label>
+                                                            <input type="text" class="form-control" value="ENERO" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4"> 
+                                                            <label>Tiempo de Contrato </label>
+                                                            <input type="text" class="form-control" value="1 AÑO" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Renovación de Contrato </label>
+                                                            <input type="text" class="form-control" value="A" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Tipo de Incremento </label>
+                                                            <input type="text" class="form-control" value="ANIVERSARIO" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <!--
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12" style="padding-top: 15px;">
+                                                            <table class="table table-responsive table-hover ">
+                                                                <tr style="background-color: olivedrab; color: white">
+                                                                    <th>Numero de Anexo</th>
+                                                                    <th>Nombre de Anexo</th>
+                                                                </tr>                                      
+                                                                <tr>
+                                                                    <td style="cursor: pointer">A0125</td>
+                                                                    <td style="cursor: pointer">Anexo Uno.</td>    
+            
+                                                                </tr>                                     
+                                                                <tr>
+                                                                    <td style="cursor: pointer">A0126</td>
+                                                                    <td style="cursor: pointer">Anexo Dos.</td>                                      
+                                                                </tr>             
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    -->
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="box-title">
+                                                        <h4><b>Proyecto 53</b></h4>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4"> 
+                                                            <label>Fecha de Contrato </label>
+                                                            <input type="text" class="form-control" value="23/DIC/2015" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Vencimiento de Contrato </label>
+                                                            <input type="text" class="form-control" value="23/DIC/2017" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Mes de Contrato </label>
+                                                            <input type="text" class="form-control" value="DICIEMBRE" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4"> 
+                                                            <label>Tiempo de Contrato </label>
+                                                            <input type="text" class="form-control" value="2 AÑOS" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Renovación de Contrato </label>
+                                                            <input type="text" class="form-control" value="R" disabled>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <label>Tipo de Incremento </label>
+                                                            <input type="text" class="form-control" value="PRIMER AÑO" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="box box-default ">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title"><i class="fa fa-fw fa-file-text "></i>Visor de Documentos</h3>
+                                                    <div class="box-tools pull-right">
+                                                        <select class="form-control select2 box-tools">
+                                                            <option selected="selected">Versión 1</option>
+                                                            <option>Versión 2</option>
+                                                            <option>Versión 3</option>
+                                                        </select>
+                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box-body" style="height: 500px; background-color: gray;">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane " id="tab_2-2">
+                                        <div class="col-md-3 ">
+                                            <div class="box box-widget widget-user-1 with-border">
+                                                <!-- Add the bg color to the header using any of the bg-* classes -->
+                                                <div class="widget-user-header bg-olive-active" style="padding: 10px;">                                                  
+                                                    <h3  style="margin-bottom: 0px;" class="widget-user-username"> <b>HIP CASA MEXICANA</b></h3>        
+                                                    <b>Expediente:</b> <small>U8564759321</small>
+                                                </div>
+                                                <div class="box-body no-padding" >
+                                                    <ul class="nav nav-stacked" style="background: #f4f4f4">
+                                                        <li><a href="#">Carta Compromiso<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Alta<span class="pull-right ">  <i class="fa fa-square-o"></i></span></a></li>
+                                                        <li><a href="#">Lista de Precios<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Comprobante de Domicilio<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Identificación Oficial Representante Legal<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Acta Constitutiva<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Cláusula de Incremento<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">R1 o R2<span class="pull-right " >  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">RFC<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Poder Notarial Representante Legal<span class="pull-right ">  <i class="fa fa-check-square-o"></i></span></a></li>
+                                                        <li><a href="#">Contrato<span class="pull-right ">  <i class="fa fa-square-o"></i></span></a></li>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-9 ">
+                                            <div class="box box-default">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title"><i class="fa fa-fw fa-file-text "></i>Visor de Documentos</h3>
+                                                    <div class="box-tools pull-right">
+                                                        <select class="form-control select2 box-tools">
+                                                            <option selected="selected">Versión 1</option>
+                                                            <option>Versión 2</option>
+                                                            <option>Versión 3</option>
+                                                        </select>
+                                                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                                <div class="box-body" style="height: 500px; background-color: gray;">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Site wrapper -->
+        <div class="wrapper"><header class="main-header">
+                <!-- Logo -->
+                <a href="index.html" class="logo" style="background: #004462">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>AdeA</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>AdeA</b> Web Manager</span>
+                    
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top" style="background: #004462">
+                    <!-- Sidebar toggle button-->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account: style can be found in dropdown.less -->
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs">Nombre de Usuario</span></a>
+                                <ul class="dropdown-menu">
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Cambiar Contraseña</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="../../../index.html" class="btn btn-default btn-flat">Salir</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- =============================================== -->
+
+            <!-- Left side column. contains the sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <ul class="sidebar-menu">
+                        <li class="header">GESTIÓN</li>
+                        <li><a href="capturaClientes.html"><i class="fa fa-industry"></i> <span>Clientes</span></a></li>
+                        <li><a href="capturaProyectos.html"><i class="fa fa-book"></i> <span>Proyectos</span></a></li>
+                        <li><a href="capturaDocumentos.html"><i class="fa fa-file-text"></i> <span>Documentos</span></a></li>
+                        <li><a href="capturaOperatorias.html"><i class="fa fa-circle-o"></i> <span>Operatorias</span></a></li> 
+                        <li><a href="capturaSeries.html"><i class="fa fa-files-o"></i> <span>Series Documentales</span></a></li> 
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                <span>Usuarios Externos</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="altaUsuariosExt.html"><i class="fa fa-user-plus"></i>Alta</a></li>
+                                <li><a href="bajaUsuariosExt.html"><i class="fa fa-minus-circle"></i> Baja</a></li>
+                                <li><a href="modificacionUsuariosExt.html"><i class="fa fa-edit"></i> Modificación</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span>Usuarios Internos</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="altaUsuariosInt.html"><i class="fa fa-user-plus"></i>Alta</a></li>
+                                <li><a href="bajaUsuariosInt.html"><i class="fa fa-minus-circle"></i> Baja</a></li>
+                                <li><a href="modificacionUsuariosInt.html"><i class="fa fa-edit"></i> Modificación</a></li>
+                            </ul>
+                        </li> 
+                        <li class="header">CONSULTAS</li>
+                        <li class="active"><a href="reporteClientes.html"><i class="fa fa-eye"></i> <span>Clientes/Proyectos</span></a></li>
+                        <li><a href="reporteContratos.html"><i class="fa fa-newspaper-o"></i> <span>Contratos</span></a></li>
+                        <li class="header">AUTORIZACIÓNES</li>
+                        <li><a href="autorizacionProyectos.html"><i class="fa fa-lock"></i> <span>Proyectos/Documentos</span></a></li>                       
+
+
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" style="background: white">
+                <!-- Content Header (Page header) -->
+                <section class="content-header" style="height: auto;">
+                    <h1><i class="fa fa-fw fa-eye "></i> Consulta de Clientes y Proyectos</h1>
+                    <br>
+
+                    <div class="tab-content">
+                        <div class="box-pane">
+                            <div class="col-md-12">
+                                <div>
+                                    <h4 class="box-title">
+                                        <i class="fa fa-filter"></i> Filtros de Busqueda
+                                    </h4>
+                                </div>
+                                <div class="col-md-2" style="padding-top: 10px;">                                 
+                                    <label>Num. Cliente</label>
+                                    <input type="text" class="form-control" placeholder="Numero de Cliente">
+                                </div>
+                                <div class="col-md-2" style="padding-top: 10px;">                                 
+                                    <label>Cliente</label>
+                                    <input type="text" class="form-control" placeholder="Nombre de Cliente">
+                                </div>
+                                <div class="col-md-2" style="padding-top: 10px;">                                 
+                                    <label>Proyecto</label>
+                                    <input type="text" class="form-control" placeholder="Nombre de Proyecto">
+                                </div>
+                                <div class="col-md-2" style="padding-top: 10px;">                                 
+                                    <label>Etiqueta U</label>
+                                    <input type="text" class="form-control" placeholder="Etiqueta U">
+                                </div>
+                                <div class="col-md-2" style="padding-top: 10px;">
+                                    <label>Estado </label>
+                                    <select class="form-control select2" style="width: 100%;">
+                                        <option selected="selected" disabled="">Estado de Cliente</option>
+                                        <option>Activo</option>
+                                        <option>Inactivo</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2" style="padding-top: 35px;"> 
+                                    <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>  
+                                    <button type="button" class="btn btn-default"><i class="fa fa-eraser"></i> Limpiar</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12" style="padding-top: 30px;">
+                                <div>
+                                    <h4 class="box-title">
+                                        <i class="fa fa-bars"></i> Resultados de Busqueda
+                                    </h4>
+                                </div>
+                                <div class="col-md-12 col-sm-12">
+                                    <table class="table table-responsive table-hover ">
+                                        <tr style="background-color: orange">
+                                            <th>No. Cliente</th>
+                                            <th>Cliente</th>
+                                            <th>Proyectos</th>
+                                            <th>Cantidad de Proyectos</th>
+                                            <th>Estado</th>
+                                        </tr>                                      
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">254</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">CALA CONTADORES</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">HIP CASA MEXICANA</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">1</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">ACTIVO</td>       
+
+                                        </tr>                                     
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">351</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">COLOR MATRIX</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">GASTOS MÉDICOS MAYORES</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">1</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">ACTIVO</td>                                        
+                                        </tr>                                
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">135</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">SM RESINAS</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">CAR</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">2</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">ACTIVO</td>                                        
+                                        </tr>                                
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">125</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">RASCH</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">EXPO SANTA FÉ</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">1</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">INACTIVO</td>                                           
+                                        </tr>                                
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">124</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">HIP CASA MEXICANA</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">AYUNTAMIENTO, DIRECCIONES</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">3</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">ACTIVO</td>   
+                                        </tr>                                
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">216</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">TRELLEBORG AUTOMOTIVE</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">PYME</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">6</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">ACTIVO</td>                                              
+                                        </tr>                                
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">228</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">INMOBILIARIA MOSE (HOTEL HAMPTON)</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">BEYG</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">0</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">INACTIVO</td>                                            
+                                        </tr>                                
+                                        <tr>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">243</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">BOSNO</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">PROMOTOR</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">1</td>
+                                            <td data-toggle="modal" data-target="#myModal" style="cursor: pointer">ACTIVO</td>   
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="box-footer clearfix">
+                                    <ul class="pagination pagination-sm no-margin pull-right">
+                                        <li><a href="#">&laquo;</a></li>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">&raquo;</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div class="container">
+                    <div class="pull-right hidden-xs">
+                        <b>Version</b> 2.0
+                    </div>
+                    <strong style="color: red">Esta página solo es una representación visual de la información. </strong>  <a href="https://www.adea.com.mx/adea-nvo/"> AdeA México</a> no garantiza respetar todo el diseño.
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+
+
+
+
+
+
+        <!-- jQuery 2.2.3 -->
+        <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <!-- Select2 -->
+        <script src="../../plugins/select2/select2.full.min.js"></script>
+        <!-- InputMask -->
+        <script src="../../plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <!-- date-range-picker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+        <!-- bootstrap color picker -->
+        <script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <!-- bootstrap time picker -->
+        <script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <!-- SlimScroll 1.3.0 -->
+        <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- iCheck 1.0.1 -->
+        <script src="../../plugins/iCheck/icheck.min.js"></script>
+        <!-- FastClick -->
+        <script src="../../plugins/fastclick/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../../dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../../dist/js/demo.js"></script>
+        <!-- Page script -->
+        <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+
+            //Datemask dd/mm/yyyy
+            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+            //Datemask2 mm/dd/yyyy
+            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+            //Money Euro
+            $("[data-mask]").inputmask();
+
+            //Date range picker
+            $('#reservation').daterangepicker();
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                    {
+                        ranges: {
+                            'Today': [moment(), moment()],
+                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                            'This Month': [moment().startOf('month'), moment().endOf('month')],
+                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                        },
+                        startDate: moment().subtract(29, 'days'),
+                        endDate: moment()
+                    },
+                    function (start, end) {
+                        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    }
+            );
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+            $('#datepicker2').datepicker({
+                autoclose: true
+            });
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            });
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass: 'iradio_minimal-red'
+            });
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
+
+            //Colorpicker
+            $(".my-colorpicker1").colorpicker();
+            //color picker with addon
+            $(".my-colorpicker2").colorpicker();
+
+            //Timepicker
+            $(".timepicker").timepicker({
+                showInputs: false
+            });
+        });
+        </script>
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawVisualization);
+
+        function drawVisualization() {
+            // Some raw data (not necessarily accurate)
+            var data = google.visualization.arrayToDataTable([
+                ['Month', 'Ingreso Hospitalario', 'Cirugía Programada', 'Reembolso', 'Segunda Opinión'],
+                ['Semana 1', 5, 2, 3, 4],
+                ['Semana 2', 5, 6, 5, 4],
+                ['Semana 3', 5, 8, 6, 5],
+                ['Semana 4', 2, 6, 8, 4]
+            ]);
+
+            var options = {
+                width: 1400,
+                title: 'Tramites Atendidos por DICTAMINADOR 1',
+                vAxis: {title: 'Tramites'},
+                hAxis: {title: 'Mes'},
+                seriesType: 'bars',
+                series: {4: {type: 'line'}}
+            };
+
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+        </script>
+
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+        <script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
+        <script type="text/javascript">
+        FusionCharts.ready(function () {
+            var fusioncharts = new FusionCharts({
+                type: 'angulargauge',
+                renderAt: 'chart-container',
+                id: 'cs-angular-gauge',
+                width: '350',
+                height: '250',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": {
+                        "caption": "Ingreso Hospitalario",
+                        "subcaption": "Horas",
+                        "lowerLimit": "0",
+                        "upperLimit": "48",
+                        "numberSuffix": "Hrs",
+                        "refreshInterval": "10",
+                        "theme": "fint"
+                    },
+                    "colorRange": {
+                        "color": [{
+                                "minValue": "0",
+                                "maxValue": "12",
+                                "label": "En Tiempo",
+                                "code": "#109618"
+                            }, {
+                                "minValue": "12",
+                                "maxValue": "24",
+                                "label": "Moderado",
+                                "code": "#3366CC"
+                            }, {
+                                "minValue": "48",
+                                "maxValue": "100",
+                                "label": "Atrasado",
+                                "code": "#DC3912"
+                            }]
+                    },
+                    "dials": {
+                        "dial": [{
+                                "id": "fd_dial",
+                                "value": "13.5",
+                                "tooltext": "Hoy : $value"
+                            }, {
+                                "id": "clth_dial",
+                                "value": "10",
+                                "alpha": "30",
+                                "tooltext": "Ayer : $value"
+                            }]
+                    }
+                }
+            }
+            );
+            fusioncharts.render();
+
+            var fusioncharts2 = new FusionCharts({
+                type: 'angulargauge',
+                renderAt: 'chart-container2',
+                id: 'cs-angular-gauge',
+                width: '350',
+                height: '250',
+                dataFormat: 'json',
+                dataSource: {
+                    "chart": {
+                        "caption": "Reembolso",
+                        "subcaption": "Días",
+                        "lowerLimit": "0",
+                        "upperLimit": "12",
+                        "numberSuffix": "Días",
+                        "refreshInterval": "10",
+                        "theme": "fint"
+                    },
+                    "colorRange": {
+                        "color": [{
+                                "minValue": "0",
+                                "maxValue": "3",
+                                "label": "Bien",
+                                "code": "#109618"
+                            }, {
+                                "minValue": "3",
+                                "maxValue": "6",
+                                "label": "En Tiempo",
+                                "code": "#3366CC"
+                            }, {
+                                "minValue": "6",
+                                "maxValue": "9",
+                                "label": "Alerta",
+                                "code": "#FF9900"
+                            }, {
+                                "minValue": "9",
+                                "maxValue": "12",
+                                "label": "Peligo",
+                                "code": "#DC3912"
+                            }, ]
+                    },
+                    "dials": {
+                        "dial": [{
+                                "id": "fd_dial",
+                                "value": "2",
+                                "tooltext": "Hoy : $value"
+                            }, {
+                                "id": "clth_dial",
+                                "value": "3",
+                                "alpha": "30",
+                                "tooltext": "Ayer : $value"
+                            }]
+                    }
+                }
+            }
+            );
+            fusioncharts2.render();
+            var fusioncharts3 = new FusionCharts({
+                type: 'angulargauge',
+                renderAt: 'chart-container3',
+                id: 'cs-angular-gauge',
+                width: '350',
+                height: '250',
+                dataFormat: 'json',
+                dataSource: {
+
+                    "chart": {
+                        "caption": "Cirugía Programada",
+                        "subcaption": "Días",
+                        "lowerLimit": "0",
+                        "upperLimit": "12",
+                        "numberSuffix": "Días",
+                        "refreshInterval": "10",
+                        "theme": "fint"
+                    },
+                    "colorRange": {
+                        "color": [{
+                                "minValue": "0",
+                                "maxValue": "3",
+                                "label": "Bien",
+                                "code": "#109618"
+                            }, {
+                                "minValue": "3",
+                                "maxValue": "6",
+                                "label": "En Tiempo",
+                                "code": "#3366CC"
+                            }, {
+                                "minValue": "6",
+                                "maxValue": "9",
+                                "label": "Alerta",
+                                "code": "#FF9900"
+                            }, {
+                                "minValue": "9",
+                                "maxValue": "12",
+                                "label": "Peligo",
+                                "code": "#DC3912"
+                            }, ]
+                    },
+                    "dials": {
+                        "dial": [{
+                                "id": "fd_dial",
+                                "value": "5",
+                                "tooltext": "Hoy : $value"
+                            }, {
+                                "id": "clth_dial",
+                                "value": "7",
+                                "alpha": "30",
+                                "tooltext": "Ayer : $value"
+                            }]
+                    }
+                }
+            }
+            );
+            fusioncharts3.render();
+            var fusioncharts4 = new FusionCharts({
+                type: 'angulargauge',
+                renderAt: 'chart-container4',
+                id: 'cs-angular-gauge',
+                width: '350',
+                height: '250',
+                dataFormat: 'json',
+                dataSource: {
+
+                    "chart": {
+                        "caption": "Segunda Opinión",
+                        "subcaption": "Días",
+                        "lowerLimit": "0",
+                        "upperLimit": "12",
+                        "numberSuffix": "Días",
+                        "refreshInterval": "10",
+                        "theme": "fint"
+                    },
+                    "colorRange": {
+                        "color": [{
+                                "minValue": "0",
+                                "maxValue": "3",
+                                "label": "Bien",
+                                "code": "#109618"
+                            }, {
+                                "minValue": "3",
+                                "maxValue": "6",
+                                "label": "En Tiempo",
+                                "code": "#3366CC"
+                            }, {
+                                "minValue": "6",
+                                "maxValue": "9",
+                                "label": "Alerta",
+                                "code": "#FF9900"
+                            }, {
+                                "minValue": "9",
+                                "maxValue": "12",
+                                "label": "Peligo",
+                                "code": "#DC3912"
+                            }, ]
+                    },
+                    "dials": {
+                        "dial": [{
+                                "id": "fd_dial",
+                                "value": "6",
+                                "tooltext": "Hoy : $value"
+                            }, {
+                                "id": "clth_dial",
+                                "value": "4",
+                                "alpha": "30",
+                                "tooltext": "Ayer : $value"
+                            }]
+                    }
+                }
+            }
+            );
+            fusioncharts4.render();
+        });
+        </script>
+    </body>
+</html>

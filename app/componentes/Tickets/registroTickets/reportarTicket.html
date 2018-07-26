@@ -1,0 +1,184 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<i style="font-size: 14px !important;" class="fa fa-book">
+			&nbsp;&nbsp;Reportar Ticket</i>
+	</div>
+
+
+	<div class="panel-body">
+
+		<div ng-if="reportarTicketCtrl.modo == 'R'">
+			<form class="form-horizontal" name="form" novalidate>
+				<div class="row">
+					<div class="col-md-12" style="font-size: 15px;">Introduzca
+						los detalles de la incidencia, una vez que la información sea correcta se habilitará el botón de guardar.</div>
+				</div>
+				<br /> <br />
+				<div class="row">
+
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.asignar.$dirty || form.asignar.$valid ,
+                             'has-error': form.asignar.$dirty && form.asignar.$invalid}">
+						<label class="control-label">*Asignar Area:</label> <select
+							class="form-control input-md" id="asignar" name="asignar"
+							ng-required="true"
+							ng-change="reportarTicketCtrl.consultaDatosArea()"
+							ng-model="reportarTicketCtrl.ticketNuevo.idArea"
+							ng-options="opt.idArea as opt.nombre for opt in reportarTicketCtrl.areasAWM">
+							<option value="">Seleccione</option>
+						</select>
+
+					</div>
+
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.categoria.$dirty || form.categoria.$valid ,
+                             'has-error': form.categoria.$dirty && form.categoria.$invalid}">
+						<label class="control-label">*Seleccione una Categoría:</label> <select
+							class="form-control input-md" id="categoria" name="categoria"
+							ng-required="true"
+							ng-model="reportarTicketCtrl.ticketNuevo.categoria"
+							ng-options="opt.idCategoria as opt.nombreCategoria for opt in  reportarTicketCtrl.listCategorias">
+							<option value="">Seleccione</option>
+						</select>
+
+					</div>
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.login.$dirty || form.login.$valid ,
+                             'has-error': form.login.$dirty && form.login.$invalid}">
+						<label class=" control-label">Asignar a:</label>
+						<ui-select id="login" name="login"
+							ng-model="reportarTicketCtrl.ticketNuevo.usuarioAsignado"
+							style="min-width: 300px;" title="Elige un Usuario"> <ui-select-match
+							placeholder="Selecciona un Usuario">{{$select.selected.nombre}}</ui-select-match>
+						<ui-select-choices
+							repeat="recurso.login as recurso in reportarTicketCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
+						<div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
+						</ui-select-choices> </ui-select>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+						<label class=" control-label">Cliente:</label>
+						<ui-select id="cliente" name="cliente"
+							ng-model="reportarTicketCtrl.ticketNuevo.idCliente"
+							style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+							placeholder="Selecciona un Cliente">{{$select.selected.acltrzsc}}</ui-select-match>
+						<ui-select-choices
+							repeat="cliente.scltcod as cliente in reportarTicketCtrl.clientes | propsFilter: {acltrzsc: $select.search, scltcod: $select.search}">
+						<div ng-bind-html="cliente.acltrzsc | highlight: $select.search"></div>
+						</ui-select-choices> </ui-select>
+					</div>
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.prioridad.$dirty || form.prioridad.$valid ,
+                             'has-error': form.prioridad.$dirty && form.prioridad.$invalid}">
+						<label class="control-label">Prioridad:</label> <select
+							class="form-control input-md" id="prioridad" name="prioridad"
+							ng-required="true"
+							ng-model="reportarTicketCtrl.ticketNuevo.prioridad"
+							ng-options="opt.id as opt.descripcionCat for opt in reportarTicketCtrl.prioridad">
+							<option value="">Seleccione</option>
+						</select>
+
+					</div>
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.extension.$dirty || form.extension.$valid ,
+                             'has-error': form.extension.$dirty && form.extension.$invalid}">
+						<label class=" control-label" for="extension">*Extensión:</label> <input
+							id="extension" name="extension" type="number" max="999999"
+							class="form-control input-md" maxlength="6"
+							ng-pattern="/^[0-9]*$/"
+							ng-model="reportarTicketCtrl.ticketNuevo.extension"
+							ng-required="true">
+					</div>
+
+
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-8"
+						ng-class="{
+                             'has-success': form.resumen.$dirty || form.resumen.$valid ,
+                             'has-error': form.resumen.$dirty && form.resumen.$invalid}">
+						<label class=" control-label" for="resumen">*Resumen:</label> <input
+							id="resumen" name="resumen" type="text"
+							class="form-control input-md" maxlength="1000"
+							ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+							ng-model="reportarTicketCtrl.ticketNuevo.resumen"
+							ng-required="true">
+					</div>
+					<div class="col-md-4"
+						ng-class="{
+                             'has-success': form.planta.$dirty || form.planta.$valid ,
+                             'has-error': form.planta.$dirty && form.planta.$invalid}">
+						<label class="control-label">*Planta:</label> <select
+							class="form-control input-md" id="planta" name="planta"
+							ng-required="true"
+							ng-model="reportarTicketCtrl.ticketNuevo.planta"
+							ng-options="opt.id as opt.descripcionCat for opt in reportarTicketCtrl.plantas">
+							<option value="">Seleccione</option>
+						</select>
+
+					</div>
+
+
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-12"
+						ng-class="{
+                             'has-success': form.descripcion.$dirty || form.descripcion.$valid ,
+                             'has-error': form.descripcion.$dirty && form.descripcion.$invalid}">
+						<label class=" control-label" for="descripcion">*Descripción:</label>
+						<textarea id="descripcion" name="descripcion" ng-required="true"
+							maxlength="4000" minlength="10"
+							ng-model="reportarTicketCtrl.ticketNuevo.descripcion"
+							class="input-md"
+							style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+							rows="10"></textarea>
+					</div>
+
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-12">
+						<adea-documentos-generales file="reportarTicketCtrl.archivo"></adea-documentos-generales>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 text-right">
+						<a class="btn btn-primary" style="margin-top: 41px;" role="button"
+							ng-click="reportarTicketCtrl.agregarTicket()" ng-if="form.$valid"
+							tooltip title="Guarda Ticket" data-placement="midle">Guarda
+							Ticket </a>
+					</div>
+				</div>
+
+			</form>
+		</div>
+
+		<div class="row" ng-if="reportarTicketCtrl.modo == 'E'">
+			<div class="col-md-12"
+				style="text-align: center; font-size: 15px; color: green;">
+				<p>El ticket se a generado de manera satisfactoria con el numero
+					de Ticket: {{reportarTicketCtrl.ticket.idTicket}}</p>
+				<a role="button" ng-click="reportarTicketCtrl.cambiarModo()"
+					style="cursor: pointer;">Si desea registra un nuevo Ticket dar
+					click Aqui</a>
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<div class="modal fade" id="proyectosCli" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog  modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Proyectos</h4>
+			</div>
+			<form class="form-horizontal" name="form" novalidate>
+				<div class="modal-body">
+
+					<adea-tabla dt-data-source="reporteContratosCtrl.proyectoDoc"
+						config="reporteContratosCtrl.tblProyectosDoc"> </adea-tabla>
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,312 @@
+
+<div ng-if="facturacionArchivoGeneralCtrl.bndGeneraFac == 'V'">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="border-bottom: 1px solid #337ab7;">Per&iacute;odo
+						de Facturaci&oacute;n</h4>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-6">
+					<label class="control-label">Fecha de Corte del
+						Per&iacute;odo:</label> <label class="form-control input-md"
+						style="text-align: center;">{{facturacionArchivoGeneralCtrl.periodos.fecHasta
+						| fechaSFecha}}</label>
+				</div>
+
+				<div class="col-md-6"
+					ng-if="facturacionArchivoGeneralCtrl.periodos.fecHasta != null && facturacionArchivoGeneralCtrl.periodoExistente == null">
+
+					<a class="btn btn-primary" role="button" style="margin: 22px;"
+						ng-click="facturacionArchivoGeneralCtrl.generaLayout()" tooltip
+						title="Confirmar Periodo">Confirmar Per&iacute;odo</a>
+				</div>
+			</div>
+			<div class="row"
+				ng-if="facturacionArchivoGeneralCtrl.errores2 != null">
+				<div class="col-md-12" style="text-align: center">
+					<label
+						ng-bind-html="facturacionArchivoGeneralCtrl.errores2.descripcionError"
+						class="control-label" style="color: red; font-size: 16px;">Ocurrio
+						un Error al Ejecutar el procesamiento:
+						{{facturacionArchivoGeneralCtrl.errores2.descripcionError}}.</label>
+				</div>
+			</div>
+
+			<br /> <br />
+			<div class="row"
+				ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'S'">
+
+
+
+				<div class="col-md-12">
+					<h4 style="border-bottom: 1px solid #337ab7;">Cargar
+						Incidencias</h4>
+				</div>
+				<div class="col-md-12"
+					ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts != 'P' && !facturacionArchivoGeneralCtrl.bndProcesoInc">
+
+
+					<div class="col-md-6">
+						<label class="control-label">Seleccione un Grupo:</label> <select
+							class="form-control input-md" id="grpFac" name="grpFac"
+							ng-required="true"
+							ng-model="facturacionArchivoGeneralCtrl.grpSeleccionadoIncidencias"
+							ng-change="facturacionArchivoGeneralCtrl.consultaCatalogosIncidencias()"
+							ng-options="opt.key as opt.value for opt in facturacionArchivoGeneralCtrl.grpCatalogo">
+							<option value="">Seleccione</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<label class="control-label">Seleccione un Concepto:</label> <select
+							class="form-control input-md" id="grpFac" name="grpFac"
+							ng-required="true"
+							ng-model="facturacionArchivoGeneralCtrl.conceptoSelIncidencias"
+							ng-options="opt.idItemConcepto as opt.tipo for opt in facturacionArchivoGeneralCtrl.catalogoFacIncidencias">
+							<option value="">Seleccione</option>
+						</select>
+					</div>
+
+					<div class="col-md-12">
+						<adea-documentos-generales
+							file="facturacionArchivoGeneralCtrl.archivoInicidencias"
+							extencion="'.xls'"></adea-documentos-generales>
+					</div>
+
+					<div class="col-md-12" style="text-align: right;"
+						ng-if="facturacionArchivoGeneralCtrl.archivoInicidencias != null && (facturacionArchivoGeneralCtrl.grpSeleccionadoIncidencias != '' && facturacionArchivoGeneralCtrl.grpSeleccionadoIncidencias != null) && (facturacionArchivoGeneralCtrl.conceptoSelIncidencias != '' && facturacionArchivoGeneralCtrl.conceptoSelIncidencias != null)">
+
+						<a class="btn btn-primary" role="button" style="margin: 22px;"
+							ng-click="facturacionArchivoGeneralCtrl.uploadIncidencias()"
+							tooltip title="Cargar Incidencias">Cargar Incidencias</a>
+					</div>
+				</div>
+				</br>
+				<div class="col-md-12"
+					ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'S' && facturacionArchivoGeneralCtrl.bndProcesoInc">
+					<div class="col-md-12" style="text-align: center">
+						<label class="control-label"
+							style="color: green; font-size: 16px;">El Proceso esta en
+							ejecuci&oacute;n, a&uacute;n no concluye, esto puede llevar
+							varios minutos, favor de regresar m&aacute;s tarde.</label>
+					</div>
+				</div>
+				<div class="col-md-12"
+					ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'E'">
+					<div class="col-md-12" style="text-align: center">
+						<label class="control-label" style="color: red; font-size: 16px;">Ocurrio
+							un Error al Ejecutar el procesamiento:
+							{{facturacionArchivoGeneralCtrl.periodoExistente.mensajeError}}.</label>
+					</div>
+				</div>
+
+				
+				<div class="col-md-12" ng-if="facturacionArchivoGeneralCtrl.incidencias.length > 0">
+					<br/><br/>
+					<adea-tabla dt-data-source="facturacionArchivoGeneralCtrl.incidencias"
+						config="facturacionArchivoGeneralCtrl.tblIncidencias">
+					</adea-tabla>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-6"
+			ng-if="facturacionArchivoGeneralCtrl.periodoExistente != null && facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts != 'S'">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="border-bottom: 1px solid #337ab7;">Clasificaci&oacute;n</h4>
+				</div>
+			</div>
+
+			<div class="row">
+				<br />
+				<div class="col-md-12" style="color: green; font-size: 15px;">
+					<label>Ya esta disponible el Layout de Clasificaci&oacute;n
+						para el Per&iacute;odo de Facturaci&oacute;n confirmado.</label>
+				</div>
+			</div>
+			<br />
+			<div class="row">
+
+				<div class="col-md-1"
+					style="text-align: right; font-size: 18px; padding: 0;">
+					<i style="color: green;" class="fa fa-file-excel-o"></i>
+				</div>
+				<div class="col-md-6" style="font-size: 18px; padding: 0;">
+
+					<a role="button" style="margin: 22px; color: green;"
+						ng-click="facturacionArchivoGeneralCtrl.descargarExcel()" tooltip
+						title="Descargar Layout">Descargar Layout</a>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="col-md-6"
+			ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'S'">
+
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="border-bottom: 1px solid #337ab7;">Descarga de
+						Layout Facturaci&oacute;n</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label class="control-label">Seleccione un Grupo:</label> <select
+						class="form-control input-md" id="grpFac" name="grpFac"
+						ng-required="true"
+						ng-model="facturacionArchivoGeneralCtrl.grpSeleccionado"
+						ng-change="facturacionArchivoGeneralCtrl.consultaCatalogos()"
+						ng-options="opt.key as opt.value for opt in facturacionArchivoGeneralCtrl.grpCatalogo">
+						<option value="">Seleccione</option>
+					</select>
+				</div>
+				<br /> <br />
+				<div class="col-md-12"
+					ng-if="facturacionArchivoGeneralCtrl.grpSeleccionado != null && facturacionArchivoGeneralCtrl.grpSeleccionado != undefined">
+					<h4>Conceptos</h4>
+					<table class="table table-hover">
+						<thead
+							style="height: 15px; background-color: #337ab7; color: white;">
+							<tr>
+								<th>Concepto</th>
+								<th style="text-align: center;">Archivo</th>
+								<th style="text-align: center;">N&uacute;mero de Registros</th>
+							</tr>
+						</thead>
+						<tr
+							ng-repeat="concepto in facturacionArchivoGeneralCtrl.catalogoFac">
+							<td>{{concepto.tipo}}</td>
+							<td><a role="button" ng-if="concepto.numRegGen > 0"
+								style="color: green;"
+								ng-click="facturacionArchivoGeneralCtrl.downloadArchivoFact(concepto)"
+								tooltip title="Descargar Archivo">{{concepto.nombreArc}}</a>
+
+								<div ng-if="concepto.numRegGen == 0" style="color: green;"
+									tooltip>{{concepto.nombreArc}}</div></td>
+							<td style="text-align: center;">{{concepto.numRegGen}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br />
+
+	<div class="row">
+
+		<div class="col-md-6"
+			ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndDescarga == 'S' && facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts != 'S'">
+			<div class="row">
+				<div class="col-md-12">
+					<h4 style="border-bottom: 1px solid #337ab7;">Cargar
+						Clasificaci&oacute;n</h4>
+				</div>
+			</div>
+			<div class="row"
+				ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts != 'P'">
+				<div class="col-md-12">
+					<adea-documentos-generales
+						file="facturacionArchivoGeneralCtrl.archivo" extencion="'.xls'"></adea-documentos-generales>
+				</div>
+				<div class="col-md-12" style="text-align: right;"
+					ng-if="facturacionArchivoGeneralCtrl.archivo != null">
+
+					<a class="btn btn-primary" role="button" style="margin: 22px;"
+						ng-if="facturacionArchivoGeneralCtrl.bndCargarArchivo && facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts != 'S'"
+						ng-click="facturacionArchivoGeneralCtrl.uploadDocumento()" tooltip
+						title="Cargar Archivo">Cargar Archivo</a>
+				</div>
+			</div>
+			</br>
+			<div class="row"
+				ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'P'">
+				<div class="col-md-12" style="text-align: center">
+					<label class="control-label" style="color: green; font-size: 16px;">El
+						Proceso esta en ejecuci&oacute;n, a&uacute;n no concluye, esto
+						puede llevar varios minutos, favor de regresar m&aacute;s tarde.</label>
+				</div>
+			</div>
+			<div class="row"
+				ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'E'">
+				<div class="col-md-12" style="text-align: center">
+					<label class="control-label" style="color: red; font-size: 16px;">Ocurrio
+						un Error al Ejecutar el procesamiento:
+						{{facturacionArchivoGeneralCtrl.periodoExistente.mensajeError}}.</label>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<div ng-if="facturacionArchivoGeneralCtrl.bndGeneraFac == 'F'">
+	<p
+		style="font-size: 15px; color: red; font-weight: bold; text-align: center;">No
+		existen por el momento per&iacute;odos de Facturaci&oacute;n, ya que
+		la fecha del d&iacute;a de hoy ya no es una fecha Valida para la
+		Ejecuci&oacute;n, Si desea ejecutar un proceso de Facturaci&oacute;n
+		especifico.</p>
+	<p
+		style="font-size: 15px; color: red; font-weight: bold; text-align: center;">Favor
+		de ponerse en contacto con el Area de Soporte.</p>
+</div>
+
+<div ng-if="facturacionArchivoGeneralCtrl.bndGeneraFac == 'C'">
+	<p
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Se
+		envi&oacute; la solicitud de generaci&oacute;n de Per&iacute;odos,
+		este proceso puede tardar varios minutos, favor de volver en un
+		momento, se mostrara el per&iacute;odo correspondiente cuando haya
+		concluido el procesamiento y existan per&iacute;odos v&aacute;lidos .</p>
+
+</div>
+
+<div ng-if="facturacionArchivoGeneralCtrl.bndGeneraFac == 'G'">
+
+	<p ng-if="facturacionArchivoGeneralCtrl.bndGeneraPeriodos"
+		style="font-size: 15px; color: red; font-weight: bold; text-align: center;">No
+		existen Per&iacute;odos de Facturaci&oacute;n V&aacute;lidos para el
+		Mes Anterior, si desea ejecutar el proceso de validaci&oacute;n para
+		generar los per&iacute;odos de Facturaci&oacute;n validos favor de
+		hacer click en el siguiente Boton.</p>
+	<p ng-if="facturacionArchivoGeneralCtrl.bndGeneraPeriodos"
+		style="font-size: 15px; color: red; font-weight: bold; text-align: center;">
+		<a class="btn btn-primary" role="button" style="margin: 22px;"
+			ng-click="facturacionArchivoGeneralCtrl.generaPeriodos()" tooltip
+			title="Validar Periodo de Facturaci&oacute;n">Validar
+			Per&iacute;odo de Facturaci&oacute;n</a>
+	</p>
+
+	<p ng-if="!facturacionArchivoGeneralCtrl.bndGeneraPeriodos"
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Se
+		env&iacute;o la solicitud de generaci&oacute;n de Per&iacute;odos,
+		este proceso puede tardar varios minutos.</p>
+	<p ng-if="!facturacionArchivoGeneralCtrl.bndGeneraPeriodos"
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Favor
+		de regresar mas tarde, se mostrara el per&iacute;odo correspondiente
+		cuando haya concluido el procedimiento y existan per&iacute;odos
+		validos</p>
+</div>
+
+<div ng-if="facturacionArchivoGeneralCtrl.bndGeneraFac == 'L'">
+	<p
+		style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Hay
+		un proceso en Ejecuci&oacute;n que no ha concluido, favor de validar
+		mas tarde.</p>
+
+</div>
+
+<!--<div ng-if="facturacionCtrl.bndGeneraFac == 'E'">
+			<p
+				style="font-size: 15px; color: green; font-weight: bold; text-align: center;">Ocurrio un Error al Ejecutar el procesamiento: {{facturacionCtrl.errores.descripcionError}}.</p>
+
+		</div> -->
+
+

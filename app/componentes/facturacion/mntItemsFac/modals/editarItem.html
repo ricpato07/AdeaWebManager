@@ -1,0 +1,58 @@
+<div class="modal fade" id="editarItem" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Editar Cartera</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+				<form class="form-horizontal" name="form" novalidate>
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.descripcion.$dirty || form.descripcion.$valid ,
+                             'has-error': form.descripcion.$dirty && form.descripcion.$invalid}">
+							<label class=" control-label" for="descripcion">Descripcion:</label>
+							<input id="descripcion" name="descripcion" maxlength="100"
+								type="text" class="form-control input-md" minlength=5
+								ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑÜü:\(\)]*$/"
+								ng-model="mntItemsFacCtrl.itemEditable.descripcion"
+								ng-required="true">
+						</div>
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.estatus.$dirty || form.estatus.$valid ,
+                             'has-error': form.estatus.$dirty && form.estatus.$invalid}">
+							<label class="control-label">Seleccione Estatus:</label> <select
+								class="form-control input-md" id="forma" name="forma"
+								ng-required="true"
+								ng-model="mntItemsFacCtrl.itemEditable.estatus"
+								ng-options="opt.codigo as opt.descripcion for opt in mntItemsFacCtrl.estatus">
+								<option value="">Seleccione</option>
+							</select>
+
+						</div>
+					</div>
+					<br />
+
+
+					<div class="row">
+						<div class="col-md-6 text-right"></div>
+						<div class="col-md-6 text-right">
+							<a class="btn btn-primary" style="margin-top: 41px;"
+								role="button" ng-click="mntItemsFacCtrl.editarItem()"
+								ng-if="form.$valid && mntItemsFacCtrl.noHaCambiado()" tooltip
+								title="Editar Item" data-placement="midle">Editar Item</a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>

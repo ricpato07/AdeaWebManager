@@ -1,0 +1,149 @@
+<div class="modal fade" id="traslapeActividad" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" style="width: 1010px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Actividades en
+					conflicto</h4>
+			</div>
+			<form class="form-horizontal" name="form" novalidate>
+				<div class="modal-body">
+					
+					<div class="row">
+					<blockquote>
+						<p style="color: red;">La persona que esta intentando Asociar
+							a la Actividad esta en conflicto con otra Actividad ya que
+							coinciden en fechas, A continuaci&oacute;n se muestran las
+							actividades a las que esta asignada la persona.</p>
+					</blockquote>
+					</div>
+					<div class="row" style="font-size: 13px; text-align: center;">
+						<div class="col-md-4">
+							<p style="color: red; font-weight: bold;">
+								{{planeacionProyectoCtrl.actividadEditable.nombreActividad}}</p>
+						</div>
+						<div class="col-md-3" style="text-align: center;">
+							<p style="color: red; font-weight: bold;">Fecha Inicio:
+								{{planeacionProyectoCtrl.actividadEditable.fecIni |
+								fechaSFecha}}</p>
+						</div>
+						<div class="col-md-3" style="text-align: center;">
+							<p style="color: red; font-weight: bold;">Fecha Fin:
+								{{planeacionProyectoCtrl.actividadEditable.fecFin |
+								fechaSFecha}}</p>
+						</div>
+
+						<div class="col-md-2">
+							<a type="button" ng-if="!planeacionProyectoCtrl.bndGant"
+								ng-click="planeacionProyectoCtrl.graficaGantTraslapes(planeacionProyectoCtrl.actividadesPlantillaEditable)"
+								class="btn btn-primary btn-success "> Ver Grafico </a> <a
+								type="button" ng-if="planeacionProyectoCtrl.bndGant"
+								ng-click="planeacionProyectoCtrl.bndGant = false;"
+								class="btn btn-primary btn-danger "> Ocultar Grafico </a>
+
+						</div>
+					</div>
+					<br />
+					<div class="row" style="padding: 10px;">
+						<div style="font-size: 12px;" gantt
+							ng-if="planeacionProyectoCtrl.bndGant"
+							data=planeacionProyectoCtrl.actvidadesGanttTraslapes
+							headers="['month', 'day']" show-side="false"
+							headers-formats="planeacionProyectoCtrl.headersFormats"
+							time-frames=planeacionProyectoCtrl.timeFrames
+							date-frames=planeacionProyectoCtrl.dateFrames
+							time-frames-non-working-mode="visible">
+							<gantt-progress></gantt-progress>
+							<gantt-dependencies enabled="true" conflict-checker="true"></gantt-dependencies>
+						</div>
+					</div>
+					<br />
+					<div class="row" style="font-size: 18px; text-align: center;">
+						<p style="color: red; font-weight: bold;">Asignar el numero de
+							horas para cada actividad en el rango de Traslape.</p>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table" style="min-width: scroll;">
+								<thead
+									style="height: 15px; background-color: #337ab7; color: white;">
+
+									<tr>
+										<th rowspan="2" style="width: 40%;">Cliente | Proyecto | Subproyecto</th>
+										<th rowspan="2">Nombre Actividad </th>
+										<th colspan="2" style="text-align: center;">Periodo</th>
+										<th rowspan="2"
+											ng-if="planeacionProyectoCtrl.actividadEdit.rangos.length == 0 || planeacionProyectoCtrl.actividadEdit.rangos == undefined || planeacionProyectoCtrl.actividadEdit.rangos == null"
+											style="text-align: center;">Horas</th>
+										<th
+											colspan="{{planeacionProyectoCtrl.actividadEdit.rangos.length}}"
+											ng-if="planeacionProyectoCtrl.actividadEdit.rangos.length > 0"
+											style="text-align: center;">Rangos Conflicto</th>
+									</tr>
+
+									<tr>
+										<th style="text-align: center;">Fecha Inicio</th>
+										<th style="text-align: center;">Fecha Fin</th>
+										<th
+											ng-if="planeacionProyectoCtrl.actividadEdit.rangos.length > 0"
+											style="text-align: center;"
+											ng-repeat="range in planeacionProyectoCtrl.actividadEdit.rangos">
+											{{range.fecIni | fechaSFecha}} | {{range.fecFin |
+											fechaSFecha}}</th>
+									</tr>
+
+								</thead>
+								<tr
+									ng-repeat="recurso in planeacionProyectoCtrl.actividadesPlantillaEditable">
+									<td ng-bind-html="recurso.proyecto" style="font-size: 11px;">{{recurso.proyecto}}</td>
+									<td ng-bind-html="recurso.nombreActividad">{{recurso.nombreActividad}}</td>
+									<td style="text-align: center; color: red; font-weight: bold;">{{recurso.fecIni
+										| fechaSFecha}}</td>
+									<td style="text-align: center; color: red; font-weight: bold;">{{recurso.fecFin
+										| fechaSFecha}}</td>
+									<td style="text-align: center; color: red; font-weight: bold; padding:0px;"
+										ng-repeat="rang  in planeacionProyectoCtrl.actividadEdit.rangos">
+										
+										<input
+										ng-if="planeacionProyectoCtrl.validaRangos(recurso.rango, rang)"
+										style="width: 70%; display: inline;"
+										ng-class="{'has-success': form.horas.$dirty || form.horas.$valid ,
+	                             				   'has-error': form.horas.$dirty && form.horas.$invalid}"
+										id="horas{{recurso.idActividad}}"
+										name="horas{{recurso.idActividad}}" type="number"
+										maxlength="1" min="1" class="form-control input-md"
+										ng-required="true" max="8" ng-pattern="/^[0-9]*$/"
+										ng-model="recurso.horasAsig"> 
+										
+										<input
+										ng-if="recurso.rango == undefined && recurso.rango == null"
+										align="middle" style="width: 70%; display: inline;"
+										ng-class="{'has-success': form.horas.$dirty || form.horas.$valid ,
+	                             				   'has-error': form.horas.$dirty && form.horas.$invalid}"
+										id="horas" name="horas" type="number" maxlength="1" min="1"
+										class="form-control input-md" ng-required="true" max="8"
+										ng-pattern="/^[0-9]*$/" ng-model="rang.horasAsig">
+
+
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+
+					<a type="button" ng-if="form.$valid"
+						ng-click="planeacionProyectoCtrl.guardarConflicto()"
+						class="btn btn-primary btn-danger "> Guardar </a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+

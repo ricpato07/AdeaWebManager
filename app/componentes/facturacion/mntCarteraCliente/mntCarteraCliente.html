@@ -1,0 +1,62 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter">&nbsp;&nbsp; Cartera Cliente </i>
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-3"
+				ng-class="{
+                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+
+				<label class=" control-label">Cliente:</label>
+				<ui-select id="cliente" name="cliente" ng-required="true"
+					ng-disabled="mntCarteraClienteFacCtrl.bndSeleCliente"
+					ng-model="mntCarteraClienteFacCtrl.idClienteSeleccionado"
+					ng-change="mntCarteraClienteFacCtrl.consultaCarteraCli()"
+					style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+					placeholder="Selecciona un Ticket">{{$select.selected.nomCliente}}</ui-select-match>
+				<ui-select-choices
+					repeat="cliente.scltcod as cliente in mntCarteraClienteFacCtrl.clientes | propsFilter: {nomCliente: $select.search, scltcod: $select.search}">
+				<div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
+				</ui-select-choices> </ui-select>
+			</div>
+			<div class="col-md-6"></div>
+			<div class="col-md-3 text-right">
+				<a class="btn btn-primary" data-target='#agregarRecurso'
+					role="button" data-toggle="modal"
+					ng-click="mntCarteraClienteFacCtrl.initAgregarCartera()"
+					title="Agregar Recurso" data-toggle="tooltip"
+					data-placement="midle">Agregar Cartera </a> 
+				<a
+					class="btn btn-primary" data-target='#editarCartera' role="button"
+					data-toggle="modal"
+					ng-click="mntCarteraClienteFacCtrl.initEditarCartera()"
+					ng-if="mntCarteraClienteFacCtrl.carteraSeleccionado != null && mntCarteraClienteFacCtrl.carteraSeleccionado != '' && mntCarteraClienteFacCtrl.carteraSeleccionado != undefined"
+					title="Editar Recurso" data-toggle="tooltip" data-placement="midle">Editar
+					Cartera </a>
+			</div>
+		</div>
+
+		<br /> <br />
+
+		<adea-tabla dt-data-source="mntCarteraClienteFacCtrl.carteraCliente"
+			ng-if="mntCarteraClienteFacCtrl.carteraCliente.length > 0"
+			config="mntCarteraClienteFacCtrl.tblCarteraFac"
+			registro-seleccionado="mntCarteraClienteFacCtrl.carteraSeleccionado"
+			seleccionar-registro="mntCarteraClienteFacCtrl.seleccionarCartera(reg);">
+
+		</adea-tabla>
+	</div>
+</div>
+<div
+	ng-include="'app/componentes/facturacion/mntCarteraCliente/modals/altaCartera.html'"></div>
+<div
+	ng-include="'app/componentes/facturacion/mntCarteraCliente/modals/editarCartera.html'"></div>

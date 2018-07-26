@@ -1,0 +1,33 @@
+<div class="modal fade" id="conflictFecha" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"  style="width:20px;">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Actividades en conflicto
+                </h4>
+            </div>
+            <div class="modal-body">
+
+                <blockquote>
+                    <p>
+                        ¿Esta seguro que desea Planificar la Actividad?, ya que
+                        coincide en fechas con otra Actividad.
+                    </p>
+                </blockquote>
+
+            </div>
+            <div class="modal-footer">
+
+                <a type="button"
+                   ng-click="planeacionProyectoCtrl.addActividad()"
+                   class="btn btn-primary btn-danger ">
+                    Aceptar Actividad
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</div>

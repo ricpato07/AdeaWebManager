@@ -1,0 +1,47 @@
+<div class="modal fade" id="reprogramacion" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<form class="form-horizontal" name="form" novalidate>
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" style="width: 20px;">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Se ha detectado que
+						esta reprogramando la actividad</h4>
+				</div>
+				<div class="modal-body">
+
+					<blockquote>
+						<p>Â¿Esta seguro que desea Planificar la Actividad con fechas
+							diferentes?</p>
+
+						<div class="row">
+
+							<div class="col-md-12"
+								ng-class="{
+                             'has-success': form.motivo.$dirty || form.motivo.$valid ,
+                             'has-error': form.motivo.$dirty && form.motivo.$invalid}">
+								<label class=" control-label" for="motivo">Motivo:</label>
+
+								<textarea id="motivo" name="motivo" ng-required="true"
+									maxlength="500" minlength="10" ng-maxlength="200"
+									ng-pattern="/^[0-9a-zA-Z_-\s,.ÁÉÍÓÚáéíóúÑñ]*$/"
+									ng-model="planeacionProyectoCtrl.reprogramacion.motivo"
+									class="form-control" style="resize: vertical" rows="2"></textarea>
+							</div>
+
+						</div>
+					</blockquote>
+				</div>
+				<div class="modal-footer">
+
+					<a type="button" ng-if="form.$valid"
+						ng-click="planeacionProyectoCtrl.modificacionActividad('C')"
+						class="btn btn-primary btn-danger "> Aceptar
+						Modificaci&oacute;n </a>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>

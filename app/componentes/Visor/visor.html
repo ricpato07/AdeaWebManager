@@ -1,0 +1,46 @@
+
+<style>
+html, body {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.some-pdf-container {
+	width: 100%;
+	height: 100%;
+}
+</style>
+
+
+<ng-pdf template-url="app/componentes/Visor/pdf.html" scale="page-fit">
+
+</ng-pdf>
+
+<div class="col-xs-12 col-md-12 text-center"
+	style="position: fixed; bottom: 0; background-color: rgba(50, 50, 50, 0.8);">
+	<div class="col-xs-12 col-md-4" style="margin-top: 15px">
+		<a class="btn-editar" role="button"
+			style="font-size: 30px; text-shadow: 4px 4px 8px #000000;"
+			data-toggle="tooltip" tooltip title="Zoom +" data-placement="top"
+			ng-click="zoomIn()">Zoom In </a> &nbsp&nbsp 
+			<a
+			class="ixs-zoomout btn-editar" role="button"
+			style="font-size: 30px; text-shadow: 4px 4px 8px #000000;"
+			data-toggle="tooltip" tooltip title="Zoom -" data-placement="top"
+			ng-click="zoomOut()">Zoom Out </a>
+	</div>
+	<div class="col-xs-12 col-md-4">
+		<a class="btn-editar" role="button"
+			style="font-size: 50px; text-shadow: 4px 4px 8px #000000;"
+			data-toggle="tooltip" tooltip title="Anterior" data-placement="top"
+			ng-click="goPrevious()"> Anterior</a> <span
+			style="font-size: x-large; color: white; margin-bottom: 10px;">Página:
+			{{pageNum}} / {{pageCount}} &nbsp&nbsp </span> <a
+			class="btn-editar" role="button"
+			style="font-size: 50px; text-shadow: 4px 4px 8px #000000;"
+			data-toggle="tooltip" tooltip title="Siguente" data-placement="top"
+			ng-click="goNext()">Siguiente </a>
+	</div>
+</div>

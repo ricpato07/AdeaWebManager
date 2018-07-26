@@ -1,0 +1,40 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter">&nbsp;&nbsp; Items Facturación </i>
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-9"></div>
+			<div class="col-md-3 text-right">
+				<a class="btn btn-primary" data-target='#agregarItem' role="button"
+					data-toggle="modal" title="Agregar Item" data-toggle="tooltip"
+					data-placement="midle">Agregar Item </a> 
+				<a class="btn btn-primary" data-target='#editarItem'
+					data-target='#editarItem' role="button" data-toggle="modal"
+					ng-if="mntItemsFacCtrl.itemSeleccionado != null && mntItemsFacCtrl.itemSeleccionado != '' && mntItemsFacCtrl.itemSeleccionado != undefined"
+					title="Editar Item" data-toggle="tooltip" data-placement="midle">Editar
+					Item </a>
+			</div>
+		</div>
+
+		<br /> <br />
+		<adea-tabla dt-data-source="mntItemsFacCtrl.items"
+			ng-if="mntItemsFacCtrl.items.length > 0"
+			config="mntItemsFacCtrl.tblItemsFac"
+			registro-seleccionado="mntItemsFacCtrl.itemSeleccionado"
+			seleccionar-registro="mntItemsFacCtrl.seleccionarItem(reg);">
+
+		</adea-tabla>
+	</div>
+</div>
+<div
+	ng-include="'app/componentes/facturacion/mntItemsFac/modals/altaItem.html'"></div>
+<div
+	ng-include="'app/componentes/facturacion/mntItemsFac/modals/editarItem.html'"></div>

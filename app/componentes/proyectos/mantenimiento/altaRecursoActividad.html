@@ -1,0 +1,80 @@
+<div class="modal fade" id="recursoActividad" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Registro Recurso
+					Actividad</h4>
+			</div>
+			<form class="form-horizontal" name="form" novalidate>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<p style="color: green; font-size: 15px; font-weight: bold;">Se
+								asignara de tiempo completo esta actividad al Recurso
+								Seleccionado en el rango mostrado a continuaci&oacute;n.</p>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4" style="text-align: center; margin-top: 25px;"
+							ng-class="{'has-success': form.fecIniActR.$dirty || form.fecIniActR.$valid ,
+                             'has-error': form.fecIniActR.$dirty && form.fecIniActR.$invalid}">
+							<label class=" control-label" for="fecIniActR">Fecha
+								Inicio:</label> <label>{{planeacionProyectoCtrl.actividadEditable.fecIni
+								| fechaSFecha}}</label>
+							<!-- <input type="text" class="form-control" id="fecIniActR"
+								name="fecIniActR" uib-datepicker-popup="dd/MM/yyyy"
+								ng-click="planeacionProyectoCtrl.abrirFechaIniActRec()"
+								ng-model="planeacionProyectoCtrl.recurso.fecIni"
+								is-open="planeacionProyectoCtrl.fechaIniActRec.abierto"
+								close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+								ng-required="true"
+								datepicker-options="{minDate:  planeacionProyectoCtrl.fecIniActSel, maxDate: planeacionProyectoCtrl.fecFinActSel, dateDisabled: planeacionProyectoCtrl.disabled}" /> -->
+						</div>
+
+						<div class="col-md-4" style="text-align: center; margin-top: 25px;"
+							ng-class="{'has-success': form.fecFinActR.$dirty || form.fecFinActR.$valid ,
+                             'has-error': form.fecFinActR.$dirty && form.fecFinActR.$invalid}">
+							<label class=" control-label" for="fecFinActR">Fecha Fin:</label>
+							<label>{{planeacionProyectoCtrl.actividadEditable.fecFin
+								| fechaSFecha}}</label>
+							<!-- <input type="text" class="form-control" id="fecFinActR"
+								name="fecFinActR" uib-datepicker-popup="dd/MM/yyyy"
+								ng-click="planeacionProyectoCtrl.abrirFechaFinActRec()"
+								ng-model="planeacionProyectoCtrl.recurso.fecFin"
+								is-open="planeacionProyectoCtrl.fechaFinActRec.abierto"
+								close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+								ng-required="true"
+								datepicker-options="{minDate: planeacionProyectoCtrl.recurso.fecIni, maxDate: planeacionProyectoCtrl.fecFinActSel, dateDisabled: planeacionProyectoCtrl.disabled}" /> -->
+
+						</div>
+
+						<div class="col-md-4"
+							ng-class="{
+                             'has-success': form.horas.$dirty || form.horas.$valid ,
+                             'has-error': form.horas.$dirty && form.horas.$invalid}">
+							<label class="control-label">Horas Diarias Asignadas:</label> <input
+								id="horas" name="horas" type="number" maxlength="1" min="1"
+								class="form-control input-md" ng-required="true" max="9"
+								ng-pattern="/^[0-9]*$/"
+								ng-model="planeacionProyectoCtrl.recurso.horasAsig">
+						</div>
+
+					</div>
+
+				</div>
+				<div class="modal-footer">
+
+					<a type="button" ng-if="form.$valid"
+						ng-click="planeacionProyectoCtrl.guardarAsignacion()"
+						class="btn btn-primary btn-success "> Guardar </a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,44 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter">&nbsp;&nbsp; Plantilla Recursos </i>
+		</h4>
+	</div>
+
+
+	<div class="panel-body">
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6"></div>
+				<div class="col-md-6 text-right">
+					<a class="btn btn-primary" data-target='#agregarRecurso'
+						role="button" data-toggle="modal"
+						ng-click="plantillaProyectoCtrl.limpiaValores()"
+						title="Agregar Recurso" data-toggle="tooltip"
+						data-placement="midle">Agregar Recurso </a> <a
+						class="btn btn-primary" data-target='#editarRecurso' role="button"
+						data-toggle="modal"
+						ng-if="plantillaProyectoCtrl.personaEditable != null && plantillaProyectoCtrl.personaEditable != '' && plantillaProyectoCtrl.personaEditable != undefined"
+						title="Editar Recurso" data-toggle="tooltip"
+						data-placement="midle">Editar Recurso </a>
+				</div>
+			</div>
+		</div>
+
+		<adea-tabla dt-data-source="plantillaProyectoCtrl.listPlantilla"
+			config="plantillaProyectoCtrl.tblPlantilla"
+			registro-seleccionado="plantillaProyectoCtrl.personaSeleccionado"
+			seleccionar-registro="plantillaProyectoCtrl.seleccionarPersona(reg);">
+
+		</adea-tabla>
+	</div>
+</div>
+<div
+	ng-include="'app/componentes/plantilla/mantenimiento/agregarRecurso.html'"></div>
+<div
+	ng-include="'app/componentes/plantilla/mantenimiento/modificarRecurso.html'"></div>

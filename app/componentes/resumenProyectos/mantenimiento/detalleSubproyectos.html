@@ -1,0 +1,266 @@
+<div class="row" style="font-size: 18px">
+	<div class="col-md-6">
+		Proyecto: {{resumenProyectosCtrl.proyectoSeleccionado.nombre}} <br />
+		<br /> Descripci&oacute;n:
+		{{resumenProyectosCtrl.proyectoSeleccionado.descripcion}}
+	</div>
+
+	<div class="col-md-3">
+		<div class="info-box bg-green-gradient"
+			style="cursor: pointer; cursor: hand">
+
+			<span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+
+			<div class="info-box-content" style="text-align: center;">
+				<span class="info-box-text">Presupuesto Total Asignado</span> <br />
+				<span class="info-box-number"
+					style="font-size: 25px; font-weight: bold;">{{resumenProyectosCtrl.presupuestoCostosProy
+					| moneda}}</span>
+
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="info-box"
+			ng-class="{'bg-green-gradient': resumenProyectosCtrl.presupuestoCostosProy > resumenProyectosCtrl.costosProy, 'bg-red-gradient': resumenProyectosCtrl.presupuestoCostosProy < resumenProyectosCtrl.costosProy}"
+			style="cursor: pointer; cursor: hand">
+
+			<span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+
+			<div class="info-box-content" style="text-align: center;">
+				<span class="info-box-text">Costo Proyecto</span> <br /> <span
+					class="info-box-number" style="font-size: 25px; font-weight: bold;">{{resumenProyectosCtrl.costosProy
+					| moneda}}</span>
+
+			</div>
+			<!-- /.info-box-content -->
+		</div>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-4">
+		<div class="info-box bg-blue-gradient"
+			style="cursor: pointer; cursor: hand">
+			<a
+				ng-click="resumenProyectosCtrl.filtraSubproyectosEstatus('A', 'Activos')"
+				data-toggle="tab" style="text-decoration: none; color: white;">
+				<span class="info-box-icon"><i class="fa fa-check"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Subproyectos Activos</span> <span
+						class="info-box-number">{{resumenProyectosCtrl.indicadoresSubProyecto.activos}}</span>
+
+					<div class="progress">
+						<div class="progress-bar"
+							style="width: {{resumenProyectosCtrl.indicadoresSubProyecto.activos"></div>
+					</div>
+					<span class="progress-description">
+						{{resumenProyectosCtrl.indicadoresSubProyecto.activos}} Activos </span>
+				</div> <!-- /.info-box-content -->
+			</a>
+		</div>
+	</div>
+
+
+	<div class="col-md-4">
+		<div class="info-box bg-blue-gradient"
+			style="cursor: pointer; cursor: hand">
+			<a
+				ng-click="resumenProyectosCtrl.filtraSubproyectosTipo('1', 'Facturables')"
+				data-toggle="tab" style="text-decoration: none; color: white;">
+				<span class="info-box-icon"><i class="fa fa-dollar"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Subproyectos Facturables</span> <span
+						class="info-box-number">{{resumenProyectosCtrl.indicadoresSubProyecto.facturable}}</span>
+
+					<div class="progress">
+						<div class="progress-bar"
+							style="width: {{resumenProyectosCtrl.indicadoresSubProyecto.facturable"></div>
+					</div>
+					<span class="progress-description">
+						{{resumenProyectosCtrl.indicadoresSubProyecto.facturable}}
+						Facturable </span>
+				</div> <!-- /.info-box-content -->
+			</a>
+		</div>
+	</div>
+
+
+	<div class="col-md-4">
+		<div class="info-box bg-blue-gradient"
+			style="cursor: pointer; cursor: hand">
+			<a
+				ng-click="resumenProyectosCtrl.filtraSubproyectosTipo('2', 'No Facturables')"
+				data-toggle="tab" style="text-decoration: none; color: white;">
+				<span class="info-box-icon"><i class="fa fa-file-text"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Subproyectos No Facturables</span> <span
+						class="info-box-number">{{resumenProyectosCtrl.indicadoresSubProyecto.nofacturable}}</span>
+
+					<div class="progress">
+						<div class="progress-bar"
+							style="width: {{resumenProyectosCtrl.indicadoresSubProyecto.nofacturable"></div>
+					</div>
+					<span class="progress-description">
+						{{resumenProyectosCtrl.indicadoresSubProyecto.nofacturable}} No
+						Facturable </span>
+				</div> <!-- /.info-box-content -->
+			</a>
+		</div>
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="info-box bg-yellow-gradient"
+			style="cursor: pointer; cursor: hand">
+			<a
+				ng-click="resumenProyectosCtrl.filtraSubproyectosEstatus('QA', 'en Qa')"
+				data-toggle="tab" style="text-decoration: none; color: white;">
+				<span class="info-box-icon"><i class="fa fa-list-alt"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Subproyectos QA</span> <span
+						class="info-box-number">{{resumenProyectosCtrl.indicadoresSubProyecto.qa}}</span>
+
+					<div class="progress">
+						<div class="progress-bar"
+							style="width: {{resumenProyectosCtrl.indicadoresSubProyecto.qa"></div>
+					</div>
+					<span class="progress-description">
+						{{resumenProyectosCtrl.indicadoresSubProyecto.qa}} QA </span>
+				</div> <!-- /.info-box-content -->
+			</a>
+		</div>
+	</div>
+
+	<div class="col-md-4">
+		<div class="info-box bg-green-gradient"
+			style="cursor: pointer; cursor: hand">
+			<a
+				ng-click="resumenProyectosCtrl.filtraSubproyectosEstatus('P', 'en Proceso')"
+				data-toggle="tab" style="text-decoration: none; color: white;">
+				<span class="info-box-icon"><i class="fa fa-refresh"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Subproyectos Proceso</span> <span
+						class="info-box-number">{{resumenProyectosCtrl.indicadoresSubProyecto.proceso}}</span>
+
+					<div class="progress">
+						<div class="progress-bar"
+							style="width: {{resumenProyectosCtrl.indicadoresSubProyecto.proceso"></div>
+					</div>
+					<span class="progress-description">
+						{{resumenProyectosCtrl.indicadoresSubProyecto.proceso}} Proceso </span>
+				</div> <!-- /.info-box-content -->
+			</a>
+		</div>
+	</div>
+
+
+	<div class="col-md-4">
+		<div class="info-box bg-red-gradient"
+			style="cursor: pointer; cursor: hand">
+			<a
+				ng-click="resumenProyectosCtrl.filtraSubproyectosEstatus('S', 'Suspendidos')"
+				data-toggle="tab" style="text-decoration: none; color: white;">
+				<span class="info-box-icon"><i class="fa fa-ban"></i></span>
+
+				<div class="info-box-content">
+					<span class="info-box-text">Subproyectos Suspendidos</span> <span
+						class="info-box-number">{{resumenProyectosCtrl.indicadoresSubProyecto.suspendido}}</span>
+
+					<div class="progress">
+						<div class="progress-bar"
+							style="width: {{resumenProyectosCtrl.indicadoresSubProyecto.suspendido"></div>
+					</div>
+					<span class="progress-description">
+						{{resumenProyectosCtrl.indicadoresSubProyecto.suspendido}}
+						Suspendidos </span>
+				</div> <!-- /.info-box-content -->
+			</a>
+		</div>
+	</div>
+
+
+</div>
+
+
+<div>
+	<span style="font-size: 18px">SubProyectos
+		{{resumenProyectosCtrl.nombrePro}}</span>
+</div>
+<br />
+<div class="row"
+	ng-if="resumenProyectosCtrl.subProyectosEditable.length == 0">
+	<div class="col-md-12">
+		<span style="font-size: 14px; color: red;">No existen
+			Subproyectos para el tipo seleccionado</span>
+	</div>
+</div>
+
+
+<uib-tabset ng-if="resumenProyectosCtrl.subProyectosEditable.length > 0"
+	active="resumenProyectosCtrl.indexTabsActive"> <uib-tab
+	ng-click="planeacionProyectoCtrl.data = null;" index="0"
+	heading="SubProyectos"> <br />
+<table class="table table-hover" style="font-size: 12px;" width="100%">
+	<thead style="height: 15px; background-color: #337ab7; color: white;">
+		<tr>
+			<th><p>Estatus</p></th>
+			<th><p>Nombre</p></th>
+			<th><p>Fecha Inicio</p></th>
+			<th><p>Fecha Fin</p></th>
+			<th style="text-align: center;"><p>Duraci&oacute;n (Dias)</p></th>
+			<th style="text-align: center;"><p>Recursos Asignados</p></th>
+			<th style="text-align: center;"><p>Presupuesto</p></th>
+			<th style="text-align: center;"><p>Costo</p></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr style="cursor: pointer"
+			ng-click="resumenProyectosCtrl.seleccionaSubproyecto(reg)"
+			ng-repeat="reg in resumenProyectosCtrl.subProyectosEditable">
+
+			<td><span>{{reg.estatus | estatusAccion}}</span></td>
+			<td><span>{{reg.nombre}}</span></td>
+			<td><span>{{reg.fecIni | fechaSFecha}}</span></td>
+			<td><span>{{reg.fecFin | fechaSFecha}}</span></td>
+			<td style="text-align: center;"><span>{{reg.diferencia}}</span></td>
+			<td style="text-align: center;"><span>{{reg.recursos}}</span></td>
+			<td style="text-align: center;"><span>{{reg.presupuesto |
+					moneda}}</span></td>
+			<td style="text-align: center;"><span>{{reg.costo |
+					moneda}}</span></td>
+		</tr>
+	</tbody>
+</table>
+
+</uib-tab> <uib-tab
+	ng-click="resumenProyectosCtrl.construyeObjGantt(resumenProyectosCtrl.subProyectosEditable)"
+	index="1" heading="Grafico Planeaci&oacute;n"> <br />
+<div style="font-size: 12px;" gantt data=resumenProyectosCtrl.data
+	headers="['month', 'week']"
+	headers-formats="resumenProyectosCtrl.headersFormats"
+	time-frames=resumenProyectosCtrl.timeFrames
+	date-frames=resumenProyectosCtrl.dateFrames
+	time-frames-non-working-mode=visible>
+	<gantt-table columns="['model.name', 'model.from', 'model.to']"
+		headers="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+		formatter="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
+		formatters="resumenProyectosCtrl.formatters"></gantt-table>
+	<gantt-progress></gantt-progress>
+	<gantt-tooltips content="resumenProyectosCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
+	<gantt-dependencies conflict-checker="true"></gantt-dependencies>
+</div>
+
+
+</uib-tab> </uib-tabset>
+
+
+<div
+	ng-include="'app/componentes/resumenProyectos/mantenimiento/modalSubProyecto.html'"></div>

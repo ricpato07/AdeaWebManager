@@ -1,0 +1,101 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter"> &nbsp;&nbsp;Facturaci&oacute;n
+				Autom&aacute;tica </i>
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		<form class="form-horizontal" name="form" novalidate>
+			<div class="row">
+				<div class="col-md-3"
+					ng-class="{
+                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+
+					<label class=" control-label">Cliente:</label>
+					<ui-select id="cliente" name="cliente" ng-required="true"
+						ng-disabled="facturacionCtrl.bndSeleCliente"
+						ng-model="facturacionCtrl.idClienteSeleccionado"
+						ng-change="facturacionCtrl.consultaCarteraCli()"
+						style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+						placeholder="Selecciona un Ticket">{{$select.selected.nomCliente}}</ui-select-match>
+					<ui-select-choices
+						repeat="cliente.scltcod as cliente in facturacionCtrl.clientes | propsFilter: {nomCliente: $select.search, scltcod: $select.search}">
+					<div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+				</div>
+
+				<div class="col-md-3"
+					ng-class="{'has-success': form.cartera.$dirty || form.cartera.$valid ,
+                             'has-error': form.cartera.$dirty && form.cartera.$invalid}">
+
+					<label class=" control-label">Cartera:</label>
+					<ui-select id="cartera" name="cartera" ng-required="true"
+						ng-model="facturacionCtrl.idCarteraCliente"
+						ng-change="facturacionCtrl.cambioCartera()"
+						style="min-width: 300px;" title="Elige una cartera"> <ui-select-match
+						placeholder="Selecciona un Cartera">{{$select.selected.descCartera}}</ui-select-match>
+					<ui-select-choices
+						repeat="cartera.idCarteraCliente as cartera in facturacionCtrl.carteraCliente | propsFilter: {descCartera: $select.search, idCarteraCliente: $select.search}">
+					<div ng-bind-html="cartera.descCartera | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+				</div>
+
+				<div class="col-md-2" ng-if="facturacionCtrl.bndHabilidaFecha"
+					ng-class="{
+                             'has-success': form.fecIni.$dirty || form.fecIni.$valid ,
+                             'has-error': form.fecIni.$dirty && form.fecIni.$invalid}">
+					<label class=" control-label" for="fecIni">Fecha Inicio:</label> <input
+						type="text" class="form-control" id="fecIni" name="fecIni"
+						uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
+						ng-change="facturacionCtrl.setDate()"
+						ng-click="facturacionCtrl.abrirFechaIni()"
+						ng-model="facturacionCtrl.filtro.fecIni"
+						is-open="facturacionCtrl.fechaIni.abierto" close-text="Cerrar"
+						clear-text="Borrar" current-text="Hoy" />
+
+				</div>
+
+				<div class="col-md-2" ng-if="facturacionCtrl.bndHabilidaFecha"
+					ng-class="{
+                             'has-success': form.fecFin.$dirty || form.fecFin.$valid ,
+                             'has-error': form.fecFin.$dirty && form.fecFin.$invalid}">
+					<label class=" control-label" for="fecFin">Fecha Fin:</label> <input
+						type="text" class="form-control" id="fecFin" name="fecFin"
+						uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
+						ng-click="facturacionCtrl.abrirFechaFin()"
+						ng-model="facturacionCtrl.filtro.fecFin"
+						is-open="facturacionCtrl.fechaFin.abierto" close-text="Cerrar"
+						clear-text="Borrar" current-text="Hoy"
+						datepicker-options="{minDate: facturacionCtrl.filtro.fecIni}" />
+				</div>
+				<div class="col-md-2">
+					<a class="btn btn-primary" style="margin-top: 23px;" role="button"
+						ng-click="facturacionCtrl.irProcesar()" ng-if="form.$valid"
+						tooltip title="Ir a Procesar" data-placement="midle">Ir a
+						Procesar</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="panel panel-default panel-primary"
+	ng-if="facturacionCtrl.layoutCartera != null && facturacionCtrl.layoutCartera != undefined">
+
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-fw fa-dollar"></i>
+			{{facturacionCtrl.carteraSeleccionada.descCartera}}
+		</h4>
+	</div>
+	<div class="panel-body">
+		<fac-archivo-gral ng-if="facturacionCtrl.layoutCartera == 'AG'" cartera-seleccionada="facturacionCtrl.carteraSeleccionada"></fac-archivo-gral>	
+		<fac-estandar ng-if="facturacionCtrl.layoutCartera == 'E'" cartera-seleccionada="facturacionCtrl.carteraSeleccionada"></fac-estandar>
+	</div>
+</div>

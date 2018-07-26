@@ -1,0 +1,231 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<a
+			style="color: white; padding-right: 15px; cursor: pointer; font-size: 14px !important;"
+			ng-click="planeacionProyectoCtrl.cambioModo('C')"
+			title="Regresar a Subproyectos" class="fa fa-arrow-left"></a> <i
+			style="font-size: 14px !important;" class="fa fa-book"> Editar
+			SubProyecto - Cliente:{{planeacionProyectoCtrl.cliente.nomCliente}} -
+			Proyecto: {{planeacionProyectoCtrl.proyecto.nombre}} </i>
+	</div>
+
+
+
+	<div class="panel-body">
+
+		<!-- inicio Formulario Modificar Empresa   {{'' | translate}}  -->
+
+		<div class="container-fluid">
+
+			<form class="form-horizontal" name="form" novalidate>
+
+				<div class="row">
+					<div class="col-md-6">
+						<label class=" control-label">Cliente:</label> <label
+							class=" control-label">{{planeacionProyectoCtrl.cliente.nomCliente}}</label>
+					</div>
+					<div class="col-md-6">
+						<label class=" control-label">Proyecto:</label> <label
+							class=" control-label">{{planeacionProyectoCtrl.proyecto.nombre}}</label>
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.nombre.$dirty || form.nombre.$valid ,
+                             'has-error': form.nombre.$dirty && form.nombre.$invalid}">
+						<label class=" control-label" for="nombre">*Nombre:</label> <input
+							id="nombre" name="nombre" type="text" maxlength="250"
+							class="form-control input-md"
+							ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑÜü:\(\)]*$/"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.nombre"
+							ng-required="true">
+					</div>
+
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.lider.$dirty || form.lider.$valid ,
+                             'has-error': form.lider.$dirty && form.lider.$invalid}">
+						<label class="control-label">*Seleccione un Lider:</label> <select
+							class="form-control input-md" id="lider" name="lider"
+							ng-required="true"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.idPlantillaLider"
+							ng-options="opt.idPlantilla as opt.nombre for opt in planeacionProyectoCtrl.listPlantillaLider">
+							<option value="">Seleccione</option>
+						</select>
+
+					</div>
+
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.fecIni.$dirty || form.fecIni.$valid ,
+                             'has-error': form.fecIni.$dirty && form.fecIni.$invalid}">
+						<label class=" control-label" for="fecIni">*Fecha Inicio:</label>
+						<input type="text" class="form-control" id="fecIni" name="fecIni"
+							uib-datepicker-popup="dd/MM/yyyy"
+							ng-change="planeacionProyectoCtrl.changeFecSub()"
+							ng-click="planeacionProyectoCtrl.abrirFechaIni()"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.fecIni"
+							is-open="planeacionProyectoCtrl.fechaIni.abierto"
+							close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+							ng-required="true"
+							datepicker-options="{dateDisabled: planeacionProyectoCtrl.disabled}" />
+
+
+					</div>
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.fecFin.$dirty || form.fecFin.$valid ,
+                             'has-error': form.fecFin.$dirty && form.fecFin.$invalid}">
+						<label class=" control-label" for="fecFin">*Fecha Fin:</label> <input
+							ng-disabled="planeacionProyectoCtrl.subproyectoEditable.fecIni == null"
+							type="text" class="form-control" id="fecFin" name="fecFin"
+							uib-datepicker-popup="dd/MM/yyyy"
+							ng-click="planeacionProyectoCtrl.abrirFechaFin()"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.fecFin"
+							is-open="planeacionProyectoCtrl.fechaFin.abiertoL"
+							ng-required="true" close-text="Cerrar" clear-text="Borrar"
+							current-text="Hoy"
+							datepicker-options="{minDate: planeacionProyectoCtrl.fecIniSubProy, dateDisabled: planeacionProyectoCtrl.disabled}" />
+
+					</div>
+
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.estatus.$dirty || form.estatus.$valid ,
+                             'has-error': form.estatus.$dirty && form.estatus.$invalid}">
+						<label class="control-label">*Estatus:</label> <select
+							class="form-control input-md" id="estatus" name="estatus"
+							ng-required="true"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.estatus"
+							ng-options="opt.claveCat as opt.descripcionCat for opt in planeacionProyectoCtrl.estatus">
+							<option value="">Seleccione</option>
+						</select>
+					</div>
+					<div class="col-md-6"
+						ng-class="{'has-success': form.area.$dirty || form.area.$valid ,
+                             'has-error': form.ticket.$dirty && form.area.$invalid}">
+						<label class=" control-label">*Areas:</label>
+						<ui-select id="area" name="area" multiple
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.areas"
+							theme="bootstrap" style="height: 34px;" ng-required="true"
+							sortable="true" close-on-select="false"> <ui-select-match
+							placeholder="Seleccione Areas">{{$item.nombre}}
+						</ui-select-match> <ui-select-choices
+							repeat="area in planeacionProyectoCtrl.areasAWM | propsFilter: {nombre: $select.search}">
+						<div ng-bind-html="area.nombre | highlight: $select.search"></div>
+						</ui-select-choices> </ui-select>
+					</div>
+
+
+				</div>
+				<br />
+				<div class="row">
+
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.tipo.$dirty || form.tipo.$valid ,
+                             'has-error': form.tipo.$dirty && form.tipo.$invalid}">
+						<label class="control-label">*Seleccione Tipo de Proyecto:</label>
+						<select class="form-control input-md" id="tipo" name="tipo"
+							ng-required="true"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.catFacturable"
+							ng-options="opt.claveCat as opt.descripcionCat for opt in planeacionProyectoCtrl.catTipoproyecto">
+							<option value="">Seleccione</option>
+						</select>
+
+					</div>
+					
+					<div class="col-md-6"
+						ng-class="{
+                             'has-success': form.presupuesto.$dirty || form.presupuesto.$valid ,
+                             'has-error': form.presupuesto.$dirty && form.presupuesto.$invalid}">
+						<label class="control-label">Presupuesto:</label>
+						<div class="input-group">
+							<span class="input-group-addon" style="background: #f4f4f4;">$</span><input type="text"
+								class="form-control ng-valid ng-valid-min ng-valid-max ng-dirty ng-valid-parse ng-touched"
+								ng-model="planeacionProyectoCtrl.subproyectoEditable.presupuesto" money
+								min="1" precision="2">
+						</div>
+
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-6"
+						ng-class="{'has-success': form.porHora.$dirty || form.porHora.$valid ,
+                             'has-error': form.porHora.$dirty && form.porHora.$invalid}">
+						<label class=" control-label">Por Hora:</label> <input id="nombre"
+							name="porHora" type="number" max="9999"
+							class="form-control input-md"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.porHora">
+
+					</div>
+					<div class="col-md-6"
+						ng-class="{'has-success': form.porJornada.$dirty || form.porJornada.$valid ,
+                             'has-error': form.porJornada.$dirty && form.porJornada.$invalid}">
+						<label class=" control-label">Por Jornada:</label> <input
+							id="nombre" name="porJornada" type="number" max="9999"
+							class="form-control input-md"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.porJornada">
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-6"
+						ng-class="{'has-success': form.ticket.$dirty || form.ticket.$valid ,
+                             'has-error': form.ticket.$dirty && form.ticket.$invalid}">
+
+						<label class=" control-label">Ticket:</label>
+
+						<ui-select id="ticket" name="ticket"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.idTicket"
+							style="min-width: 300px;" title="Elige un Ticket"> <ui-select-match
+							placeholder="Selecciona un Ticket">{{$select.selected
+						.resumen}}</ui-select-match> <ui-select-choices
+							repeat="ticket.idTicket as ticket in planeacionProyectoCtrl.listTickets | propsFilter: {resumen: $select.search, idTicket: $select.search}">
+						<div ng-bind-html="ticket.resumen | highlight: $select.search"></div>
+						</ui-select-choices> </ui-select>
+					</div>
+				</div>
+
+				<br />
+				<div class="row">
+					<div class="col-md-12"
+						ng-class="{
+                             'has-success': form.descripcion.$dirty || form.descripcion.$valid ,
+                             'has-error': form.descripcion.$dirty && form.descripcion.$invalid}">
+						<label class=" control-label" for="descripcion">*Descripción:</label>
+						<textarea id="descripcion" name="descripcion" ng-required="true"
+							maxlength="500" minlength="5" ng-maxlength="4000"
+							ng-model="planeacionProyectoCtrl.subproyectoEditable.descripcion"
+							class="input-md"
+							style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+							rows="10"></textarea>
+					</div>
+				</div>
+				
+				<br />
+				<div class="row" style="border-top: 1px solid #bbd3de">
+					<div class="col-md-6 text-right"></div>
+					<div class="col-md-6 text-right">
+						<a class="btn btn-primary" style="margin-top: 41px;" role="button"
+							ng-click="planeacionProyectoCtrl.modificarSubproyecto()"
+							ng-if="form.$valid && planeacionProyectoCtrl.noHaCambiadoSubProy() && planeacionProyectoCtrl.subproyectoEditable.areas.length > 0"
+							tooltip title="Modificar Subproyecto" data-placement="midle">Modificar
+							Subproyecto </a>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+</div>

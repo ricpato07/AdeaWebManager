@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html ng-app="adeaModule">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Web Manager | AdeA México</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="../../dist/img/favicon.ico">
+        <!-- Bootstrap 3.3.6 -->
+
+        <!-- build:css app/css/app.css -->
+        <link rel="stylesheet" type="text/css" href="app/fonts/fonts-awesome/css/font-awesome.css"/>
+        <link rel="stylesheet" href="app/resources/css/app.css"/>
+        <link rel="stylesheet" href="app/lib/angular-datatables/dist/css/angular-datatables.css">
+        <link rel="stylesheet" href="app/lib/datatables/media/css/jquery.dataTables.css" />
+        <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css"/>
+        <link rel="stylesheet" href="app/adea.animations.css" />
+        <link rel="stylesheet" href="app/resources/css/AdminLTE.css">
+        <link rel="stylesheet" href="app/lib/kanban/DlhSoft.Kanban.Angular.Components.css">
+        <!-- endbuild -->
+
+        <!-- build:css app/css/styleComponents.css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="bower_components/angularjs-datepicker/src/css/angular-datepicker.css">
+        <link rel="stylesheet" href="bower_components/angular-gantt/dist/angular-gantt.css">
+        <link rel="stylesheet" href="bower_components/angular-gantt/dist/angular-gantt-progress-plugin.css">
+        <link rel="stylesheet" href="bower_components/angular-gantt/dist/angular-gantt-tooltips-plugin.css">
+        <link rel="stylesheet" href="bower_components/angular-gantt/dist/angular-gantt-groups-plugin.min.css">
+        <link rel="stylesheet" href="bower_components/angular-gantt/dist/angular-gantt-tree-plugin.min.css">
+        <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css">
+        <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+        <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
+        <!-- endbuild -->
+
+        <!-- build:js app/components.js -->
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+        <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+        <script src="bower_components/angular-webstorage/angular-webstorage.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+        <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
+        <script src="bower_components/angularjs-datepicker/src/js/angular-datepicker.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+        <script src="bower_components/angular-moment/angular-moment.js"></script>
+        <script src="bower_components/angular-gantt/dist/angular-gantt.js"></script>
+        <script src="bower_components/angular-gantt/dist/angular-gantt-plugins.js"></script>
+        <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+        <script src="bower_components/lodash/dist/lodash.js"></script>
+        <script src="bower_components/angular-ui-select/dist/select.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+        <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+        <script src="bower_components/angular-bootstrap-multiselect/dist/angular-bootstrap-multiselect.js"></script>
+        <script src="bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
+        <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+        <script src="bower_components/angular-block-ui/dist/angular-block-ui.min.js"></script>
+        <script src="bower_components/angular-pdf/dist/angular-pdf.js"></script>
+        <script src="bower_components/pdfjs-dist/build/pdf.js"></script>
+        <script src="bower_components/file-saver/FileSaver.js"></script>
+        <script src="bower_components/angular-money-directive/dist/angular-money-directive.js"></script>
+        <script src="bower_components/pdfmake/build/pdfmake.js"></script>
+        <script src="bower_components/html2canvas/build/html2canvas.js"></script>
+        <script src='bower_components/pdfmake/build/vfs_fonts.js'></script>
+        <!-- endbuild -->
+
+        <!-- build:js app/lib/libs.js -->
+        <script src="app/lib/datatables/media/js/jquery.dataTables.js"></script>
+        <script src="app/lib/JPlumb/jsplumb.js"></script>
+        <script src="app/lib/angular-datatables/dist/angular-datatables.min.js"></script>
+        <script src="app/i18n/angular-locale_es-mx.js""></script>
+        <!-- endbuild -->
+
+        <script src="app/lib/kanban/DlhSoft.Kanban.Angular.Components.js"></script>
+
+        <!-- build:app -->
+        <script src="app/adea.module.js"></script>
+        <script src="app/adea.routes.js"></script>
+        <script src="app/adea.runblock.js"></script>
+        <script src="app/adea.controller.js"></script>
+        <script src="app/adea.constants.js"></script>
+        <script src="app/adea.animations.js"></script>
+        <script src="app/adea.filters.js"></script>
+
+        <script src="app/directivas/directivas.module.js"></script>
+        <script src="app/directivas/adeaTabla/adeaTabla.controller.js"></script>
+        <script src="app/directivas/documentosGeneral/adeaDocumentosGenerales.directive.js"></script>
+        <script src="app/directivas/facturacionEstandar/facturacionEstandar.directive.js"></script>
+        <script src="app/directivas/facturacionArchivoGeneral/facturacionArchivoGeneral.directive.js"></script>
+        <script src="app/directivas/adeaProforma/adeaProforma.directive.js"></script>
+
+        <script src="app/servicios/servicios.modulo.js"></script>
+        <script src="app/servicios/adea.services.js"></script>
+        <script src="app/servicios/proyecto.services.js"></script>
+        <script src="app/servicios/ticket.service.js"></script>
+        <script src="app/servicios/facturacion.service.js"></script>
+        <script src="app/servicios/reporte.services.js"></script>
+        <script src="app/servicios/mantenimientoFac.services.js"></script>
+        <script src="app/servicios/proforma.services.js"></script>    
+        <script src="app/servicios/tablaValores.js"></script>
+        <script src="app/servicios/tablero.service.js"></script>
+
+        <script src="app/componentes/proyectos/planeacionProyecto.controller.js"></script>
+        <script src="app/componentes/plantilla/plantillaProyecto.controller.js"></script>
+        <script src="app/componentes/Tickets/tickets/tickets.controller.js"></script>
+        <script src="app/componentes/Tickets/registroTickets/reportarTicket.controller.js"></script>
+        <script src="app/componentes/Tickets/tableroTickets/tableroTickets.controller.js"></script>
+        <script src="app/componentes/reporteContratos/reporteContratos.controller.js"></script>
+        <script src="app/componentes/facturacion/facturacion/facturacion.controller.js"></script>
+        <script src="app/componentes/facturacion/incidencias/incidencias.controller.js"></script>
+        <script src="app/componentes/facturacion/mntItemsFac/mntItemsFac.controller.js"></script>
+        <script src="app/componentes/facturacion/mntCarteraCliente/mntCarteraClienteFac.controller.js"></script>
+        <script src="app/componentes/facturacion/mntConceptosFact/mntConceptoFact.controller.js"></script>
+        <script src="app/componentes/facturacion/consultaFacturacion/consultaFacturacion.controller.js"></script>
+        <script src="app/componentes/facturacion/configuracionProforma/configuracionProforma.controller.js"></script>
+        <script src="app/componentes/Visor/visor.controller.js"></script>
+        <script src="app/componentes/resumenProyectos/resumenProyectos.controller.js"></script>
+        <script src="app/componentes/seguimiento/tableroRecursos.controller.js"></script>
+        <!-- endbuild -->
+
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini">
+        <!-- Site wrapper -->
+        <div class="wrapper">
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" style="background: white; margin:0px">
+                <div ng-view class="view-frame"></div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

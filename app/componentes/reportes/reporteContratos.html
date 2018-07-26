@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Web Manager | AdeA México</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="shortcut icon" type="image/x-icon" href="../../dist/img/favicon.ico">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome         
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        -->
+        <link rel="stylesheet" href="../../dist/css/css/font-awesome.css">
+        <link rel="stylesheet" href="../../dist/css/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="../../plugins/datepicker/datepicker3.css">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="../../plugins/iCheck/all.css">
+        <!-- Bootstrap Color Picker -->
+        <link rel="stylesheet" href="../../plugins/colorpicker/bootstrap-colorpicker.min.css">
+        <!-- Bootstrap time Picker -->
+        <link rel="stylesheet" href="../../plugins/timepicker/bootstrap-timepicker.min.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="../../plugins/select2/select2.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins
+             folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
+
+    </head>
+    <body class="hold-transition skin-blue sidebar-mini" onload="myFunction()">
+        <div class="wrapper">
+            <header class="main-header">
+                <!-- Logo -->
+                <a href="index.html" class="logo" style="background: #004462">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>AdeA</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b>AdeA</b> Web Manager</span>
+                </a>
+                <!-- Header Navbar: style can be found in header.less -->
+                <nav class="navbar navbar-static-top" style="background: #004462">
+                    <!-- Sidebar toggle button-->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- User Account: style can be found in dropdown.less -->
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs">Nombre de Usuario</span></a>
+                                <ul class="dropdown-menu">
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="#" class="btn btn-default btn-flat">Cambiar Contraseña</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="../../../index.html" class="btn btn-default btn-flat">Salir</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- =============================================== -->
+
+            <!-- Left side column. contains the sidebar -->
+            <aside class="main-sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+                    <!-- Sidebar user panel -->
+                    <ul class="sidebar-menu">
+                        <li class="header">GESTIÓN</li>
+                        <li><a href="capturaClientes.html"><i class="fa fa-industry"></i> <span>Clientes</span></a></li>
+                        <li><a href="capturaProyectos.html"><i class="fa fa-book"></i> <span>Proyectos</span></a></li>
+                        <li><a href="capturaDocumentos.html"><i class="fa fa-file-text"></i> <span>Documentos</span></a></li>
+                        <li><a href="capturaOperatorias.html"><i class="fa fa-circle-o"></i> <span>Operatorias</span></a></li> 
+                        <li><a href="capturaSeries.html"><i class="fa fa-files-o"></i> <span>Series Documentales</span></a></li> 
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                <span>Usuarios Externos</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="altaUsuariosExt.html"><i class="fa fa-user-plus"></i>Alta</a></li>
+                                <li><a href="bajaUsuariosExt.html"><i class="fa fa-minus-circle"></i> Baja</a></li>
+                                <li><a href="modificacionUsuariosExt.html"><i class="fa fa-edit"></i> Modificación</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span>Usuarios Internos</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="altaUsuariosInt.html"><i class="fa fa-user-plus"></i>Alta</a></li>
+                                <li><a href="bajaUsuariosInt.html"><i class="fa fa-minus-circle"></i> Baja</a></li>
+                                <li><a href="modificacionUsuariosInt.html"><i class="fa fa-edit"></i> Modificación</a></li>
+                            </ul>
+                        </li> 
+                        <li class="header">CONSULTAS</li>
+                        <li><a href="reporteClientes.html"><i class="fa fa-eye"></i> <span>Clientes/Proyectos</span></a></li>
+                        <li class="active"><a href="reporteContratos.html"><i class="fa fa-newspaper-o"></i> <span>Contratos</span></a></li>
+                        <li class="header">AUTORIZACIÓNES</li>
+                        <li><a href="autorizacionProyectos.html"><i class="fa fa-lock"></i> <span>Proyectos/Documentos</span></a></li>                       
+
+
+                    </ul>
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" style="background: white">
+                <!-- Content Header (Page header) -->
+                <section class="content-header" style="height: auto;">
+                    <h1><i class="fa fa-fw fa-newspaper-o "></i> Reporte Ejecutivo de Contratos</h1>
+                    <br>
+
+                    <div class="tab-content">
+                        <div class="box-pane">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <div class="col-md-12" >
+                                        <div class="info-box" style="cursor:pointer; cursor: hand">
+
+                                            <a href="#tab_9" data-toggle="tab" style="text-decoration: none; color: #000;">
+                                                <span class="info-box-icon bg-gray-active"><i class="fa fa-server"></i></span>
+
+                                                <div class="info-box-content">
+                                                    <span class="info-box-text">Total de Proyectos</span>
+                                                    <span class="info-box-number">313</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>                    
+                                    <div class="col-md-12">          
+                                        <!--  <div  id="chart_div" ></div>-->
+
+                                        <div class="tab-content ">
+                                            <div class="tab-pane active" id="tab_grafico1">
+                                                <div  id="chart_div" ></div>
+                                            </div>
+                                            <div class="tab-pane " id="tab_grafico2">
+                                                <div id="dual_x_div" ></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-aqua-gradient" style="cursor:pointer; cursor: hand">
+                                                <a href="#tab_1" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-file-archive-o"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Clientes con Documentos Completos</span>
+                                                        <span class="info-box-number">123</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 45%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            45.7% de los Clientes
+                                                        </span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-green-gradient" style="cursor:pointer; cursor: hand">
+                                                <a href="#tab_2" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-folder-open"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Clientes con Documentos Incompletos</span>
+                                                        <span class="info-box-number">146</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 65%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            54.3% de los Clientes
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-light-blue-gradient" style="cursor:pointer; cursor: hand">
+                                                <a href="#tab_3" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-file-text"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Proyectos Con Contrato</span>
+                                                        <span class="info-box-number">189</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 45%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            60.3% de los Proyectos
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-purple-gradient" style="cursor:pointer; cursor: hand">
+
+                                                <a href="#tab_4" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-exclamation-circle"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Proyectos Sin Contrato</span>
+                                                        <span class="info-box-number">124</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 65%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            39.7% de los Proyectos
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.info-box -->
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-blue-gradient" style="cursor:pointer; cursor: hand">
+                                                <a href="#tab_5" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-files-o"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Contratos Con Anexos</span>
+                                                        <span class="info-box-number">56</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 45%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            29.6% de los Proyectos
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-yellow-gradient" style="cursor:pointer; cursor: hand">
+
+                                                <a href="#tab_6" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-file"></i></span>
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Contratos Sin Anexos</span>
+                                                        <span class="info-box-number">133</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 65%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            70.4% de los Proyectos
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-teal-gradient" style="cursor:pointer; cursor: hand">
+                                                <a href="#tab_7" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-file-text-o"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Contratos Con Polizas</span>
+                                                        <span class="info-box-number">136</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 45%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            71.9% de los Proyectos
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="info-box bg-maroon-gradient" style="cursor:pointer; cursor: hand">
+                                                <a href="#tab_8" data-toggle="tab" style="text-decoration: none; color: white;">
+                                                    <span class="info-box-icon"><i class="fa  fa-ban"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">Contratos Sin Polizas</span>
+                                                        <span class="info-box-number">53</span>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar" style="width: 65%"></div>
+                                                        </div>
+                                                        <span class="progress-description">
+                                                            28.1% de los Proyectos
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                                <!-- /.info-box-content -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="box-body">
+                            <div class="col-md-12 col-sm-12">
+                                <div>
+                                    <h4 class="box-title">
+                                        <i class="fa fa-bars"></i> Lista de Contratos
+                                    </h4>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="tab_1">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center">No. Cliente</th>
+                                                    <th style="text-align: center">Cliente</th>
+                                                    <th style="text-align: center">Estado</th>
+                                                    <th style="text-align: center">Carta Compromiso</th>
+                                                    <th style="text-align: center">Alta</th>
+                                                    <th style="text-align: center">Lista de Precios</th>
+                                                    <th style="text-align: center">Comprobante de Domicilio</th>
+                                                    <th style="text-align: center">Identificación Oficial Representante Legal</th>
+                                                    <th style="text-align: center">Acta Constitutiva</th>
+                                                    <th style="text-align: center">Aumento</th>
+                                                    <th style="text-align: center">R1 o R2</th>
+                                                    <th style="text-align: center">RFC</th>
+                                                    <th style="text-align: center">Poder Notaríal Representante Legal</th>
+                                                    <th style="text-align: center">Contrato</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">18</td>
+                                                    <td style="text-align: center">SEGUROS BBVA BANCOMER</td>
+                                                    <td style="text-align: center">ACTIVO</td>
+                                                    <td style="text-align: center">×</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                </tr> 
+                                                <tr>
+                                                    <td style="text-align: center">18</td>
+                                                    <td style="text-align: center">GRUPO FERLA</td>
+                                                    <td style="text-align: center">INACTIVO</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                </tr> 
+
+
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane " id="tab_2">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center">No. Cliente</th>
+                                                    <th style="text-align: center; width: 15%" width="15%">Cliente</th>
+                                                    <th style="text-align: center">Estado</th>
+                                                    <th style="text-align: center">Carta Compromiso</th>
+                                                    <th style="text-align: center">Alta</th>
+                                                    <th style="text-align: center">Lista de Precios</th>
+                                                    <th style="text-align: center">Comprobante de Domicilio</th>
+                                                    <th style="text-align: center">Identificación Oficial Representante Legal</th>
+                                                    <th style="text-align: center">Acta Constitutiva</th>
+                                                    <th style="text-align: center">Aumento</th>
+                                                    <th style="text-align: center">R1 o R2</th>
+                                                    <th style="text-align: center">RFC</th>
+                                                    <th style="text-align: center">Poder Notaríal Representante Legal</th>
+                                                    <th style="text-align: center">Contrato</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">18</td>
+                                                    <td style="text-align: center">AFORE BANCOMER</td>
+                                                    <td style="text-align: center">ACTIVO</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">×</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">×</td>
+                                                    <td style="text-align: center">×</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                    <td style="text-align: center">✓</td>
+                                                </tr> 
+
+
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_3">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center; width: 25%" width="25%">Cliente</th>
+                                                    <th style="text-align: center; width: 25%" width="25%">Proyecto</th>
+                                                    <th style="text-align: center">Tipo de Servicio</th>
+                                                    <th style="text-align: center">Fecha de Contrato</th>
+                                                    <th style="text-align: center">Vencimiento</th>
+                                                    <th style="text-align: center">Tiempo</th>
+                                                    <th style="text-align: center">Renovación</th>
+                                                    <th style="text-align: center">Tipo de Incremento</th>
+                                                    <th style="text-align: center">Original o Copia</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">SEGUROS BBVA BANCOMER</td>
+                                                    <td style="text-align: center">SEGUROS BBVA</td>
+                                                    <td style="text-align: center">AG</td>
+                                                    <td style="text-align: center">24-MAR-2017 </td>
+                                                    <td style="text-align: center">24-MAR-2018</td>
+                                                    <td style="text-align: center">1AÑO</td>
+                                                    <td style="text-align: center">AUTOMATICA</td>
+                                                    <td style="text-align: center">ANIVERSARIO</td>
+                                                    <td style="text-align: center">COPIA</td>
+                                                </tr>         
+                                                <tr>
+                                                    <td style="text-align: center">SEGUROS BBVA BANCOMER</td>
+                                                    <td style="text-align: center">BBVA CAR</td>
+                                                    <td style="text-align: center">AG</td>
+                                                    <td style="text-align: center">02-ENE-2017 </td>
+                                                    <td style="text-align: center">14-ENE-2018</td>
+                                                    <td style="text-align: center">1AÑO</td>
+                                                    <td style="text-align: center">AUTOMATICA</td>
+                                                    <td style="text-align: center">ANIVERSARIO</td>
+                                                    <td style="text-align: center">ORIGINAL</td>
+                                                </tr>                               
+
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_4">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center; width: 25%" width="25%">Cliente</th>
+                                                    <th style="text-align: center; width: 25%" width="25%">Proyecto</th>
+                                                    <th style="text-align: center">Tipo de Servicio</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">SOFOL</td>
+                                                    <td style="text-align: center">SOFOL,APLICACIÓN</td>
+                                                    <td style="text-align: center">ARCHIVO GENERAL, EXPEDIENTE</td>
+                                                </tr>                               
+
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_5">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center; width: 25%" width="25%">Cliente</th>
+                                                    <th style="text-align: center; width: 25%" width="25%">Proyecto</th>
+                                                    <th style="text-align: center">Tipo de Servicio</th>
+                                                    <th style="text-align: center">Fecha de Contrato</th>
+                                                    <th style="text-align: center">Vencimiento</th>
+                                                    <th style="text-align: center">Tiempo</th>
+                                                    <th style="text-align: center">Renovación</th>
+                                                    <th style="text-align: center">Tipo de Incremento</th>
+                                                    <th style="text-align: center"># de Anexos</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">SIGMA</td>
+                                                    <td style="text-align: center">SIGMA ALIMENTOS</td>
+                                                    <td style="text-align: center">EXP</td>
+                                                    <td style="text-align: center">19-ABR-2013 </td>
+                                                    <td style="text-align: center">19-ABR-2015</td>
+                                                    <td style="text-align: center">2 AÑOS</td>
+                                                    <td style="text-align: center">AUTOMATICA</td>
+                                                    <td style="text-align: center">ANIVERSARIO</td>
+                                                    <td style="text-align: center">3</td>
+                                                </tr> 
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_6">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center; width: 25%" width="25%">Cliente</th>
+                                                    <th style="text-align: center; width: 25%" width="25%">Proyecto</th>
+                                                    <th style="text-align: center">Tipo de Servicio</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">SOFES</td>
+                                                    <td style="text-align: center">SOFES APP</td>
+                                                    <td style="text-align: center">AG, EXP</td>
+                                                </tr>     
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_7">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center; width: 25%" width="25%">Cliente</th>
+                                                    <th style="text-align: center; width: 25%" width="25%">Proyecto</th>
+                                                    <th style="text-align: center">Tipo de Servicio</th>
+                                                    <th style="text-align: center">Fecha de Contrato</th>
+                                                    <th style="text-align: center">Vencimiento</th>
+                                                    <th style="text-align: center">Tiempo</th>
+                                                    <th style="text-align: center">Renovación</th>
+                                                    <th style="text-align: center">Tipo de Incremento</th>
+                                                    <th style="text-align: center"># de Pólizas</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">SIGMA</td>
+                                                    <td style="text-align: center">SIGMA ALIMENTOS</td>
+                                                    <td style="text-align: center">EXP</td>
+                                                    <td style="text-align: center">19-ABR-2013 </td>
+                                                    <td style="text-align: center">19-ABR-2015</td>
+                                                    <td style="text-align: center">2 AÑOS</td>
+                                                    <td style="text-align: center">AUTOMATICA</td>
+                                                    <td style="text-align: center">ANIVERSARIO</td>
+                                                    <td style="text-align: center">5</td>
+                                                </tr> 
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="tab_8">
+                                        <div class="col-md-12 col-sm-12 table-responsive">
+                                            <table class="table table-responsive table-hover ">
+                                                <tr style="background-color: #005983; color: white;">
+                                                    <th style="text-align: center; width: 25%" width="25%">Cliente</th>
+                                                    <th style="text-align: center; width: 25%" width="25%">Proyecto</th>
+                                                    <th style="text-align: center">Tipo de Servicio</th>
+                                                </tr>     
+                                                <tr>
+                                                    <td style="text-align: center">SOFOL</td>
+                                                    <td style="text-align: center">SOFOL APLICACIÓN</td>
+                                                    <td style="text-align: center">ARCHIVO GENERAL, EXPEDIENTE</td>
+                                                </tr>     
+                                            </table>
+                                        </div>
+                                        <div class="box-footer clearfix">
+                                            <ul class="pagination pagination-sm no-margin pull-right">
+                                                <li><a href="#">&laquo;</a></li>
+                                                <li><a href="#">1</a></li>
+                                                <li><a href="#">2</a></li>
+                                                <li><a href="#">3</a></li>
+                                                <li><a href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane active" id="tab_9">
+                                        <div class="box-group" id="accordion">
+                                            <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                                            <div class="panel box " style="border-top-color: #004462">
+                                                <div data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="box-header with-border" style="cursor: pointer">
+                                                    <h4 class="box-title">
+                                                        <a style="color:#000">
+                                                            Vigentes
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse">
+                                                    <table class="table table-responsive table-hover">
+                                                        <tr style="background-color: #005983; color: white;">
+                                                            <th style="text-align: center;"></th>
+                                                            <th style="text-align: center;">Total Mensual</th>
+                                                            <th style="text-align: center;">Contratos con anexos completos</th>
+                                                            <th style="text-align: center;">Anexos en contratos completos</th>
+                                                            <th style="text-align: center;">Contratos con <br> anexos faltantes</th>
+                                                            <th style="text-align: center;">Contratos con <br> pólizas</th>
+                                                            <th style="text-align: center;">Contratos vencidos <br>con anexos vigentes</th>
+                                                            <th style="text-align: center;">Contratos <br>autorrenovables</th>
+                                                            <th style="text-align: center;">Contratos por <br> tiempo indefinido</th>
+                                                            <th style="text-align: center;">Contratos en copia</th>
+                                                            <th style="text-align: center;">Contratos en original</th>
+                                                        </tr>     
+                                                        <tr>
+                                                            <td style="text-align: center">Septiembre 2017</td>
+                                                            <td style="text-align: center">4</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">7</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                        </tr>    
+                                                        <tr>
+                                                            <td style="text-align: center">Octubre 2017</td>
+                                                            <td style="text-align: center">15</td>
+                                                            <td style="text-align: center">1</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">1</td>
+                                                        </tr>    
+                                                        <tr>
+                                                            <td style="text-align: center">Noviembre 2017</td>
+                                                            <td style="text-align: center">10</td>
+                                                            <td style="text-align: center">4</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">8</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">5</td>
+                                                        </tr>    
+                                                        <tr>
+                                                            <td style="text-align: center">Diciembre 2017</td>
+                                                            <td style="text-align: center">4</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">1</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">5</td>
+                                                        </tr>    
+                                                        <tr>
+                                                            <td style="text-align: center">Enero 2018</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">7</td>                                                          <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">8</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">1</td>
+                                                        </tr>     
+                                                        <tr>
+                                                            <td style="text-align: center">Febrero 2018</td>
+                                                            <td style="text-align: center">1</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                        </tr>     
+                                                        <tr>
+                                                            <td style="text-align: center">Marzo 2018</td>
+                                                            <td style="text-align: center">7</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">3</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">8</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">1</td>
+                                                        </tr>     
+                                                        <tr>
+                                                            <td style="text-align: center">Abril 2018</td>
+                                                            <td style="text-align: center">6</td>
+                                                            <td style="text-align: center">8</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">4</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">4</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">3</td>
+                                                        </tr>     
+                                                        <tr>
+                                                            <td style="text-align: center">Mayo 2018</td>
+                                                            <td style="text-align: center">8</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">4</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">5</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                        </tr>     
+                                                        <tr>
+                                                            <td style="text-align: center">Junio 2018</td>
+                                                            <td style="text-align: center">7</td>
+                                                            <td style="text-align: center">8</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">3</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">7</td>
+                                                            <td style="text-align: center">2</td>
+                                                            <td style="text-align: center">0</td>
+                                                            <td style="text-align: center">9</td>
+                                                        </tr> 
+                                                        <tr>
+                                                            <td style="text-align: center"><b>TOTAL</b></td>
+                                                            <td style="text-align: center"><b>12</b></td>
+                                                            <td style="text-align: center"><b>42</b></td>
+                                                            <td style="text-align: center"><b>34</b></td>
+                                                            <td style="text-align: center"><b>26</b></td>
+                                                            <td style="text-align: center"><b>12</b></td>
+                                                            <td style="text-align: center"><b>14</b></td>
+                                                            <td style="text-align: center"><b>12</b></td>
+                                                            <td style="text-align: center"><b>14</b></td>
+                                                            <td style="text-align: center"><b>0</b></td>
+                                                            <td style="text-align: center"><b>95</b></td>
+                                                        </tr> 
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="panel box"  style="border-top-color: #004462">
+                                                <div class="box-header with-border" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" style="cursor: pointer" >
+                                                    <h4 class="box-title">
+                                                        <a style="color:#000">
+                                                            Vencidos
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseThree" class="panel-collapse collapse">
+
+                                                    <div class="box-body table-responsive no-padding" style="overflow-x:auto;">
+                                                        <table class="table table-responsive table-hover">
+                                                            <tr style="background-color: #005983; color: white;">
+                                                                <th style="text-align: center;"></th>
+                                                                <th style="text-align: center;">Total anual</th>
+                                                                <th style="text-align: center;">Contratos con anexos completos</th>
+                                                                <th style="text-align: center;">Anexos en contratos completos</th>
+                                                                <th style="text-align: center;">Contratos con <br> anexos faltantes</th>
+                                                                <th style="text-align: center;">Contratos con <br> pólizas</th>
+                                                                <th style="text-align: center;">Contratos vencidos <br>con anexos vigentes</th>
+                                                                <th style="text-align: center;">Contratos en copia</th>
+                                                                <th style="text-align: center;">Contratos en original</th>
+                                                            </tr>     
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2016</td>
+                                                                <td style="text-align: center">4</td>
+                                                                <td style="text-align: center">2</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">7</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">2</td>
+                                                            </tr>    
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2015</td>
+                                                                <td style="text-align: center">15</td>
+                                                                <td style="text-align: center">1</td>
+                                                                <td style="text-align: center">6</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">2</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">1</td>
+                                                            </tr>    
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2014</td>
+                                                                <td style="text-align: center">10</td>
+                                                                <td style="text-align: center">4</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">6</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">5</td>
+                                                            </tr>    
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2013</td>
+                                                                <td style="text-align: center">4</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">8</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">5</td>
+                                                            </tr>    
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2012</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">2</td>
+                                                                <td style="text-align: center">6</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">8</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">1</td>
+                                                            </tr>     
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2011</td>
+                                                                <td style="text-align: center">1</td>
+                                                                <td style="text-align: center">2</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">0</td>
+                                                            </tr>     
+                                                            <tr>
+                                                                <td style="text-align: center">Vencidos 2010</td>
+                                                                <td style="text-align: center">7</td>
+                                                                <td style="text-align: center">2</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">3</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">1</td>
+                                                            </tr>     
+                                                            <tr>
+                                                                <td style="text-align: center">Anteriores a 2010</td>
+                                                                <td style="text-align: center">6</td>
+                                                                <td style="text-align: center">4</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">5</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">4</td>
+                                                                <td style="text-align: center">0</td>
+                                                                <td style="text-align: center">3</td>
+                                                            </tr>     
+
+                                                            <tr>
+                                                                <td style="text-align: center"><b>TOTAL</b></td>
+                                                                <td style="text-align: center"><b>25</b></td>
+                                                                <td style="text-align: center"><b>12</b></td>
+                                                                <td style="text-align: center"><b>24</b></td>
+                                                                <td style="text-align: center"><b>16</b></td>
+                                                                <td style="text-align: center"><b>0</b></td>
+                                                                <td style="text-align: center"><b>16</b></td>
+                                                                <td style="text-align: center"><b>0</b></td>
+                                                                <td style="text-align: center"><b>14</b></td>
+                                                            </tr> 
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel box"  style="border-top-color: #004462">
+                                                <div class="box-header with-border" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" style="cursor: pointer" >
+                                                    <h4 class="box-title">
+                                                        <a style="color:#000">
+                                                            Indefinidos
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div id="collapseSix" class="panel-collapse collapse">
+
+                                                    <div class="box-body table-responsive no-padding" style="overflow-x:auto;">
+
+                                                        <table class="table table-responsive table-hover">
+                                                            <tr style="background-color: #005983; color: white;">
+                                                                <th style="text-align: center;"></th>
+                                                                <th style="text-align: center;">Cantidad</th>
+                                                                <th style="text-align: center;">Contratos completos <br>(con todos sus anexos)</th>
+                                                                <th style="text-align: center;">Cantidad de anexos incluidos <br> en contratos completos</th>
+                                                                <th style="text-align: center;">Contratos con <br> anexos faltantes</th>
+                                                                <th style="text-align: center;">Contratos faltantes <br>(anexos existentes)</th>
+                                                                <th style="text-align: center;">Cantidad de anexos <br>existentes sin contrato</th>
+                                                                <th style="text-align: center;">Contratos con <br> pólizas</th>
+                                                                <th style="text-align: center;">Contratos <br>autorrenovables</th>
+                                                                <th style="text-align: center;">Contratos por plazo <br>de tiempo indefinido</th>
+                                                                <th style="text-align: center;">Contratos vencidos <br>con anexos vigentes</th>
+                                                                <th style="text-align: center;">Contratos en copia</th>
+                                                                <th style="text-align: center;">Contratos en original</th>
+                                                            </tr>     
+                                                            <tr>
+                                                                <td style="text-align: center">Sin Vigencia</td>
+                                                                <td style="text-align: center"><b>25</b></td>
+                                                                <td style="text-align: center"><b>12</b></td>
+                                                                <td style="text-align: center"><b>23</b></td>
+                                                                <td style="text-align: center"><b>26</b></td>
+                                                                <td style="text-align: center"><b>13</b></td>
+                                                                <td style="text-align: center"><b>19</b></td>
+                                                                <td style="text-align: center"><b>24</b></td>
+                                                                <td style="text-align: center"><b>19</b></td>
+                                                                <td style="text-align: center"><b>24</b></td>
+                                                                <td style="text-align: center"><b>16</b></td>
+                                                                <td style="text-align: center"><b>0</b></td>
+                                                                <td style="text-align: center"><b>14</b></td>
+                                                            </tr>                    
+
+                                                            <tr>
+                                                                <td style="text-align: center"><b>TOTAL</b></td>
+                                                                <td style="text-align: center"><b>25</b></td>
+                                                                <td style="text-align: center"><b>12</b></td>
+                                                                <td style="text-align: center"><b>23</b></td>
+                                                                <td style="text-align: center"><b>26</b></td>
+                                                                <td style="text-align: center"><b>13</b></td>
+                                                                <td style="text-align: center"><b>19</b></td>
+                                                                <td style="text-align: center"><b>24</b></td>
+                                                                <td style="text-align: center"><b>19</b></td>
+                                                                <td style="text-align: center"><b>24</b></td>
+                                                                <td style="text-align: center"><b>16</b></td>
+                                                                <td style="text-align: center"><b>0</b></td>
+                                                                <td style="text-align: center"><b>14</b></td>
+                                                            </tr>      
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+
+                </section>
+            </div>
+            <!-- /.content-wrapper -->
+            <footer class="main-footer">
+                <div class="container">
+                    <div class="pull-right hidden-xs">
+                        <b>Version</b> 2.0
+                    </div>
+                    <strong style="color: red">Esta página solo es una representación visual de la información. </strong>  <a href="https://www.adea.com.mx/adea-nvo/"> AdeA México</a> no garantiza respetar todo el diseño.
+                </div>
+                <!-- /.container -->
+            </footer>
+        </div>
+
+        <!-- jQuery 2.2.3 -->
+        <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+        <!-- Bootstrap 3.3.6 -->
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <!-- Select2 -->
+        <script src="../../plugins/select2/select2.full.min.js"></script>
+        <!-- InputMask -->
+        <script src="../../plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <!-- date-range-picker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+        <!-- bootstrap color picker -->
+        <script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        <!-- bootstrap time picker -->
+        <script src="../../plugins/timepicker/bootstrap-timepicker.min.js"></script>
+        <!-- SlimScroll 1.3.0 -->
+        <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- iCheck 1.0.1 -->
+        <script src="../../plugins/iCheck/icheck.min.js"></script>
+        <!-- FastClick -->
+        <script src="../../plugins/fastclick/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../../dist/js/app.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../../dist/js/demo.js"></script>
+        <!-- DataTables -->
+        <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- Page script -->
+        <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $(".select2").select2();
+
+            //Datemask dd/mm/yyyy
+            $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+            //Datemask2 mm/dd/yyyy
+            $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+            //Money Euro
+            $("[data-mask]").inputmask();
+
+            //Date range picker
+            $('#reservation').daterangepicker();
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                    {
+                        ranges: {
+                            'Today': [moment(), moment()],
+                            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                            'This Month': [moment().startOf('month'), moment().endOf('month')],
+                            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                        },
+                        startDate: moment().subtract(29, 'days'),
+                        endDate: moment()
+                    },
+                    function (start, end) {
+                        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+                    }
+            );
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
+            $('#datepicker2').datepicker({
+                autoclose: true
+            });
+
+            //iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            });
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass: 'iradio_minimal-red'
+            });
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass: 'iradio_flat-green'
+            });
+
+            //Colorpicker
+            $(".my-colorpicker1").colorpicker();
+            //color picker with addon
+            $(".my-colorpicker2").colorpicker();
+
+            //Timepicker
+            $(".timepicker").timepicker({
+                showInputs: false
+            });
+        });
+        </script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+        // Load the Visualization API and the corechart package.
+        google.charts.load('current', {'packages': ['corechart', 'bar']});
+        //google.charts.load('current', {'packages': ['gantt']});
+
+        google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawStuff);
+        function drawChart() {
+
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Sin Vigencia', 197],
+                ['Vigentes', 115],
+            ]);
+
+            // Set chart options
+            var options = {'title': 'Total de contratos',
+                'width': 400,
+                'height': 300};
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function drawStuff() {
+            var data = new google.visualization.arrayToDataTable([
+                ['Galaxy', 'Distance', 'Brightness'],
+                ['Canis Major Dwarf', 8000, 23.3],
+                ['Sagittarius Dwarf', 24000, 4.5],
+                ['Ursa Major II Dwarf', 30000, 14.3],
+                ['Lg. Magellanic Cloud', 50000, 0.9],
+                ['Bootes I', 60000, 13.1]
+            ]);
+
+            var options = {
+                width: 800,
+                chart: {
+                    title: 'Nearby galaxies',
+                    subtitle: 'distance on the left, brightness on the right'
+                },
+                bars: 'horizontal', // Required for Material Bar Charts.
+                series: {
+                    0: {axis: 'distance'}, // Bind series 0 to an axis named 'distance'.
+                    1: {axis: 'brightness'} // Bind series 1 to an axis named 'brightness'.
+                },
+                axes: {
+                    x: {
+                        distance: {label: 'parsecs'}, // Bottom x-axis.
+                        brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
+                    }
+                }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('dual_x_div'));
+            chart.draw(data, options);
+        }
+        ;
+        </script>
+
+        <script>
+            $(function () {
+                $("#example2").DataTable();
+                $('#example1').DataTable({
+                    "paging": false,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": false,
+                    "autoWidth": true
+                });
+            });
+        </script>
+
+    </body>
+
+</html>

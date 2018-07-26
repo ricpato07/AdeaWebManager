@@ -1,0 +1,87 @@
+<!-- PROFORMA -->
+<div class="col-md-8" style="padding-right: 0;"
+	ng-if="proformaCtrl.proforma.listProformaDet.length > 0">
+	<h4 style="border-bottom: 1px solid #337ab7;">Preforma
+		Facturaci&oacute;n</h4>
+</div>
+<div class="col-md-4"
+	ng-if="proformaCtrl.proforma.listProformaDet.length > 0"
+	style="border-bottom: 1px solid #337ab7; text-align: right; font-size: 20.5px; text-decoration: none; width: 31.333333%;">
+
+	<a class="fa fa-plus-square" data-target='#addItemProforma'
+		ng-if="modo == 'A'"
+		style="cursor: pointer; font-size: 26px; text-decoration: none; padding-right: 5px;"
+		data-toggle="modal" title="Agregar Item Manual" data-toggle="tooltip"
+		data-placement="midle"></a> <a class="fa fa-file-pdf-o"
+		data-target='#printProforma'
+		style="cursor: pointer; font-size: 24px; text-decoration: none;"
+		data-toggle="modal" title="Exportar Proforma" data-toggle="tooltip"
+		data-placement="midle"></a>
+
+
+</div>
+<br />
+<div class="col-md-12"
+	ng-if="proformaCtrl.proforma.listProformaDet.length > 0">
+	<table class="table table-hover">
+		<thead style="background-color: #337ab7; color: white;">
+			<tr>
+				<th style="text-align: left; width: 66%;">Descripci&oacute;n
+					Item</th>
+				<th style="text-align: center; width: 21%;">Tipo</th>
+				<th style="text-align: center; width: 10%;">Unidad</th>
+				<th style="text-align: center; width: 8%;">Cantidad</th>
+				<th style="text-align: center; width: 7%;">Precio Unitario</th>
+				<th style="text-align: center;">Total</th>
+			</tr>
+		</thead>
+		<tr ng-repeat="item in proformaCtrl.proforma.listProformaDet">
+			<td><a class="fa fa-minus-square" ng-click="proformaCtrl.itemSeleccionado = item;"
+					data-target='#eliminarProforma' ng-if="modo == 'A' && item.idProformaCfg == null"
+					style="cursor: pointer; font-size: 24px; text-decoration: none;"
+					data-toggle="modal" title="Eliminar Item" data-toggle="tooltip"
+					data-placement="midle">&nbsp;&nbsp;</a>{{item.descItem}} </td>
+			<td style="text-align: center;">{{item.tipo}}</td>
+			<td style="text-align: center;">{{item.descUnidad}}</td>
+			<td style="text-align: right;">
+				<a role="button" tooltip
+				ng-if="item.nomArc != null && item.nomArc != undefined && item.nomArc != '---'"
+				title="{{item.nomArc}}"
+				ng-click="proformaCtrl.downloadArchivoFact(item.nomArc)">
+					{{item.cantidad}}</a> 
+				<span
+				ng-if="item.nomArc == null || item.nomArc == undefined || item.nomArc == '---'">{{item.cantidad}}</span>
+			</td>
+
+			<td style="text-align: right;">
+				<span ng-if="item.precioUnitario != 0">{{item.precioUnitario | moneda}}</span>
+				<span ng-if="item.precioUnitario == 0">Bonificado</span>
+			</td>
+			<td style="text-align: right;">{{item.subtotal | moneda}}</td>
+		</tr>
+		<tr
+			style="border-style: double none none none; border-top-color: #337ab7;">
+			<td colspan="4"></td>
+			<td style="text-align: right; font-weight: bold;">SubTotal</td>
+			<td style="text-align: right;">{{proformaCtrl.proforma.subtotal
+				| moneda}}</td>
+		</tr>
+		<tr>
+			<td colspan="4"></td>
+			<td style="text-align: right; font-weight: bold;">Iva</td>
+			<td style="text-align: right;">{{proformaCtrl.proforma.iva |
+				moneda}}</td>
+		</tr>
+		<tr>
+			<td colspan="4"></td>
+			<td style="text-align: right; font-weight: bold;">Total</td>
+			<td style="text-align: right;">{{proformaCtrl.proforma.total |
+				moneda}}</td>
+		</tr>
+	</table>
+</div>
+
+<div
+	ng-include="'app/directivas/adeaProforma/detalle/printProforma.html'"></div>
+<div ng-include="'app/directivas/adeaProforma/detalle/addProforma.html'"></div>
+<div ng-include="'app/directivas/adeaProforma/detalle/delProforma.html'"></div>

@@ -1,0 +1,57 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter">&nbsp;&nbsp; Configuraci&oacute;n Proforma Facturaci&oacute;n </i>
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-6"
+				ng-class="{
+                             'has-success': form.cartera.$dirty || form.cartera.$valid ,
+                             'has-error': form.cartera.$dirty && form.cartera.$invalid}">
+				<label class=" control-label">Cartera:</label>
+				
+				<ui-select id="cartera" name="cartera" ng-required="true" ng-if="configuracionProformaCtrl.carteraCliente.length > 0"
+					ng-model="configuracionProformaCtrl.idCarteraSeleccionado"
+					ng-change="configuracionProformaCtrl.consConfProforma()"
+					style="min-width: 300px;" title="Elige una Cartera"> <ui-select-match
+					placeholder="Selecciona una Cartera">{{$select.selected.descCartera}}</ui-select-match>
+				<ui-select-choices
+					repeat="cartera.idCarteraCliente as cartera in configuracionProformaCtrl.carteraCliente | propsFilter: {descCartera: $select.search, idCarteraCliente: $select.search}">
+				<div ng-bind-html="cartera.descCartera | highlight: $select.search"></div>
+				</ui-select-choices> </ui-select>
+			</div>
+			<div class="col-md-6 text-right" style="margin-top: 15px;">
+				<a class="btn btn-primary" data-target='#agregarCfgProforma'
+					ng-if="configuracionProformaCtrl.idCarteraSeleccionado != null && configuracionProformaCtrl.idCarteraSeleccionado != ''"
+					role="button" data-toggle="modal" title="Agregar"
+					data-toggle="tooltip" data-placement="midle">Agregar</a> 
+				<a
+					class="btn btn-primary" data-target='#editarCfgProforma'
+					data-target='#editarConcep' role="button" data-toggle="modal"
+					ng-if="configuracionProformaCtrl.confSeleccionado != null && configuracionProformaCtrl.confSeleccionado != '' && configuracionProformaCtrl.confSeleccionado != undefined"
+					title="Editar" data-toggle="tooltip" data-placement="midle">Editar
+				</a>
+			</div>
+		</div>
+
+		<br /> <br />
+		<adea-tabla dt-data-source="configuracionProformaCtrl.configuracionProforma"
+			
+			config="configuracionProformaCtrl.tblConfigProforma"
+			registro-seleccionado="configuracionProformaCtrl.confSeleccionado"
+			seleccionar-registro="configuracionProformaCtrl.seleccionarConf(reg);">
+
+		</adea-tabla>
+	</div>
+</div>
+<div
+	ng-include="'app/componentes/facturacion/configuracionProforma/modals/altaCfgProforma.html'"></div>
+<div
+	ng-include="'app/componentes/facturacion/configuracionProforma/modals/editarCfgProforma.html'"></div>

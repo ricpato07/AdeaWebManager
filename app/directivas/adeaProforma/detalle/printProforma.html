@@ -1,0 +1,84 @@
+<div class="modal fade" id="printProforma" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Exportar Preforma</h4>
+			</div>
+
+			<div class="modal-body">
+				<div id="bodyProforma">
+					<div class="row">
+						<div class="col-md-6">
+							<img src="app/resources/img/AdeaLogo.jpg" alt="Ade" width="150">
+						</div>
+						<div class="col-md-6" style="font-size: 16px;">
+							<br /> <label>Periodo de Facturaci&oacute;n:</label> <label>{{periodo}}</label>
+						</div>
+					</div>
+
+					<br />
+					<div class="row">
+						<div class="col-md-12"
+							ng-if="proformaCtrl.proforma.listProformaDet.length > 0">
+
+							<table class="table table-hover">
+								<thead style="background-color: #337ab7; color: white;">
+									<tr>
+										<th style="text-align: left; width: 66%;">Descripci&oacute;n
+											Item</th>
+										<th style="text-align: center; width: 21%;">Tipo</th>
+										<th style="text-align: center; width: 10%;">Unidad</th>
+										<th style="text-align: center; width: 8%;">Cantidad</th>
+										<th style="text-align: center; width: 7%;">Precio
+											Unitario</th>
+										<th style="text-align: center;">Total</th>
+									</tr>
+								</thead>
+								<tr ng-repeat="item in proformaCtrl.proforma.listProformaDet">
+									<td>{{item.descItem}}</td>
+									<td style="text-align: center;">{{item.tipo}}</td>
+									<td style="text-align: center;">{{item.descUnidad}}</td>
+									<td style="text-align: right;">{{item.cantidad}}</td>
+									<td style="text-align: right;">{{item.precioUnitario |
+										moneda}}</td>
+									<td style="text-align: right;">{{item.subtotal | moneda}}</td>
+								</tr>
+								<tr
+									style="border-style: double none none none; border-top-color: #337ab7;">
+									<td colspan="4"></td>
+									<td style="text-align: right; font-weight: bold;">SubTotal</td>
+									<td style="text-align: right;">{{proformaCtrl.proforma.subtotal
+										| moneda}}</td>
+								</tr>
+								<tr>
+									<td colspan="4"></td>
+									<td style="text-align: right; font-weight: bold;">Iva</td>
+									<td style="text-align: right;">{{proformaCtrl.proforma.iva
+										| moneda}}</td>
+								</tr>
+								<tr>
+									<td colspan="4"></td>
+									<td style="text-align: right; font-weight: bold;">Total</td>
+									<td style="text-align: right;">{{proformaCtrl.proforma.total
+										| moneda}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 text-right"></div>
+					<div class="col-md-6 text-right">
+						<a class="btn btn-primary" style="margin-top: 41px;" role="button"
+							ng-click="proformaCtrl.descargarProforma()" tooltip
+							title="Guarda Proforma" data-placement="midle">Descargar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

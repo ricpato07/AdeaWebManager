@@ -1,0 +1,109 @@
+<div class="modal fade" id="agregarRecurso" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Agregar Recurso</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+
+				<!-- inicio Formulario Modificar Empresa   {{'' | translate}}  -->
+
+				<div class="container-fluid">
+
+					<form class="form-horizontal" name="form" novalidate>
+						<div class="row">
+							<div class="col-md-6"
+								ng-class="{
+                             'has-success': form.nombre.$dirty || form.nombre.$valid ,
+                             'has-error': form.nombre.$dirty && form.nombre.$invalid}">
+								<label class=" control-label" for="nombre">Nombre:</label> <input
+									id="nombre" name="nombre" maxlength="50" type="text"
+									class="form-control input-md"
+									ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+									ng-model="plantillaProyectoCtrl.recurso.nombre"
+									ng-required="true">
+							</div>
+
+							<div class="col-md-6"
+								ng-class="{
+                             'has-success': form.perfil.$dirty || form.perfil.$valid ,
+                             'has-error': form.perfil.$dirty && form.perfil.$invalid}">
+								<label class="control-label">Seleccione un Perfil:</label> <select
+									class="form-control input-md" id="perfil" name="perfil"
+									ng-required="true"
+									ng-model="plantillaProyectoCtrl.recurso.perfil"
+									ng-options="opt.claveCat as opt.descripcionCat for opt in plantillaProyectoCtrl.perfiles">
+									<option value="">Seleccione</option>
+								</select>
+
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-6"
+								ng-class="{
+                             'has-success': form.costo.$dirty || form.costo.$valid ,
+                             'has-error': form.costo.$dirty && form.costo.$invalid}">
+								<label class=" control-label" for="costo">Costo x Mes:</label> <input
+									id="costo" max="999999999999" min="1" name="costo"
+									type="number" class="form-control input-md"
+									ng-pattern="/(?=.)^\$?(([1-9][0-9]{0,2}(,[0-9]{3})*)|[0-9]+)?(\.[0-9]{1,2})?$/"
+									ng-model="plantillaProyectoCtrl.recurso.costo"
+									ng-required="true">
+							</div>
+							<div class="col-md-6"
+								ng-class="{'has-success': form.login.$dirty || form.login.$valid ,
+                             'has-error': form.login.$dirty && form.login.$invalid}">
+
+								<label class=" control-label">Asignar Usuario:</label>
+								<ui-select id="login" name="login" ng-required="true"
+									ng-model="plantillaProyectoCtrl.recurso.login"
+									style="min-width: 300px;" title="Elige un Usuario">
+								<ui-select-match placeholder="Selecciona un Usuario">{{$select.selected.nombre}}</ui-select-match>
+								<ui-select-choices
+									repeat="usuario.login as usuario in plantillaProyectoCtrl.usersMx | propsFilter: {nombre: $select.search, login: $select.search}">
+								<div ng-bind-html="usuario.nombre | highlight: $select.search"></div>
+								</ui-select-choices> </ui-select>
+							</div>
+
+						</div>
+						<br />
+
+						<div class="row">
+							<div class="col-md-12"
+								ng-class="{
+                             'has-success': form.areas.$dirty || form.areas.$valid ,
+                             'has-error': form.areas.$dirty && form.areas.$invalid}">
+								<label class="control-label">Asignar Area:</label>
+								<multiselect show-search="true" id="areas" name="areas"
+									ng-if="plantillaProyectoCtrl.areasAWM.length > 0"
+									labels="plantillaProyectoCtrl.labelsMultiselect"
+									ng-model="plantillaProyectoCtrl.recurso.areaPlantilla"
+									options="plantillaProyectoCtrl.areasAWM" id-prop="idArea"
+									display-prop="nombre"></multiselect>
+							</div>
+						</div>
+						<br/>
+						<div class="row" style="border-top: 1px solid #bbd3de">
+							<div class="col-md-6 text-right"></div>
+							<div class="col-md-6 text-right">
+								<a class="btn btn-primary" style="margin-top: 41px;"
+									role="button" ng-click="plantillaProyectoCtrl.agregarRecurso()"
+									ng-if="form.$valid && plantillaProyectoCtrl.recurso.areaPlantilla.length > 0"
+									tooltip title="Guarda Recurso" data-placement="midle">Guarda
+									Recurso </a>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

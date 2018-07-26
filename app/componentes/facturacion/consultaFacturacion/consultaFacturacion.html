@@ -1,0 +1,68 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter"> &nbsp;&nbsp;Consulta Facturaci&oacute;n
+			</i>
+		</h4>
+	</div>
+
+	<div class="panel-body">
+		<form class="form-horizontal" name="form" novalidate>
+
+			<div class="row">
+				<div class="col-md-3"
+					ng-class="{
+                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+
+					<label class=" control-label">Cliente:</label>
+					<ui-select id="cliente" name="cliente" ng-required="true"
+						ng-disabled="consultaFacturacionCtrl.bndSeleCliente"
+						ng-model="consultaFacturacionCtrl.idClienteSeleccionado"
+						ng-change="consultaFacturacionCtrl.consultaCarteraCli()"
+						style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+						placeholder="Selecciona un Ticket">{{$select.selected.nomCliente}}</ui-select-match>
+					<ui-select-choices
+						repeat="cliente.scltcod as cliente in consultaFacturacionCtrl.clientes | propsFilter: {nomCliente: $select.search, scltcod: $select.search}">
+					<div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+				</div>
+
+				<div class="col-md-3"
+					ng-class="{'has-success': form.cartera.$dirty || form.cartera.$valid ,
+                             'has-error': form.cartera.$dirty && form.cartera.$invalid}">
+
+					<label class=" control-label">Cartera:</label>
+					<ui-select id="cartera" name="cartera"
+						ng-model="consultaFacturacionCtrl.idCarteraCliente"
+						ng-change="consultaFacturacionCtrl.consultaPeriodos()"
+						style="min-width: 300px;" title="Elige una cartera"> <ui-select-match
+						placeholder="Selecciona un Cartera">{{$select.selected.descCartera}}</ui-select-match>
+					<ui-select-choices
+						repeat="cartera.idCarteraCliente as cartera in consultaFacturacionCtrl.carteraCliente | propsFilter: {descCartera: $select.search, idCarteraCliente: $select.search}">
+					<div ng-bind-html="cartera.descCartera | highlight: $select.search"></div>
+					</ui-select-choices> </ui-select>
+
+				</div>
+			</div>
+			<br/>
+			<adea-tabla
+				dt-data-source="consultaFacturacionCtrl.periodos"
+				muestra-detalle="consultaFacturacionCtrl.mostrarDetallePer"
+				titulo-detalle="consultaFacturacionCtrl.tituloDetalle"
+				ejecuta-regresar="consultaFacturacionCtrl.regresar();"
+				config="consultaFacturacionCtrl.tblPeriodosFacturacion" paginar="true"
+				registro-seleccionado="consultaFacturacionCtrl.periodoSeleccionado"
+				seleccionar-registro="consultaFacturacionCtrl.seleccionarPeriodo(reg);">
+				
+				<div
+					 ng-include="'app/componentes/facturacion/consultaFacturacion/detalle/detalleGenerico.html'"></div>
+					
+			</adea-tabla>
+
+		</form>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+
+<style>
+    .overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background-color: rgba(0,0,0,0.1); /*dim the background*/
+    }
+    div.container div.align {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        background: url(app/resources/img/ajax-loader1.gif) no-repeat center center;
+        outline: none !important;
+        /*http://www.bajajauto.mx/media/1001/iconoCargando-1-.gif*/
+        /*http://vignette3.wikia.nocookie.net/judo/images/0/03/Cargando.gif/revision/latest?cb=20110601212206&path-prefix=es*/
+        /*https://www.estivalpark.es/images/esp/cargando.gif*/
+        /*http://www.truegamers.org/images/loading-bar.gif*/
+    }
+</style>
+<div class="container overlay" tabIndex="-1">
+    <div class="align"></div>
+</div>

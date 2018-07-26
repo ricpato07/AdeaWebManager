@@ -1,0 +1,144 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+<div class="container-fluid adeaWeb">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="info-box">
+
+				<a style="text-decoration: none; color: #000;"> <span
+					class="info-box-icon bg-gray-active"><i class="fa fa-users"></i></span>
+
+					<div class="info-box-content">
+						<span class="info-box-text">Total de Clientes</span> <span
+							class="info-box-number"
+							style="font-size: 35px; padding-left: 111px;">{{resumenProyectosCtrl.listClientes.length}}</span>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-md-4" style="margin-top: -1px;"
+			ng-class="{'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+
+			<label class=" control-label">Selecciona un cliente:</label>
+			<ui-select id="cliente" name="cliente"
+				ng-change="resumenProyectosCtrl.consultaProyectosClientes()"
+				ng-model="resumenProyectosCtrl.clienteSeleccionado"
+				style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+				placeholder="Selecciona un Cliente">{{$select.selected.nomCliente}}</ui-select-match>
+			<ui-select-choices
+				repeat="cliente as cliente in resumenProyectosCtrl.listClientes | propsFilter: {nomCliente: $select.search, scltcod: $select.search}">
+			<div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
+			</ui-select-choices> </ui-select>
+		</div>
+
+		<div class="col-md-5">
+			<div class="row">
+				<span style="font-size: 12px; font-weight: bold;">Proyectos</span>
+			</div>
+			<div class="row">
+				<div class="col-md-3" style="padding: 2px;">
+					<div class="info-box bg-blue-gradient"
+						style="cursor: pointer; cursor: hand">
+						<a ng-click="resumenProyectosCtrl.filtraProyectosTipo('A')"
+							data-toggle="tab" style="text-decoration: none; color: white;">
+							<span class="info-box-icon" style="width: 50px; font-size: 30px"><i
+								class="fa fa-file-text"></i></span>
+
+							<div class="info-box-content" style="margin-left: 49px;">
+								<span class="info-box-text">Activos</span> <span
+									class="info-box-number">{{resumenProyectosCtrl.contadorActivos}}</span>
+
+								<div class="progress">
+									<div class="progress-bar"
+										style="width: {{reporteContratosCtrl.indicadores.docCompletos.total"></div>
+								</div>
+								<span class="progress-description">
+									{{resumenProyectosCtrl.contadorActivos}} Activos 
+							</div> <!-- /.info-box-content -->
+						</a>
+					</div>
+				</div>
+
+				<div class="col-md-4" style="padding: 2px;">
+					<div class="info-box bg-red-gradient"
+						style="cursor: pointer; cursor: hand">
+						<a ng-click="resumenProyectosCtrl.filtraProyectosTipo('B')"
+							data-toggle="tab" style="text-decoration: none; color: white;">
+							<span class="info-box-icon" style="width: 50px; font-size: 30px"><i
+								class="fa  fa-ban"></i></span>
+
+							<div class="info-box-content" style="margin-left: 49px;">
+								<span class="info-box-text">Inactivos</span> <span
+									class="info-box-number">{{resumenProyectosCtrl.contadorInActivos}}</span>
+
+								<div class="progress">
+									<div class="progress-bar"
+										style="width: {{reporteContratosCtrl.indicadores.docCompletos.total"></div>
+								</div>
+								<span class="progress-description">
+									{{resumenProyectosCtrl.contadorInActivos}} Inactivos </span>
+							</div> <!-- /.info-box-content -->
+						</a>
+					</div>
+				</div>
+				<div class="col-md-5" style="padding: 2px;">
+					<div class="info-box bg-green-gradient"
+						style="cursor: pointer; cursor: hand">
+						<a ng-click="reporteContratosCtrl.consultaClientesCompletos()"
+							data-toggle="tab" style="text-decoration: none; color: white;">
+							<span class="info-box-icon" style="width: 50px; font-size: 30px"><i
+								class="fa fa-file-text"></i></span>
+
+							<div class="info-box-content" style="margin-left: 49px;">
+								<span class="info-box-text">Subproyectos</span> <span
+									class="info-box-number">{{resumenProyectosCtrl.contadorSubproyectos}}</span>
+
+								<div class="progress">
+									<div class="progress-bar"
+										style="width: {{resumenProyectosCtrl.contadorSubproyectos"></div>
+								</div>
+								<span class="progress-description">
+									{{resumenProyectosCtrl.contadorSubproyectos}} Subproyectos</span>
+							</div> <!-- /.info-box-content -->
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</br>
+	<div class="row" style="border-bottom: 1px #4881b3 solid">
+		<div class="col-md-12">
+			<span style="font-size: 18px;"> Proyectos
+				{{resumenProyectosCtrl.clienteSeleccionado.nomCliente}}</span>
+		</div>
+
+	</div>
+	</br>
+
+
+
+	<div class="row">
+		<div class="col-md-12">
+			<adea-tabla dt-data-source="resumenProyectosCtrl.proyectosEditable"
+				config="resumenProyectosCtrl.tblProyectoClienteMonto"
+				registro-seleccionado="resumenProyectosCtrl.proyectoSeleccionado"
+				muestra-detalle="resumenProyectosCtrl.mostrarDetalleProy"
+				titulo-detalle="'Detalle de Proyecto'"
+				seleccionar-registro="resumenProyectosCtrl.seleccionarProyecto(reg);">
+
+			<div
+				ng-include="'app/componentes/resumenProyectos/mantenimiento/detalleSubproyectos.html'"></div>
+			</adea-tabla>
+		</div>
+
+	</div>
+
+
+
+
+</div>
+

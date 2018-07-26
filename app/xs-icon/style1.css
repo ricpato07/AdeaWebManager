@@ -1,0 +1,858 @@
+@font-face {
+	font-family: 'IconosEaspayFinal21-07-15';
+	src:url('fonts/IconosEaspayFinal21-07-15.eot?-avbyb2');
+	src:url('fonts/IconosEaspayFinal21-07-15.eot?#iefix-avbyb2') format('embedded-opentype'),
+		url('fonts/IconosEaspayFinal21-07-15.ttf?-avbyb2') format('truetype'),
+		url('fonts/IconosEaspayFinal21-07-15.woff?-avbyb2') format('woff'),
+		url('fonts/IconosEaspayFinal21-07-15.svg?-avbyb2#IconosEaspayFinal21-07-15') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="ixs-"], [class*=" ixs-"] {
+	font-family: 'IconosEaspayFinal21-07-15';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+
+/* makes the font 33% larger relative to the icon container */
+.ixs-gr {
+	font-size: 1.33333333em;
+	line-height: 0.75em;
+	vertical-align: -15%;
+}
+.ixs-2x {
+	font-size: 2em;
+}
+.ixs-3x {
+	font-size: 3em;
+}
+.ixs-4x {
+	font-size: 4em;
+}
+.ixs-5x {
+	font-size: 5em;
+}
+.ixs-fw {
+	width: 1.28571429em;
+	text-align: center;
+}
+.ixs-ul {
+	padding-left: 0;
+	margin-left: 2.14285714em;
+	list-style-type: none;
+}
+.ixs-ul > li {
+	position: relative;
+}
+.ixs-li {
+	position: absolute;
+	left: -2.14285714em;
+	width: 2.14285714em;
+	top: 0.14285714em;
+	text-align: center;
+}
+.ixs-li.ixs-gr {
+	left: -1.85714286em;
+}
+.ixs-border {
+	padding: .2em .25em .15em;
+	border: solid 0.08em #eeeeee;
+	border-radius: .1em;
+}
+.pull-right {
+	float: right;
+}
+.pull-left {
+	float: left;
+}
+.fa.pull-left {
+	margin-right: .3em;
+}
+.fa.pull-right {
+	margin-left: .3em;
+}
+.ixs-spin {
+	-webkit-animation: ixs-spin 2s infinite linear;
+	animation: ixs-spin 2s infinite linear;
+}
+.ixs-pulse {
+	-webkit-animation: ixs-spin 1s infinite steps(8);
+	animation: ixs-spin 1s infinite steps(8);
+}
+@-webkit-keyframes ixs-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+@keyframes ixs-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+.ixs-rotate-90 {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+.ixs-rotate-180 {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.ixs-rotate-270 {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	-webkit-transform: rotate(270deg);
+	-ms-transform: rotate(270deg);
+	transform: rotate(270deg);
+}
+.ixs-flip-horizontal {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+	-webkit-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+.ixs-flip-vertical {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+	-webkit-transform: scale(1, -1);
+	-ms-transform: scale(1, -1);
+	transform: scale(1, -1);
+}
+:root .ixs-rotate-90,
+:root .ixs-rotate-180,
+:root .ixs-rotate-270,
+:root .ixs-flip-horizontal,
+:root .ixs-flip-vertical {
+	filter: none;
+}
+.ixs-stack {
+	position: relative;
+}
+/* makes the font 33% larger relative to the icon container */
+.ixs-gr {
+	font-size: 1.33333333em;
+	line-height: 0.75em;
+	vertical-align: -15%;
+}
+.ixs-2x {
+	font-size: 2em;
+}
+.ixs-3x {
+	font-size: 3em;
+}
+.ixs-4x {
+	font-size: 4em;
+}
+.ixs-5x {
+	font-size: 5em;
+}
+.ixs-6x {
+	font-size: 6em;
+}
+.ixs-7x {
+	font-size: 7em;
+}
+.ixs-8x {
+	font-size: 8em;
+}
+.ixs-fw {
+	width: 1.28571429em;
+	text-align: center;
+}
+.ixs-ul {
+	padding-left: 0;
+	margin-left: 2.14285714em;
+	list-style-type: none;
+}
+.ixs-ul > li {
+	position: relative;
+}
+.ixs-li {
+	position: absolute;
+	left: -2.14285714em;
+	width: 2.14285714em;
+	top: 0.14285714em;
+	text-align: center;
+}
+.ixs-li.ixs-gr {
+	left: -1.85714286em;
+}
+.ixs-border {
+	padding: .2em .25em .15em;
+	border: solid 0.08em #eeeeee;
+	border-radius: .1em;
+}
+.pull-right {
+	float: right;
+}
+.pull-left {
+	float: left;
+}
+.fa.pull-left {
+	margin-right: .3em;
+}
+.fa.pull-right {
+	margin-left: .3em;
+}
+.ixs-spin {
+	-webkit-animation: ixs-spin 2s infinite linear;
+	animation: ixs-spin 2s infinite linear;
+}
+.ixs-pulse {
+	-webkit-animation: ixs-spin 1s infinite steps(8);
+	animation: ixs-spin 1s infinite steps(8);
+}
+@-webkit-keyframes ixs-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+@keyframes ixs-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+.ixs-rotate-90 {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+	-webkit-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	transform: rotate(90deg);
+}
+.ixs-rotate-180 {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+.ixs-rotate-270 {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	-webkit-transform: rotate(270deg);
+	-ms-transform: rotate(270deg);
+	transform: rotate(270deg);
+}
+.ixs-flip-horizontal {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1);
+	-webkit-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+}
+.ixs-flip-vertical {
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
+	-webkit-transform: scale(1, -1);
+	-ms-transform: scale(1, -1);
+	transform: scale(1, -1);
+}
+:root .ixs-rotate-90,
+:root .ixs-rotate-180,
+:root .ixs-rotate-270,
+:root .ixs-flip-horizontal,
+:root .ixs-flip-vertical {
+	filter: none;
+}
+.ixs-stack {
+	position: relative;
+	display: inline-block;
+	width: 2em;
+	height: 2em;
+	line-height: 2em;
+	vertical-align: middle;
+}
+.ixs-stack-1x,
+.ixs-stack-2x {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+.ixs-stack-1x {
+	line-height: inherit;
+}
+.ixs-stack-2x {
+	font-size: 2em;
+}
+.ixs-inverse {
+	color: #ffffff;
+}
+.ixs-Flotilla:before {
+	content: "\e6b6";
+}
+.ixs-clienteexistente:before {
+	content: "\e6b2";
+}
+.ixs-clienteexistente1:before {
+	content: "\e6b3";
+}
+.ixs-clientenuevo:before {
+	content: "\e6b4";
+}
+.ixs-clientenuevo1:before {
+	content: "\e6b5";
+}
+.ixs-correoSend:before {
+	content: "\e6b0";
+}
+.ixs-pdfDown:before {
+	content: "\e6b1";
+}
+.ixs-cargando:before {
+	content: "\e600";
+}
+.ixs-admiracion:before {
+	content: "\e601";
+}
+.ixs-dinero:before {
+	content: "\e602";
+}
+.ixs-circulodepersonas:before {
+	content: "\e603";
+}
+.ixs-abrircon:before {
+	content: "\e604";
+}
+.ixs-accesoAlarma:before {
+	content: "\e605";
+}
+.ixs-accesoEspecial:before {
+	content: "\e606";
+}
+.ixs-actualizarTareas:before {
+	content: "\e607";
+}
+.ixs-adjuntar:before {
+	content: "\e608";
+}
+.ixs-administracion:before {
+	content: "\e609";
+}
+.ixs-ajustesAplicaciones:before {
+	content: "\e60b";
+}
+.ixs-ajustesBluetooth:before {
+	content: "\e60c";
+}
+.ixs-ajustesdeCelular:before {
+	content: "\e60d";
+}
+.ixs-ajustesdeDatos:before {
+	content: "\e60e";
+}
+.ixs-ajustesdeVoz:before {
+	content: "\e60f";
+}
+.ixs-anadirAlarma:before {
+	content: "\e610";
+}
+.ixs-anadirFoto:before {
+	content: "\e611";
+}
+.ixs-aplicaciones:before {
+	content: "\e612";
+}
+.ixs-archivoAcrobat:before {
+	content: "\e613";
+}
+.ixs-archivoExcel:before {
+	content: "\e614";
+}
+.ixs-archivoPowerpoint:before {
+	content: "\e615";
+}
+.ixs-archivoScript:before {
+	content: "\e616";
+}
+.ixs-archivoWord:before {
+	content: "\e617";
+}
+.ixs-asignarPerfil:before {
+	content: "\e618";
+}
+.ixs-auditoria:before {
+	content: "\e619";
+}
+.ixs-Individual:before {
+	content: "\e6b7";
+}
+.ixs-auto:before {
+	content: "\e61a";
+}
+.ixs-autobus:before {
+	content: "\e61b";
+}
+.ixs-ayuda:before {
+	content: "\e61c";
+}
+.ixs-bandera:before {
+	content: "\e61d";
+}
+.ixs-basededatoscheck:before {
+	content: "\e61e";
+}
+.ixs-basededatosconfiguracion:before {
+	content: "\e61f";
+}
+.ixs-bluetoothBuscar:before {
+	content: "\e620";
+}
+.ixs-bolt:before {
+	content: "\e621";
+}
+.ixs-bordeColor:before {
+	content: "\e622";
+}
+.ixs-buscar:before {
+	content: "\e623";
+}
+.ixs-buscardocumentovalidado:before {
+	content: "\e624";
+}
+.ixs-buscarllave:before {
+	content: "\e625";
+}
+.ixs-buscarWifi:before {
+	content: "\e626";
+}
+.ixs-cache:before {
+	content: "\e627";
+}
+.ixs-calidad:before {
+	content: "\e628";
+}
+.ixs-camara:before {
+	content: "\e629";
+}
+.ixs-candadoabierto:before {
+	content: "\e62a";
+}
+.ixs-candadocerrado:before {
+	content: "\e62b";
+}
+.ixs-cargar:before {
+	content: "\e62c";
+}
+.ixs-carritoAgregar:before {
+	content: "\e62d";
+}
+.ixs-chat:before {
+	content: "\e62e";
+}
+.ixs-check:before {
+	content: "\e62f";
+}
+.ixs-circulopersonas:before {
+	content: "\e630";
+}
+.ixs-comentario:before {
+	content: "\e631";
+}
+.ixs-comillasDerecha:before {
+	content: "\e632";
+}
+.ixs-comillasIzquierda:before {
+	content: "\e633";
+}
+.ixs-computadora:before {
+	content: "\e634";
+}
+.ixs-configuraciones:before {
+	content: "\e635";
+}
+.ixs-configuracionHerramienta:before {
+	content: "\e636";
+}
+.ixs-configuracionRemota:before {
+	content: "\e637";
+}
+.ixs-contactosdelcorreo:before {
+	content: "\e638";
+}
+.ixs-cortar:before {
+	content: "\e639";
+}
+.ixs-descargando:before {
+	content: "\e63a";
+}
+.ixs-descripcion:before {
+	content: "\e63b";
+}
+.ixs-diagrama:before {
+	content: "\e63c";
+}
+.ixs-direcciones:before {
+	content: "\e63d";
+}
+.ixs-disco:before {
+	content: "\e63e";
+}
+.ixs-discoAlerta:before {
+	content: "\e63f";
+}
+.ixs-discoError:before {
+	content: "\e640";
+}
+.ixs-discolleno:before {
+	content: "\e641";
+}
+.ixs-doctor:before {
+	content: "\e642";
+}
+.ixs-documento:before {
+	content: "\e643";
+}
+.ixs-easpayb:before {
+	content: "\e644";
+}
+.ixs-easpaybnuevo:before {
+	content: "\e645";
+}
+.ixs-ecualizar:before {
+	content: "\e646";
+}
+.ixs-tacha:before {
+	content: "\e6a1";
+}
+.ixs-eliminar:before {
+	content: "\e64a";
+}
+.ixs-agregar:before {
+	content: "\e60a";
+}
+.ixs-editar:before {
+	content: "\e647";
+}
+.ixs-ejecutivo:before {
+	content: "\e648";
+}
+.ixs-ejecutivoauto:before {
+	content: "\e649";
+}
+.ixs-emergencia:before {
+	content: "\e64b";
+}
+.ixs-emergenciaderecha:before {
+	content: "\e64c";
+}
+.ixs-empresa:before {
+	content: "\e64d";
+}
+.ixs-entrar:before {
+	content: "\e64e";
+}
+.ixs-salir:before {
+	content: "\e699";
+}
+.ixs-enviarArchivo:before {
+	content: "\e64f";
+}
+.ixs-estrella:before {
+	content: "\e650";
+}
+.ixs-evento:before {
+	content: "\e651";
+}
+.ixs-explore:before {
+	content: "\e652";
+}
+.ixs-extencion:before {
+	content: "\e653";
+}
+.ixs-fabrica:before {
+	content: "\e654";
+}
+.ixs-flechaAbajo:before {
+	content: "\e655";
+}
+.ixs-flechaArriba:before {
+	content: "\e656";
+}
+.ixs-flechaDerecha:before {
+	content: "\e657";
+}
+.ixs-flechaIzquierda:before {
+	content: "\e658";
+}
+.ixs-flechaPaginacionIzquierda:before {
+	content: "\e65c";
+}
+.ixs-flechaPaginacionDerecha:before {
+	content: "\e659";
+}
+.ixs-flechaPaginacionFin:before {
+	content: "\e65a";
+}
+.ixs-flechaPaginacionInicio:before {
+	content: "\e65b";
+}
+.ixs-folderAbierto:before {
+	content: "\e65d";
+}
+.ixs-folderCompartido:before {
+	content: "\e65e";
+}
+.ixs-goma:before {
+	content: "\e65f";
+}
+.ixs-grupodetrabajo:before {
+	content: "\e660";
+}
+.ixs-guardar:before {
+	content: "\e661";
+}
+.ixs-guardarEnNavegador:before {
+	content: "\e662";
+}
+.ixs-herido:before {
+	content: "\e663";
+}
+.ixs-herramienta:before {
+	content: "\e664";
+}
+.ixs-hipervinculo:before {
+	content: "\e665";
+}
+.ixs-hombre:before {
+	content: "\e666";
+}
+.ixs-hoyEnDia:before {
+	content: "\e667";
+}
+.ixs-identidad:before {
+	content: "\e668";
+}
+.ixs-importarExportar:before {
+	content: "\e669";
+}
+.ixs-impresora:before {
+	content: "\e66a";
+}
+.ixs-inbox:before {
+	content: "\e66b";
+}
+.ixs-informacion:before {
+	content: "\e66c";
+}
+.ixs-insertarFoto:before {
+	content: "\e66d";
+}
+.ixs-insertarTabla:before {
+	content: "\e66e";
+}
+.ixs-instagram:before {
+	content: "\e66f";
+}
+.ixs-interrogacion:before {
+	content: "\e670";
+}
+.ixs-lenguaje:before {
+	content: "\e671";
+}
+.ixs-libro:before {
+	content: "\e672";
+}
+.ixs-lista:before {
+	content: "\e673";
+}
+.ixs-listadeAplicaciones:before {
+	content: "\e674";
+}
+.ixs-listaFiltro:before {
+	content: "\e675";
+}
+.ixs-listaNoOrdenada:before {
+	content: "\e676";
+}
+.ixs-listaNumerada:before {
+	content: "\e677";
+}
+.ixs-listaOrdenAlfabetoAsc:before {
+	content: "\e678";
+}
+.ixs-listaOrdenAlfabetoDesc:before {
+	content: "\e679";
+}
+.ixs-listaOrdenNumerosAsc:before {
+	content: "\e67a";
+}
+.ixs-listaOrdenNumerosDesc:before {
+	content: "\e67b";
+}
+.ixs-llamadaPerdida:before {
+	content: "\e67c";
+}
+.ixs-llamadaSaliente:before {
+	content: "\e67d";
+}
+.ixs-llamadaTerminada:before {
+	content: "\e67e";
+}
+.ixs-llamarContacto:before {
+	content: "\e67f";
+}
+.ixs-llave:before {
+	content: "\e680";
+}
+.ixs-maletin:before {
+	content: "\e681";
+}
+.ixs-medico:before {
+	content: "\e682";
+}
+.ixs-mensaje:before {
+	content: "\e683";
+}
+.ixs-mensajeSolido:before {
+	content: "\e684";
+}
+.ixs-menu:before {
+	content: "\e685";
+}
+.ixs-modoAvion:before {
+	content: "\e686";
+}
+.ixs-notificaciones:before {
+	content: "\e687";
+}
+.ixs-palomita:before {
+	content: "\e688";
+}
+.ixs-pantalla:before {
+	content: "\e689";
+}
+.ixs-pantallabloqueada:before {
+	content: "\e68a";
+}
+.ixs-pantallaBloqueadahorizontal:before {
+	content: "\e68b";
+}
+.ixs-perfil:before {
+	content: "\e68c";
+}
+.ixs-perfilAgregar:before {
+	content: "\e68d";
+}
+.ixs-perfilejecutivo:before {
+	content: "\e68e";
+}
+.ixs-personas:before {
+	content: "\e68f";
+}
+.ixs-proteccion:before {
+	content: "\e690";
+}
+.ixs-proyectos:before {
+	content: "\e691";
+}
+.ixs-reloj:before {
+	content: "\e692";
+}
+.ixs-reparar:before {
+	content: "\e693";
+}
+.ixs-reportedelproblema:before {
+	content: "\e694";
+}
+.ixs-reserva:before {
+	content: "\e695";
+}
+.ixs-responder:before {
+	content: "\e696";
+}
+.ixs-retornoasignacion:before {
+	content: "\e697";
+}
+.ixs-saldodecuenta:before {
+	content: "\e698";
+}
+.ixs-saludo:before {
+	content: "\e69a";
+}
+.ixs-seleccionartodo:before {
+	content: "\e69b";
+}
+.ixs-senal:before {
+	content: "\e69c";
+}
+.ixs-senalArriba:before {
+	content: "\e69d";
+}
+.ixs-senalwifi1:before {
+	content: "\e69e";
+}
+.ixs-sistema:before {
+	content: "\e69f";
+}
+.ixs-subMenu:before {
+	content: "\e6a0";
+}
+.ixs-tareas:before {
+	content: "\e6a2";
+}
+.ixs-teclado:before {
+	content: "\e6a3";
+}
+.ixs-telefonointeligete:before {
+	content: "\e6a4";
+}
+.ixs-trabajador:before {
+	content: "\e6a5";
+}
+.ixs-transladar:before {
+	content: "\e6a6";
+}
+.ixs-transladarDerecha:before {
+	content: "\e6a7";
+}
+.ixs-treeview:before {
+	content: "\e6a8";
+}
+.ixs-usuario:before {
+	content: "\e6a9";
+}
+.ixs-usuarios:before {
+	content: "\e6aa";
+}
+.ixs-validarPersona:before {
+	content: "\e6ab";
+}
+.ixs-videocamaraoff:before {
+	content: "\e6ac";
+}
+.ixs-visualizaciondelosajustes:before {
+	content: "\e6ad";
+}
+.ixs-volumenmas:before {
+	content: "\e6ae";
+}
+.ixs-xpertys:before {
+	content: "\e6af";
+}

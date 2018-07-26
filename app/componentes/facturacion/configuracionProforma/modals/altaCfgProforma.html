@@ -1,0 +1,134 @@
+<div class="modal fade" id="agregarCfgProforma" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Configurar Item</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+				<form class="form-horizontal" name="form" novalidate>
+					<div class="row">
+
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.clienteN.$dirty || form.clienteN.$valid ,
+                             'has-error': form.clienteN.$dirty && form.clienteN.$invalid}">
+
+							<label class=" control-label">Item:</label>
+
+
+							<ui-select id="clienteN" name="clienteN" ng-required="true"
+								ng-if="configuracionProformaCtrl.items.length > 0"
+								ng-model="configuracionProformaCtrl.itemNuevo.idCatalogoItem"
+								style="min-width: 300px;" title="Elige un Item"> <ui-select-match
+								placeholder="Selecciona un Item">{{$select.selected.descripcion}}</ui-select-match>
+							<ui-select-choices
+								repeat="cliente.idCatalogoItem as cliente in configuracionProformaCtrl.items | propsFilter: {descripcion: $select.search, idCatalogoItem: $select.search}">
+							<div
+								ng-bind-html="cliente.descripcion | highlight: $select.search"></div>
+							</ui-select-choices> </ui-select>
+						</div>
+
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.soporte.$dirty || form.soporte.$valid ,
+                             'has-error': form.soporte.$dirty && form.soporte.$invalid}">
+							<label class=" control-label" for="soporte">Soporte:</label>
+
+							<ui-select id="clienteN" name="clienteN" ng-required="true"
+								ng-if="configuracionProformaCtrl.items.length > 0"
+								ng-model="configuracionProformaCtrl.itemNuevo.idItemConcepto"
+								style="min-width: 300px;" title="Elige un Soporte">
+							<ui-select-match placeholder="Selecciona un Soporte">{{$select.selected.tipo}}</ui-select-match>
+							<ui-select-choices
+								repeat="cliente.idItemConcepto as cliente in configuracionProformaCtrl.catalogos | propsFilter: {tipo: $select.search, idItemConcepto: $select.search}">
+							<div ng-bind-html="cliente.tipo | highlight: $select.search"></div>
+							</ui-select-choices> </ui-select>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.unidad.$dirty || form.unidad.$valid ,
+                             'has-error': form.unidad.$dirty && form.unidad.$invalid}">
+							<label class=" control-label" for="unidad">Unidad:</label>
+
+							<ui-select id="unidad" name="unidad" ng-required="true"
+								ng-model="configuracionProformaCtrl.itemNuevo.idCatalogoGral"
+								style="min-width: 300px;" title="Elige un Soporte">
+							<ui-select-match placeholder="Selecciona un Soporte">{{$select.selected.descripcion}}</ui-select-match>
+							<ui-select-choices
+								repeat="cliente.codigo as cliente in configuracionProformaCtrl.catUnidad | propsFilter: {descripcion: $select.search, idCatalogo: $select.search}">
+							<div
+								ng-bind-html="cliente.descripcion | highlight: $select.search"></div>
+							</ui-select-choices> </ui-select>
+						</div>
+
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.tipo.$dirty || form.tipo.$valid ,
+                             'has-error': form.tipo.$dirty && form.tipo.$invalid}">
+							<label class="control-label">Tipo (Detalle del Item):</label> <input
+								id="tipo" name="tipo" maxlength="100" type="text"
+								class="form-control input-md"
+								ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑÜü:\(\)]*$/"
+								ng-model="configuracionProformaCtrl.itemNuevo.tipo">
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.tarifa.$dirty || form.tarifa.$valid ,
+                             'has-error': form.tarifa.$dirty && form.tarifa.$invalid}">
+							<label class=" control-label" for="codProc">Tarifa
+								Unitaria:</label>
+							<div class="input-group">
+								<span class="input-group-addon" style="background: #f4f4f4;">$</span><input
+									type="text" ng-required="true"
+									class="form-control ng-valid ng-valid-min ng-valid-max ng-dirty ng-valid-parse ng-touched"
+									ng-model="configuracionProformaCtrl.itemNuevo.precioUnitario"
+									money min="0.0" precision="2">
+							</div>
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-12"
+							ng-class="{
+                             'has-success': form.query.$dirty || form.query.$valid ,
+                             'has-error': form.query.$dirty && form.query.$invalid}">
+							<label class=" control-label" for="tabla">Query Cálculo:</label>
+							
+							<textarea id="query" name="query"
+							  minlength="10" ng-maxlength="4000" ng-required="true"
+							  ng-model="configuracionProformaCtrl.itemNuevo.reglaCalculo"
+							 class="input-md" ng-pattern="/^[0-9a-zA-Z_-\s,.:\(\)'|=><*"+\/]*$/"
+							 style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+							rows="5"></textarea>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 text-right"></div>
+						<div class="col-md-6 text-right">
+							<a class="btn btn-primary" style="margin-top: 41px;"
+								role="button"
+								ng-click="configuracionProformaCtrl.agregarConf()"
+								ng-if="form.$valid"
+								tooltip title="Guarda Cartera" data-placement="midle">Guarda
+								Item </a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>

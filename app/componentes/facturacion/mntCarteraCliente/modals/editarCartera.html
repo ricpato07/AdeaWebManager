@@ -1,0 +1,115 @@
+<div class="modal fade" id="editarCartera" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Editar Cartera</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+				<form class="form-horizontal" name="form" novalidate>
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.clienteN.$dirty || form.clienteN.$valid ,
+                             'has-error': form.clienteN.$dirty && form.clienteN.$invalid}">
+
+							<label class=" control-label">Cliente:</label>
+							<ui-select id="clienteN" name="clienteN" ng-required="true"
+								ng-model="mntCarteraClienteFacCtrl.carteraEditable.scltcod"
+								style="min-width: 300px;" title="Elige un Cliente">
+							<ui-select-match placeholder="Selecciona un Ticket">{{$select.selected.nomCliente}}</ui-select-match>
+							<ui-select-choices
+								repeat="cliente.scltcod as cliente in mntCarteraClienteFacCtrl.clientes | propsFilter: {nomCliente: $select.search, scltcod: $select.search}">
+							<div
+								ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
+							</ui-select-choices> </ui-select>
+						</div>
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.descripcion.$dirty || form.descripcion.$valid ,
+                             'has-error': form.descripcion.$dirty && form.descripcion.$invalid}">
+							<label class=" control-label" for="descripcion">Nombre:</label> <input
+								id="descripcion" name="descripcion" maxlength="100" type="text"
+								class="form-control input-md"
+								ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑÜü:\(\)]*$/"
+								ng-model="mntCarteraClienteFacCtrl.carteraEditable.descCartera"
+								ng-required="true">
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.forma.$dirty || form.forma.$valid ,
+                             'has-error': form.forma.$dirty && form.forma.$invalid}">
+							<label class="control-label">Seleccione Forma
+								Facturación:</label> <select class="form-control input-md" id="forma"
+								name="forma" ng-required="true"
+								ng-model="mntCarteraClienteFacCtrl.carteraEditable.periodoFac"
+								ng-options="opt.codigo as opt.descripcion for opt in mntCarteraClienteFacCtrl.catPeriodo">
+								<option value="">Seleccione</option>
+							</select>
+
+						</div>
+
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.lay.$dirty || form.lay.$valid ,
+                             'has-error': form.lay.$dirty && form.lay.$invalid}">
+							<label class="control-label">Método Facturación:</label> <select
+								class="form-control input-md" id="lay" name="lay"
+								ng-required="true"
+								ng-model="mntCarteraClienteFacCtrl.carteraEditable.layoutFac"
+								ng-options="opt.codigo as opt.descripcion for opt in  mntCarteraClienteFacCtrl.catLayout">
+								<option value="">Seleccione</option>
+							</select>
+
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.codProc.$dirty || form.codProc.$valid ,
+                             'has-error': form.codProc.$dirty && form.codProc.$invalid}">
+							<label class=" control-label" for="codProc">Código
+								Proceso:</label> <input id="codProc" name="codProc" maxlength="10"
+								type="text" class="form-control input-md"
+								ng-pattern="/^[0-9]*$/"
+								ng-model="mntCarteraClienteFacCtrl.carteraEditable.idProceso">
+						</div>
+
+						<div class="col-md-6"
+							ng-class="{'has-success': form.login.$dirty || form.login.$valid ,
+                             'has-error': form.login.$dirty && form.login.$invalid}">
+
+							<label class=" control-label">Asignar Usuario:</label>
+
+							<multiselect show-search="true" id="login" name="login"
+								labels="mntCarteraClienteFacCtrl.labelsMultiselect"
+								ng-if="mntCarteraClienteFacCtrl.usersMx.length > 0"
+								ng-model="mntCarteraClienteFacCtrl.carteraEditable.listaUsuario"
+								options="mntCarteraClienteFacCtrl.usersMx" id-prop="login"
+								display-prop="nombre"></multiselect>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6 text-right"></div>
+						<div class="col-md-6 text-right">
+							<a class="btn btn-primary" style="margin-top: 41px;"
+								role="button" ng-click="mntCarteraClienteFacCtrl.editarCartera()"
+								ng-if="form.$valid && mntCarteraClienteFacCtrl.noHaCambiado()"
+								tooltip title="Editar Cartera" data-placement="midle">Editar Cartera</a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
