@@ -31,7 +31,8 @@
 					ng-class="{
                              'has-success': form.categoria.$dirty || form.categoria.$valid ,
                              'has-error': form.categoria.$dirty && form.categoria.$invalid}">
-					<label class="control-label">Seleccione una Categoría:</label> <select
+					<label class="control-label">Seleccione una Categoría:</label> 
+                                        <select
 						class="form-control input-md" id="categoria" name="categoria"
 						ng-required="true"
 						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
