@@ -28,10 +28,11 @@
     	console.log(url.match(regex) != null);
     	console.log(url.search("dev") > 0);
     	
-    	if(url.match(regex) != null || url.search("dev") > 0){
+    	if(url.match(regex) != null || url.search("dev") > 0 || url.search("localhost")>0){
     		console.log('----------------Log');
     		awmDesarrollo = true;
     	}
+        
     	
     	if (!awmDesarrollo) {
             $logProvider.debugEnabled(true);
@@ -133,7 +134,7 @@
 	        templateUrl: 'app/componentes/facturacion/mntItemsFac/mntItemsFac.html',
 	        controller: 'MntItemsFacController',
 	        controllerAs: 'mntItemsFacCtrl'
-	    });3
+	    });
 	    
 	    $routeProvider.when('/conceptosFacturacion', {
 	        templateUrl: 'app/componentes/facturacion/mntConceptosFact/mntConceptoFact.html',
