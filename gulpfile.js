@@ -307,7 +307,6 @@ gulp.task('concatAdeaBlockUi', ['templateCashBlockUi'], function () {
  */
 gulp.task('serviceConcat', function () {
     return gulp.src([
-
         './app/servicios/servicios.modulo.js',
         './app/servicios/adea.services.js',
         './app/servicios/proyecto.services.js',
@@ -316,8 +315,8 @@ gulp.task('serviceConcat', function () {
         './app/servicios/reporte.services.js',
         './app/servicios/mantenimientoFac.services.js',
         './app/servicios/proforma.services.js',
-        './app/servicios/tablaValores.js'
-
+        './app/servicios/tablaValores.js',
+        './app/servicios/tablero.service.js'
     ])
         .pipe(concat('servicesConcat.js'))
         .pipe(ngAnnotate())
@@ -464,6 +463,6 @@ gulp.task('serve', function (callback) {
     runSequence('browserSync',
             callback
             );
-    gulp.watch('app/*', browserSync.reload);
+ gulp.watch('app/*', browserSync.reload);
 
 });
