@@ -291,5 +291,18 @@
             	{valor: "tieneRegla", titulo: "Regla Calculo", alinear: "center", filtro: "palomaotache"}
             ]
         })
+        
+        .value("tblDetalleTickets", {
+            columnas: [
+                {valor: "idTicket", titulo: "No. Ticket", alinear: "center"},
+                {valor: "resumen", titulo: "Resumen"},
+                {valor: "nombreCliente", titulo: "Cliente"},
+                {valor: "nombreUsuarioRegistra", titulo: "Solicitante"},
+                {valor: "nombreCategoria", titulo: "Categoría"},               
+                {valor: "fechaAlta", titulo: "Fecha Registro", filtro: "fechaSFecha", alinear: "center"},
+                {valor: "nombreUsuarioAsignado", titulo: "Recurso asignado"},
+                {valor: "nombreEstatus", titulo: "Status", alinear: "center"}
+            ]
+        })
 
 })();
