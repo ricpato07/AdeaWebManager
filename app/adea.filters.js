@@ -7,33 +7,35 @@
      * Archivo que se encarga de los filtros utilizados dentro del sistema
      */
     angular
-        .module('adeaModule')
-        .filter('estatus', estatus)
-        .filter('estatusAccion', estatusAccion)
-        .filter('filtroDinamico', filtroDinamico)
-        .filter('fecha', fecha)
-        .filter('proyecto', proyecto)
-        .filter('formaPago', formaPago)
-        .filter('porcentaje', porcentaje)
-        .filter('sueldos', sueldos)
-        .filter('palomaotache', palomaotache)
-        .filter('siono', siono)
-        .filter('tipoDato', tipoDato)
-        .filter('noaplica', noaplica)
-        .filter('positive', positive)
-        .filter('sinDatos', sinDatos)
-        .filter('tipoPagos', tipoPagos)
-        .filter('comision', comision)
-        .filter('fechaSFecha', fechaSFecha)
-        .filter('moneda', moneda)
-        .filter('perfil', perfil)
-        .filter('propsFilter', propsFilter)
-        .filter('cadenaVacia', cadenaVacia)
-        .filter('ordenarListMilis', ordenarListMilis)
-        .filter('ordenarList', ordenarList)
-    	.filter('palomaotacheB', palomaotacheB)
-    	.filter('renovacion', renovacion)
-    	.filter('palomaotacheT', palomaotacheT);
+            .module('adeaModule')
+            .filter('estatus', estatus)
+            .filter('estatusAccion', estatusAccion)
+            .filter('filtroDinamico', filtroDinamico)
+            .filter('fecha', fecha)
+            .filter('proyecto', proyecto)
+            .filter('formaPago', formaPago)
+            .filter('porcentaje', porcentaje)
+            .filter('sueldos', sueldos)
+            .filter('palomaotache', palomaotache)
+            .filter('siono', siono)
+            .filter('tipoDato', tipoDato)
+            .filter('noaplica', noaplica)
+            .filter('positive', positive)
+            .filter('sinDatos', sinDatos)
+            .filter('tipoPagos', tipoPagos)
+            .filter('comision', comision)
+            .filter('fechaSFecha', fechaSFecha)
+            .filter('moneda', moneda)
+            .filter('perfil', perfil)
+            .filter('propsFilter', propsFilter)
+            .filter('cadenaVacia', cadenaVacia)
+            .filter('ordenarListMilis', ordenarListMilis)
+            .filter('ordenarList', ordenarList)
+            .filter('palomaotacheB', palomaotacheB)
+            .filter('renovacion', renovacion)
+            .filter('palomaotacheT', palomaotacheT)
+            .filter('ordenarListMilisTickets', ordenarListMilisTickets);
+       
 
     /**
      * @type {string[]}
@@ -283,7 +285,7 @@
             }
         }
     }
-    
+
     /**
      * @type {string[]}
      * @description
@@ -301,7 +303,7 @@
             }
         }
     }
-    
+
     /**
      * @type {string[]}
      * @description
@@ -466,13 +468,13 @@
     moneda.$inject = ['$filter', '$log'];
 
     function moneda($filter, $log) {
-            return function(dato){
-            	if(dato != null && dato != '' && dato != undefined){
-            		return $filter('currency')(dato, '$', 2);
-            	}else{
-            		return '$ 0';
-            	}
-            };
+        return function (dato) {
+            if (dato != null && dato != '' && dato != undefined) {
+                return $filter('currency')(dato, '$', 2);
+            } else {
+                return '$ 0';
+            }
+        };
     }
 
     perfil.$inject = ['$filter', '$log'];
@@ -491,7 +493,7 @@
 
         };
     }
-    
+
     propsFilter.$inject = ['$log'];
 
     function propsFilter($log) {
@@ -507,7 +509,7 @@
                     for (var i = 0; i < keys.length; i++) {
                         var prop = keys[i];
                         var text = props[prop].toLowerCase();
-                        
+
                         if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
                             itemMatches = true;
                             break;
@@ -531,8 +533,8 @@
 
     function ordenarList($filter, $log) {
         return function (items) {
-           return $filter('orderBy')(items, function (item) {
-        	    
+            return $filter('orderBy')(items, function (item) {
+
                 return item.fecIni;
             });
         }
@@ -545,12 +547,12 @@
 
             return $filter('orderBy')(items, function (item) {
 
-            	if(item.fecIni instanceof Date){
-            		  return item.fecIni.getTime();
-            	}else{
+                if (item.fecIni instanceof Date) {
+                    return item.fecIni.getTime();
+                } else {
 
-            		  return item.fecIni;
-            	}
+                    return item.fecIni;
+                }
             });
         }
     }
@@ -568,7 +570,7 @@
 
         }
     }
-    
+
     /**
      * @type {string[]}
      * @description
@@ -582,15 +584,15 @@
                 return 'AUTORENOBABLE';
             } else if (codEstatus === 'F') {
                 return 'FINITO';
-            } else if (codEstatus === 'P'){
-            	return 'PENDIENTE';
+            } else if (codEstatus === 'P') {
+                return 'PENDIENTE';
             } else {
                 codEstatus;
             }
         };
     }
-    
-    
+
+
     /**
      * @type {string[]}
      * @description
@@ -609,7 +611,23 @@
             }
         };
     }
-    
+
+    ordenarListMilisTickets.$inject = ['$filter', '$log'];
+
+    function ordenarListMilisTickets($filter, $log) {
+        return function (items) {
+
+            return $filter('orderBy')(items, function (item) {
+
+                if (item.fecha instanceof Date) {
+                    return item.fecha.getTime();
+                } else {
+
+                    return item.fecha;
+                }
+            });
+        }
+    }
 
 
 })();
