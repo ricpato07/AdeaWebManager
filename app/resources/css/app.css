@@ -2870,3 +2870,24 @@ table.dataTable thead th, table.dataTable thead td{
 .gantt-task-content{
 	    border: 1px solid black !important;
 }
+
+.a_blanco{
+    color: #ffffff; 
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.a_blanco:hover{
+    color: #ffffff; 
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.error_rojo{
+    font-size: 20px;
+    color: #da4453;
+}
+
+.label_detalle{
+    font-size: 14px;
+}
