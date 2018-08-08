@@ -1,11 +1,262 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-    <p>tablero tickets</p>
-    {{tableroTicketsCtrl.lista}}
-</body>
-</html>
+<toaster-container
+toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<div class="row" style="margin-bottom: 25px;">
+    <form>
+        <div class="col-md-10" style=""></div>
+        <div class="col-md-2" style="">
+            <label>No. Ticket:</label> 
+            <input id="numticket" name="numticket"
+                   maxlength="10" type="text" class="form-control input-md"
+                   ng-keyup="$event.keyCode == 13 && tableroTicketsCtrl.buscarTicket()"
+                   ng-pattern="/^[0-9]*$/" ng-model="tableroTicketsCtrl.idticketbusqueda"
+                   ng-required="true">
+        </div>
+    </form>
+</div>
+<detalle-tickets ng-if="tableroTicketsCtrl.bbuscar"
+                 idticketbusqueda="tableroTicketsCtrl.idticketbusqueda" 
+                 regresar="tableroTicketsCtrl.regresar()" 
+                 bbuscar="tableroTicketsCtrl.bbuscar"  
+                 bbusquedacorrecta="tableroTicketsCtrl.bbusquedacorrecta"
+                 usuario="tableroTicketsCtrl.user.usuario"
+                 perfil="tableroTicketsCtrl.user.perfil">
+</detalle-tickets>
+<div ng-if="tableroTicketsCtrl.btablero">
+    <div ng-if="tableroTicketsCtrl.bbusqueda" class="row" style="margin-bottom: 25px;">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-primary">
+                <div class="panel-heading" style="height: 35px;">
+                    <i style="font-size: 14px !important;" class="fa fa-book">
+                        &nbsp;&nbsp;Listar tickets</i>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="form" novalidate>
+                        <div class="row">
+                            <div class="col-md-4"
+                                 ng-class="{
+                             'has-success': form.mostrar.$dirty || form.mostrar.$valid ,
+                             'has-error': form.mostrar.$dirty && form.mostrar.$invalid}">
+                                <label class="control-label">*Mostrar:</label> 
+                                <select
+                                    class="form-control input-md" id="mostrar" name="mostrar"
+                                    ng-change="tableroTicketsCtrl.mostrar_action()"
+                                    ng-model="tableroTicketsCtrl.user.imostrar">
+                                    <option value="">Asignados</option>
+                                    <option value="1">Por categorías</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4"
+                                 ng-if="tableroTicketsCtrl.bcombos"
+                                 ng-class="{
+                             'has-success': form.area.$dirty || form.area.$valid ,
+                             'has-error': form.area.$dirty && form.area.$invalid}">
+                                <label class="control-label">*Áreas:</label> 
+                                <select
+                                    class="form-control input-md" id="area" name="area"
+                                    ng-required="true"
+                                    ng-disabled="!tableroTicketsCtrl.bareas"
+                                    ng-change="tableroTicketsCtrl.areas_action()"
+                                    ng-model="tableroTicketsCtrl.user.idArea"
+                                    ng-options="opt.idArea as opt.nombre for opt in tableroTicketsCtrl.areaslist">
+                                    <option value="">Selecciona el área</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4"
+                                 ng-if="tableroTicketsCtrl.bcombos"
+                                 ng-class="{
+                             'has-success': form.categoria.$dirty || form.categoria.$valid ,
+                             'has-error': form.categoria.$dirty && form.categoria.$invalid}">
+                                <label class="control-label">*Categorías:</label> 
+                                <select
+                                    class="form-control input-md" id="categoria" name="categoria"
+                                    ng-disabled="!tableroTicketsCtrl.bcategorias"
+                                    ng-change="tableroTicketsCtrl.categorias_action()"
+                                    ng-model="tableroTicketsCtrl.user.idCategoria"
+                                    ng-options="opt.idCategoria as opt.nombreCategoria for opt in tableroTicketsCtrl.categoriaslist">
+                                    <option value="">Selecciona la categoría</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>   
+
+    <div class="row">
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-aqua">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-file-o" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.nueva.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.nueva.estatus)">
+                            {{tableroTicketsCtrl.tablero.nueva.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.nueva.noTickets}}</span>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.nueva.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.nueva.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-fuchsia-active">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-folder-open-o" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.mas_datos.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.mas_datos.estatus)">
+                            {{tableroTicketsCtrl.tablero.mas_datos.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.mas_datos.noTickets}}</span>
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.mas_datos.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.mas_datos.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-yellow">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-thumbs-o-up" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.confirmada.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.confirmada.estatus)">
+                            {{tableroTicketsCtrl.tablero.confirmada.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.confirmada.noTickets}}</span>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.confirmada.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.confirmada.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-green">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-check-square-o" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.atendida.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.atendida.estatus)">
+                            {{tableroTicketsCtrl.tablero.atendida.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.atendida.noTickets}}</span>
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.atendida.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.atendida.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-red">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-thumbs-down" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.suspendida.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.suspendida.estatus)">
+                            {{tableroTicketsCtrl.tablero.suspendida.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.suspendida.noTickets}}</span>
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.suspendida.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.suspendida.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-teal-active">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-lock" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.cerrada.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.cerrada.estatus)">
+                            {{tableroTicketsCtrl.tablero.cerrada.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.cerrada.noTickets}}</span>
+
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.cerrada.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.cerrada.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-light-blue">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-hand-o-right" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.asignada.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.asignada.estatus)">
+                            {{tableroTicketsCtrl.tablero.asignada.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.asignada.noTickets}}</span>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.asignada.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.asignada.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="info-box bg-purple">
+                <span class="info-box-icon a_blanco">
+                    <i class="fa fa-cube" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.analisis_dat.estatus)"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">
+                        <a class="a_blanco" ng-click="tableroTicketsCtrl.consultaDetalle(tableroTicketsCtrl.tablero.analisis_dat.estatus)">
+                            {{tableroTicketsCtrl.tablero.analisis_dat.nombreEstatus}}</a>
+                    </span>
+                    <span class="info-box-number">{{tableroTicketsCtrl.tablero.analisis_dat.noTickets}}</span>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: {{tableroTicketsCtrl.tablero.analisis_dat.porcentaje}}%"></div>
+                    </div>
+                    <span class="progress-description">
+                        {{tableroTicketsCtrl.tablero.analisis_dat.porcentaje}}%
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin: auto;">
+        <div class="col-md-12" style="padding-left: 0;">
+            <adea-tabla dt-data-source="tableroTicketsCtrl.detallelist"
+                        config="tableroTicketsCtrl.tblDetalleTickets"
+                        registro-seleccionado="tableroTicketsCtrl.miTicketSeleccionado"
+                        seleccionar-registro="tableroTicketsCtrl.seleccionarmiTicket(reg);"
+                        buscar="false">
+            </adea-tabla>
+        </div>
+    </div>
+</div>
