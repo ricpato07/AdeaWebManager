@@ -2890,4 +2890,25 @@ table.dataTable thead th, table.dataTable thead td{
 
 .label_detalle{
     font-size: 14px;
+    font-weight: normal;
+}
+
+.a_negro{
+    color: #000; 
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.a_negro:hover{
+    color: #000; 
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.borde_azul{
+    border: 1px solid #337ab7; padding: 10px;
+}
+
+.borde_rojo{
+    border: 1px solid #da4453; padding: 10px;
 }
