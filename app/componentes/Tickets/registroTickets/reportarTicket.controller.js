@@ -106,15 +106,17 @@
 
 	            promesa.catch(function (error) {
 	                AdeaServicios.alerta("error", "Error al consulta el Catalogo de prioridad: " + error.data);
-	            })
+	            });
 
 
 	        }
 	        
 
 	        function consultaClientes() {
-
-	            var promesa = proyectoServicios.consultaClientesGeneral().$promise;
+	        	
+	        	var params = {estatus: 'A'};
+	        	
+	            var promesa = proyectoServicios.consultaClientesGeneral(params).$promise;
 
 	            promesa.then(function (respuesta) {
 
