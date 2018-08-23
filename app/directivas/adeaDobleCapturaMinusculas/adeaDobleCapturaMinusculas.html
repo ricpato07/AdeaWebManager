@@ -1,0 +1,37 @@
+
+<input id="{{dobleCapturaMinusculasCtrl.identificador}}"
+	name="{{dobleCapturaMinusculasCtrl.identificador}}"
+	maxlength="{{dobleCapturaMinusculasCtrl.maxlength}}"
+	type="{{dobleCapturaMinusculasCtrl.tipo}}" class="form-control input-md"
+	tabindex="{{dobleCapturaMinusculasCtrl.tabindex}}"
+	ng-disabled="dobleCapturaMinusculasCtrl.disabled"
+	ng-show="dobleCapturaMinusculasCtrl.visible" adea-minusculas
+	placeholder="{{dobleCapturaMinusculasCtrl.placeholder}}" ng-model="valor"
+	ng-blur="dobleCapturaMinusculasCtrl.dobleCapturaEnter()"
+	ng-keyup="($event.keyCode == 13 || $event.keyCode == 9)  && dobleCapturaMinusculasCtrl.dobleCapturaEnter()"
+	ng-required="{{dobleCapturaMinusculasCtrl.required}}">
+
+
+
+<script type="text/ng-template" id="modalMinus.html">
+<div class="modal-header">
+	<h4 class="modal-title">Recaptura y preciona ENTER o ESC para regresar</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="col-md-8" ng-class="{'has-success': valor == recaptura, 'has-error': valor != recaptura}">
+	    	<label class=" control-label">{{titulo}}</label>
+	   		<input id="{{dobleCapturaMinusculasCtrl.identificador}}DC"
+				name="{{dobleCapturaMinusculasCtrl.identificador}}DC" adea-minusculas
+				type="{{dobleCapturaMinusculasCtrl.tipo}}" class="form-control input-md"
+				placeholder="{{dobleCapturaMinusculasCtrl.placeholder}}"
+				ng-model="recaptura" tabindex="{{dobleCapturaMinusculasCtrl.tabindex + 1}}"
+				ng-keyup="$event.keyCode == 13 && modalCtrl.validaDobleCaptura()"
+				ng-cut="$event.preventDefault()" 
+				ng-copy="$event.preventDefault()"
+			    ng-paste="$event.preventDefault()"
+				ng-required="dobleCapturaMinusculasCtrl.required">
+		</div>
+	</div>
+</div>
+</script>

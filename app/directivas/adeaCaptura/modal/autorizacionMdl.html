@@ -1,0 +1,36 @@
+<div class="modal fade" id="autorizacionMdl" role="dialog"
+	data-backdrop="static" aria-labelledby="myModalLabel" data-keyboard="true"
+	aria-hidden="true">
+	<div class="modal-dialog">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<h4 class="modal-title" id="myModalLabel">Favor de Capturar
+					Clave de Autorizaci&oacute;n</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+				<form class="form-horizontal" name="formVal" novalidate>
+					<div class="row">
+						<div class="col-md-8"
+							ng-class="{'has-success': formVal.autoriza.$dirty || formVal.autoriza.$valid ,
+                                        'has-error': formVal.autoriza.$dirty && formVal.autoriza.$invalid}">
+							<label class=" control-label">Codigo de Autorizaci&oacute;n</label> <input
+								id="autoriza" name="autoriza" maxlength="12" type="password"
+								class="form-control input-md" adea-capitaliza
+								ng-pattern="/^T[0-9]{11}$/" ng-model="capturaUsuariosCtrl.idAutorizacion"
+								ng-keyup="($event.keyCode == 13)  && capturaUsuariosCtrl.validaAutorizacion()"
+								ng-required="true">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+

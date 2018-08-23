@@ -1,0 +1,113 @@
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter"> &nbsp;&nbsp;Captura {{titulo}} </i>
+		</h4>
+	</div>
+
+	<div class="panel-body">
+
+		<div class="row">
+
+			<div class="col-md-2">
+				<div class="row">
+					<div class="col-md-12"
+						ng-class="{
+                             'has-success': form.ubicacion.$dirty || form.ubicacion.$valid ,
+                             'has-error': form.ubicacion.$dirty && form.ubicacion.$invalid}">
+						<label class=" control-label" for="ubicacion">Ubicaci&oacute;n:</label>
+						<input id="ubicacion" name="ubicacion" maxlength="9" type="text" adea-capitaliza
+							class="form-control input-md" ng-pattern="/^S[0-9]{8}$/" ng-focus
+							funcion="capturaCtrl.validaEtiquetaS()" tabindex="0"
+							ng-disabled="capturaCtrl.bndValidaS"
+							ng-model="capturaCtrl.captura.ubicacion" placeholder="S########"
+							ng-required="true">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12"
+						ng-class="{
+                             'has-success': form.secuencia.$dirty || form.secuencia.$valid ,
+                             'has-error': form.secuencia.$dirty && form.secuencia.$invalid}">
+						<label class=" control-label" for="secuencia">Secuencia:</label> <input
+							id="secuencia" name="secuencia" maxlength="11" type="text" adea-capitaliza
+							class="form-control input-md" ng-pattern="/^U[0-9]{10}$/"
+							tabindex="1" ng-disabled="capturaCtrl.bndValidaU" ng-focus
+							funcion="capturaCtrl.validaEtiquetaU()"
+							ng-model="capturaCtrl.captura.secuencia"
+							placeholder="U##########" ng-required="true">
+					</div>
+				</div>
+				<br />
+				<div class="row">
+					<div class="col-md-12">
+						<label class=" control-label" for="secuencia">Expedientes
+							capturados: {{capturaCtrl.expCap}} / {{capturaCtrl.expIng}}</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-2">
+
+				<div class="row">
+					<div class="col-md-12"
+						ng-class="{
+                             'has-success': form.fecha.$dirty || form.fecha.$valid ,
+                             'has-error': form.fecha.$dirty && form.fecha.$invalid}">
+						<label class="control-label" for="fecha">Fecha Alta:</label> <label style="margin: 0;"
+							class="form-control input-md">{{capturaCtrl.captura.now}}</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12"
+						ng-class="{
+                             'has-success': form.documento.$dirty || form.documento.$valid ,
+                             'has-error': form.documento.$dirty && form.documento.$invalid}">
+						<label class=" control-label" for="fecha">Documento Adea:</label>
+						<label class="form-control input-md">{{capturaCtrl.captura.docAdea}}</label>
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="col-md-1"></div>
+
+			<div class="col-md-2">
+				<div class="row">
+					<div class="col-md-12">
+						<div ng-if="form.$valid && capturaCtrl.validaOp()">
+							<a class="btn btn-primary" role="button" style="width: 135px;"
+								ng-click="capturaCtrl.validaGuardar()" tooltip
+								title="Guarda Item" data-placement="midle">Guardar</a> <br /> <br />
+						</div>
+						<a class="btn btn-primary" role="button"
+							ng-if="!capturaCtrl.bndValidaU"
+							ng-click="capturaCtrl.cerrarUbicacion()" tooltip
+							title="Guarda Item" data-placement="midle">Cerrar
+							Ubicaci&oacute;n</a> 
+						<a class="btn btn-primary" role="button"
+							ng-if="capturaCtrl.bndValidaS && capturaCtrl.bndValidaU"
+							ng-click="capturaCtrl.cerrarSecuencia()" tooltip
+							title="Guarda Item" data-placement="midle">Cerrar Secuencia</a>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="panel panel-default panel-primary"
+		style="margin: 0px 15px 0px 15px;">
+		<div class="panel-heading" style="height: 35px;">
+			<h4 class="panel-title pull-left" style="margin-top: 0px;">
+				<i class="fa fa-filter"> Campos de Captura</i>
+			</h4>
+		</div>
+		<div class="panel-body" ng-transclude></div>
+	</div>
+
+</div>
+

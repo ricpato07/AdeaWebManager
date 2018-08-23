@@ -1,0 +1,24 @@
+<script type="text/ng-template" id="autorizacionM.html">
+<div class="modal-header">
+	<h4 class="modal-title">Favor de Capturar Clave de Autorizaci&oacute;n</h4>
+</div>
+<div class="modal-body">
+<form class="form-horizontal" name="form" novalidate>
+	<div class="row">
+		<div class="col-md-8" ng-class="{'has-success': form.autoriza.$dirty || form.autoriza.$valid ,
+                   'has-error': form.autoriza.$dirty && form.autoriza.$invalid}">
+	    	<label class=" control-label">{{titulo}}</label>
+	   		<input id="autoriza" name="autoriza" maxlength="12" type="text"
+						class="form-control input-md" adea-capitaliza ng-pattern="/^S[0-9]{8}$/"
+						ng-model="idAutorizacion"
+						ng-keyup="($event.keyCode == 13)  && capturaCtrl.validaAutorizacion()"
+						ng-required="true">
+		</div>
+	</div>
+</form>
+</div>
+</script>
+
+
+
+
