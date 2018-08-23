@@ -1,0 +1,263 @@
+<div class="row">
+    <div class="col-md-12"
+         style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+        <label>Documentos</label>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div
+        ng-class="{'col-md-6': bitacoraTicketCtrl.bEditar,
+                   'col-md-12': !bitacoraTicketCtrl.bEditar}">
+        <table class="table table-hover">
+            <thead
+                style="height: 15px; background-color: #337ab7; color: white;">
+                <tr>
+                    <th style="text-align: left;">Nombre archivo</th>
+                    <th style="text-align: center;">Fecha alta</th>
+                    <th ng-if="bitacoraTicketCtrl.bEditar"></th>
+                </tr>
+            </thead>
+            <tr ng-if="bitacoraTicketCtrl.listArchivosTicket.length > 0"
+                ng-repeat="archivo in bitacoraTicketCtrl.listArchivosTicket">
+                <td style="text-align: left;">
+                    <a style="cursor: pointer;"
+                       ng-click="bitacoraTicketCtrl.descargarArchivo(archivo)">
+                        {{archivo.nombreArchivo}}
+                    </a>
+                </td>
+                <td style="text-align: center;">{{archivo.fecReg| fecha}}</td>
+                <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
+                    <a class="fa fa-times"
+                       style="color: red; font-weight: bold; cursor: pointer; font-size: 16px;"
+                       tooltip title="Eliminar"
+                       ng-click="bitacoraTicketCtrl.eliminarArchivo(archivo)">                                                                                    
+                    </a>
+                </td>
+            </tr>
+            <tr ng-if="bitacoraTicketCtrl.listArchivosTicket.length == 0">
+                <td colspan="3" style="text-align: center;">
+                    El ticket no cuenta con archivos registrados</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-6"
+         ng-if="bitacoraTicketCtrl.bEditar">
+        <div class="row">
+            <div class="col-md-12" ng-if="bitacoraTicketCtrl.bndArchivos">
+                <adea-documentos-generales file="bitacoraTicketCtrl.archivo"></adea-documentos-generales>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: right;">
+                <a class="btn btn-primary" role="button"
+                   ng-click="bitacoraTicketCtrl.agregarArchivo()"
+                   ng-if="bitacoraTicketCtrl.archivo != null" tooltip
+                   title="Adjuntar Archivo" data-placement="midle">
+                    Adjuntar archivo 
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12"
+         style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+        <label>Relaciones</label>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div
+        ng-class="{'col-md-6': bitacoraTicketCtrl.bEditar,
+                   'col-md-12': !bitacoraTicketCtrl.bEditar}">
+        <table class="table table-hover">
+            <thead
+                style="height: 15px; background-color: #337ab7; color: white;">
+                <tr>
+                    <th style="text-align: left;">Relación</th>
+                    <th style="text-align: left;">Ticket</th>
+                    <th style="text-align: center;">Estatus</th>
+                    <th style="text-align: center;">Asignado</th>
+                    <th>Resumen</th>
+                    <th ng-if="bitacoraTicketCtrl.bEditar"></th>
+                </tr>
+            </thead>
+            <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length > 0"
+                ng-repeat="relacion in bitacoraTicketCtrl.listRelacionTicket">
+                <td style="text-align: left;">{{relacion.relacion}}
+                    [{{relacion.fecRel| fecha}}]</td>
+                <td style="text-align: center;">
+                    {{relacion.idTicketRel}}
+                </td>
+                <td style="text-align: center;">{{relacion.estatusDesc}}</td>
+                <td style="text-align: center;">{{relacion.usuarioAsignado|
+							cadenaVacia}}</td>
+                <td style="text-align: center;">{{relacion.resumen}}</td>
+                <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
+                    <a class="fa fa-times"
+                       tooltip title="Eliminar"
+                       style="font-size: 16px; color: red; font-weight: bold; cursor: pointer;"
+                       ng-click="bitacoraTicketCtrl.eliminarRelacion(relacion.idTicketRelacion)">                                                                                
+                    </a>
+                </td>
+            </tr>
+            <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length == 0">
+                <td colspan="6" style="text-align: center;">
+                    El ticket no cuenta con relaciones asociadas</td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="col-md-6" ng-if="bitacoraTicketCtrl.bEditar">
+        <form class="form-horizontal" name="formRel" novalidate>
+            <div class="col-md-5"
+                 ng-class="{
+                             'has-success': formRel.catRel.$dirty || formRel.catRel.$valid ,
+                             'has-error': formRel.catRel.$dirty && formRel.catRel.$invalid}">
+                <label>Incidencia actual:</label> <select
+                    class="form-control input-md" id="catRel" name="catRel"
+                    ng-model="bitacoraTicketCtrl.relacion" ng-required="true"
+                    ng-options="opt.claveCat as opt.descripcionCat for opt in bitacoraTicketCtrl.catRel">
+                    <option value="">Seleccione</option>
+                </select>
+            </div>
+            <div class="col-md-5"
+                 ng-class="{ 'has-success': formRel.idTicke.$dirty || formRel.idTicke.$valid ,
+                             'has-error': formRel.idTicke.$dirty && formRel.idTicke.$invalid}">
+                <label>No. ticket:</label> 
+                <input id="idTicke" name="idTicke"
+                       maxlength="10" type="text" 
+                       class="form-control input-md"
+                       ng-pattern="/^[0-9]*$/" 
+                       ng-model="bitacoraTicketCtrl.idTicketRel"
+                       ng-required="true">
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-primary" role="button"
+                   style="margin-top: 20px; cursor: pointer"
+                   ng-click="bitacoraTicketCtrl.guardarRelacion()" 
+                   ng-if="formRel.$valid"
+                   tooltip title="Guardar Relación" 
+                   data-placement="midle">Guardar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12"
+         style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+        <label>Notas</label>
+    </div>
+</div>
+<br />
+<div class="row">
+    <form class="form-horizontal" name="formNota" novalidate>
+        <div ng-class="{'col-md-6': bitacoraTicketCtrl.bEditar,
+                        'col-md-12': !bitacoraTicketCtrl.bEditar}">
+            <table class="table table-hover">
+                <thead
+                    style="height: 15px; background-color: #337ab7; color: white;">
+                    <tr>
+                        <th style="text-align: left;">Usuario</th>
+                        <th style="text-align: center;">Nota:</th>
+                        <th ng-if="bitacoraTicketCtrl.bEditar"></th>
+                        <th ng-if="bitacoraTicketCtrl.bEditar"></th>
+                    </tr>
+                </thead>
+                <tr ng-if="bitacoraTicketCtrl.listNotasTicket.length > 0"
+                    ng-repeat="nota in bitacoraTicketCtrl.listNotasTicket">
+                    <td style="text-align: left;">{{nota.usuarioReg}}
+                        [{{nota.fechaReg| fecha}}]</td>
+                    <td>{{nota.observacion}}</td>
+                    <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
+                        <a tooltip title="Editar"
+                           class="fa fa-pencil-square-o"
+                           style="font-size: 16px; color: #5aaf0d; font-weight: bold; cursor: pointer;"
+                           ng-click="bitacoraTicketCtrl.editarNota(nota)">                                                                    
+                        </a>
+                    </td>
+                    <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
+                        <a class="fa fa-times"
+                           tooltip title="Eliminar"
+                           style="font-size: 16px; color: red; font-weight: bold; cursor: pointer;"
+                           ng-click="bitacoraTicketCtrl.eliminarNota(nota.idObservacionesTicket)">                                                                    
+                        </a>
+                    </td>
+                </tr>
+                <tr ng-if="bitacoraTicketCtrl.listNotasTicket.length == 0">
+                    <td colspan="6" style="text-align: center;">
+                        El ticket no cuenta con notas.</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6" style="text-align: left;" 
+             ng-if="bitacoraTicketCtrl.bEditar"
+             ng-class="{'has-success': formNota.nota.$dirty || formNota.nota.$valid ,
+                             'has-error': formNota.nota.$dirty && formNota.nota.$invalid}">
+            <label>{{bitacoraTicketCtrl.modoGuardar?'Nueva':'Editar'}} Nota</label>
+            <textarea id="nota" name="nota" ng-required="true" maxlength="1000"
+                      minlength="10" ng-model="bitacoraTicketCtrl.nota" class="input-md"
+                      style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+                      rows="5">
+            </textarea>
+            <div style="width: 100%; text-align: right;">
+                <a class="btn btn-primary" role="button"
+                   style="margin-top: 20px; cursor: pointer;"
+                   ng-click="bitacoraTicketCtrl.guardarNota()"
+                   ng-if="formNota.$valid && bitacoraTicketCtrl.modoGuardar"
+                   title="Guardar Nota" data-placement="midle">
+                    Guardar 
+                </a> 
+                <a class="btn btn-primary" role="button"
+                   style="margin-top: 20px; cursor: pointer;"
+                   ng-click="bitacoraTicketCtrl.modificaNota()"
+                   ng-if="formNota.$valid && !bitacoraTicketCtrl.modoGuardar && bitacoraTicketCtrl.noHaCambiadoNota()"
+                   tooltip title="Guardar Nota" data-placement="midle">
+                    Modificar
+                </a>
+                <a class="btn btn-default" role="button"
+                   style="margin-top: 20px; cursor: pointer;"
+                   ng-click="bitacoraTicketCtrl.cancelarNota()"
+                   ng-if="!bitacoraTicketCtrl.modoGuardar && formNota.$valid"
+                   tooltip title="Guardar Nota" data-placement="midle">
+                    Cancelar 
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-md-12"
+         style="border-bottom: 1px solid #3774a8; font-size: 20px;">
+        <label>Bitácora</label>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead
+                style="height: 15px; background-color: #337ab7; color: white;">
+                <tr>
+                    <th style="text-align: center;">Fecha</th>
+                    <th style="text-align: center;">Usuario:</th>
+                    <th>Campo</th>
+                </tr>
+            </thead>
+            <tr ng-if="bitacoraTicketCtrl.listLogTicket.length > 0"
+                ng-repeat="log in bitacoraTicketCtrl.listLogTicket">
+                <td style="text-align: center;">{{log.fecha| fecha}}</td>
+                <td style="text-align: center;">{{log.usuario}}</td>
+                <td>{{log.campo}}</td>
+            </tr>
+            <tr ng-if="bitacoraTicketCtrl.listLogTicket.length == 0">
+                <td colspan="6" style="text-align: center;">
+                    El ticket no cuenta con registros en la bitácora.
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
