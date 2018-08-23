@@ -25,14 +25,12 @@
     	
     	var regex = /(\d+)/g;
     	
-    	console.log(url.match(regex) != null);
-    	console.log(url.search("dev") > 0);
     	
     	if(url.match(regex) != null || url.search("dev") > 0 || url.search("localhost")>0){
     		console.log('----------------Log');
     		awmDesarrollo = true;
     	}
-        
+    	
     	
     	if (!awmDesarrollo) {
             $logProvider.debugEnabled(true);
@@ -152,6 +150,12 @@
 	        templateUrl: 'app/componentes/facturacion/configuracionProforma/configuracionProforma.html',
 	        controller: 'ConfiguracionProformaController',
 	        controllerAs: 'configuracionProformaCtrl'
+	    });
+	    
+	    $routeProvider.when('/capturaUsuariosAdea', {
+	        templateUrl: 'app/componentes/capturaUsuarios/capturaUsuariosAdea.html',
+	        controller: 'CapturaUsuariosController',
+	        controllerAs: 'capturaUsuariosCtrl'
 	    });
 
 	    
