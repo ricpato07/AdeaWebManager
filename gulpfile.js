@@ -275,6 +275,38 @@ gulp.task('concatAdeaSeguimiento', ['templateCashSeguimiento'], function () {
 });
 
 
+/**
+ * MODULO: Captura
+ *
+ */
+gulp.task('templateCashCaptura', function () {
+    return gulp.src([
+        './app/componentes/capturaUsuarios/**/*.html'
+    ])
+        .pipe(minifyHtml({
+            empty: true,
+            spare: true,
+            quotes: true
+        }))
+        .pipe(ngHtml2Js({
+            moduleName: "adeaModule",
+            prefix: "app/componentes/capturaUsuarios/"
+        }))
+        .pipe(gulp.dest("./app/dist/capturaUsuarios/"));
+});
+
+gulp.task('concatAdeaCaptura', ['templateCashCaptura'], function () {
+    return gulp.src([
+        './app/componentes/capturaUsuarios/**/*.js',
+        './app/dist/capturaUsuarios/**/*.js'
+    ])
+        .pipe(concat('adeaCapturaConcat.js'))
+        .pipe(ngAnnotate())
+        .pipe(uglify())
+        .pipe(gulp.dest('./app/dist/archivos/'));
+});
+
+
 gulp.task('templateCashBlockUi', function () {
     return gulp.src([
         './app/componentes/blockUI/*.html'
@@ -315,6 +347,7 @@ gulp.task('serviceConcat', function () {
         './app/servicios/reporte.services.js',
         './app/servicios/mantenimientoFac.services.js',
         './app/servicios/proforma.services.js',
+        './app/servicios/captura.services.js',
         './app/servicios/tablaValores.js',
         './app/servicios/tablero.service.js'
     ])
@@ -355,6 +388,7 @@ gulp.task('buildDist', [
     'concatAdeaFacturacion',
     'concatAdeaResumen',
     'concatAdeaSeguimiento',
+    'concatAdeaCaptura',
     'concatAdeaBlockUi',
     'serviceConcat',
     'adeaConcat'
@@ -372,6 +406,7 @@ gulp.task('deploy', ['buildDist'], function () {
         './app/dist/archivos/adeaFacturacionConcat.js',
         './app/dist/archivos/adeaResumenConcat.js',
         './app/dist/archivos/adeaSeguimientoConcat.js',
+        './app/dist/archivos/adeaCapturaConcat.js',
         './app/dist/archivos/adeablockUIConcat.js',
         './app/dist/archivos/adeaDirectivasConcat.js'
 
