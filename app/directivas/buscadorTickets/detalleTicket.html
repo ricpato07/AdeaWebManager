@@ -1,5 +1,7 @@
 <div ng-if="detalleTicketCtrl.bbusquedaincorrecta" style="margin-top: 50px; text-align: center; ">
-    <p class="error_rojo">No se encontró el ticket {{detalleTicketCtrl.idticketbusqueda}}.</p>
+    <div class="borde_rojo">
+        <p class="error_rojo">No se encontró el ticket {{detalleTicketCtrl.idticketbusqueda}}.</p>
+    </div>
     <div style="margin-top: 40px;">
         <a style="cursor: pointer; font-size: 20px !important;"
            ng-click="detalleTicketCtrl.regresar()" title="Regresar"
@@ -14,254 +16,60 @@
                 style="color: white; padding-right: 29px; cursor: pointer; font-size: 20px !important;"
                 ng-click="detalleTicketCtrl.regresar()" title="Regresar a Tickets"
                 class="fa fa-mail-reply"></a> 
-                  Ticket:
-                {{detalleTicketCtrl.miTicket.idTicket}}&nbsp;|&nbsp;
-                {{detalleTicketCtrl.miTicket.resumen.length > 100 ? detalleTicketCtrl.miTicket.resumen.substring(0, 100)+'...' : detalleTicketCtrl.miTicket.resumen}}
+            Ticket:
+            {{detalleTicketCtrl.miTicket.idTicket}}&nbsp;|&nbsp;
+            {{detalleTicketCtrl.miTicket.resumen}}
         </div>
     </div>
 
     <div class="panel-body">
-        <form class="form-horizontal" name="form" novalidate>
-            <div class="row">
-                <div class="col-md-4">
-                    <label class="control-label">Area:</label> <br/> 
-                    <label class="control-label label_detalle">{{detalleTicketCtrl.miTicket.nombreArea}}</label>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Categoría:</label> <br/> 
-                    <label class="control-label label_detalle">{{detalleTicketCtrl.miTicket.nombreCategoria}}</label>
-                </div>
-                <div class="col-md-4"
-                     ng-class="{
-                             'has-success': form.complejidad.$dirty || form.complejidad.$valid ,
-                             'has-error'
-                         : form.complejidad.$dirty && form.complejidad.$invalid}">
-                    <label class=" control-label">Complejidad:</label>
-                    <select
-                        class="form-control input-md" id="complejidad" name="complejidad"
-                        ng-required="true"
-                        ng-model="detalleTicketCtrl.miTicket.complejidad"
-                        ng-options="opt.codigo as opt.descripcion for opt in detalleTicketCtrl.complejidadlist">
-                        <option value="">Selecciona la complejidad</option>
-                    </select>
-                </div>
-            </div> 
-            <div class="row">
-                <div class="col-md-4"
-                     ng-class="{
-                             'has-success': form.atencion.$dirty || form.atencion.$valid ,
-                             'has-error' : form.atencion.$dirty && form.atencion.$invalid}">
-                    <label class=" control-label">Tiempo estimado de atención:</label>
-                    <div uib-timepicker ng-model="detalleTicketCtrl.miTicket.tiempoAtencion" 
-                         ng-change="changed()" 
-                         hour-step="1" 
-                         minute-step="1" 
-                         show-meridian="false">
-                    </div>
-                </div>
-                <div class="col-md-4"
-                     ng-class="{
-                             'has-success': form.fecha_entrega.$dirty || form.fecha_entrega.$valid ,
-                             'has-error' : form.fecha_entrega.$dirty&& form.fecha_entrega.$invalid}">
-                    <label class=" control-label">Fecha estimada de entrega:</label>
-                    <input
-                        type="text" class="form-control" id="fecha_entrega" name="fecha_entrega"
-                        uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
-                        ng-click="detalleTicketCtrl.abrirFechaEntrega()"
-                        ng-model="detalleTicketCtrl.miTicket.fechaEntrega"  
-                        placeholder="dd/mm/yyyy"
-                        is-open="detalleTicketCtrl.fechaEntrega.abierto" close-text="Cerrar"
-                        datepicker-options="{minDate: detalleTicketCtrl.fechaEntrega.minDate}"
-                        clear-text="Borrar" current-text="Hoy" />
-                </div>
-                <div class="col-md-4"
-                     ng-class="{
-                             'has-success': form.asignado.$dirty || form.asignado.$valid ,
-                             'has-error'
-                         : form.asignado.$dirty && form.asignado.$invalid}">
-                    <label class=" control-label">Asignar a:</label>
-                    <ui-select id="asignado" name="asignado"
-                               ng-model="detalleTicketCtrl.miTicket.usuarioAsignado"
-                               ng-change="detalleTicketCtrl.asignado_change()"
-                               style="min-width: 300px;" title="Elige un usuario"> 
-                        <ui-select-match placeholder="Selecciona un usuario">{{$select.selected.nombre}}
-                        </ui-select-match>
-                        <ui-select-choices
-                            repeat="recurso.login as recurso in detalleTicketCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
-                            <div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
-                        </ui-select-choices> 
-                    </ui-select>
-                    <br/>
-                    <div ng-show="detalleTicketCtrl.ultimoticketlist != undefined" class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="centered">Ticket</th>
-                                    <th class="centered">Fecha estimada de entrega</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in detalleTicketCtrl.ultimoticketlist" class="gradeA">
-                                    <td class="centered">{{item.idTicket}}</td>
-                                    <td class="centered">{{item.fechaEntrega| date:'dd-MM-yyyy'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="col-md-12 text-right">
-                        <a class="btn btn-primary" style="margin-top: 41px;" role="button"
-                           ng-click="detalleTicketCtrl.asignar_ticket()"
-                           tooltip title="Asignar Ticket" data-placement="midle">
-                            Asignar
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 50px;">
-                <div class="col-md-4">
-                    <label class="control-label">Ticket asignado a:</label> <br/> 
-                    <label class="control-label label_detalle">{{detalleTicketCtrl.miTicket.usuarioAsignado}}</label>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Cambiar estado a:</label> <br/> 
-                    <select
-                        class="form-control input-md" id="estatus" name="estatus"
-                        ng-required="true" ng-model="detalleTicketCtrl.miTicket.estatus"
-                        ng-change="detalleTicketCtrl.combo_estado()"
-                        ng-options="opt.claveCat as opt.descripcionCat for opt in detalleTicketCtrl.estatusTicket">
-                        <option value="">--Seleccione el estado--</option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Agregar nota:</label> <br/> 
-                    <textarea id="nota" name="nota" ng-required="true" maxlength="1000"
-                              minlength="10" ng-model="detalleTicketCtrl.nota" class="input-md"
-                              style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
-                              rows="5">
-                    </textarea>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <a class="btn btn-primary" style="margin-top: 41px;" role="button"
-                       ng-click="detalleTicketCtrl.cambiar_estado()"
-                       ng-if="detalleTicketCtrl.bcambiar_estado"
-                       tooltip title="Cambiar estado" data-placement="midle">Cambiar estado
-                    </a>
-                    <a class="btn btn-primary" style="margin-top: 41px;" role="button"
-                       ng-disabled="true"
-                       ng-if="!detalleTicketCtrl.bcambiar_estado"
-                       tooltip title="Cambiar estado" data-placement="midle">Cambiar estado
-                    </a>
-                </div>
-            </div>
-        </form>        
-        <div>    
-            <br/>
-            <div class="row">
-                <div class="col-md-12"
-                     style="border-bottom: 1px solid #3774a8; font-size: 20px;">
-                    <label>Documentos</label>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-                    <table class="table table-hover">
-                        <thead
-                            style="height: 15px; background-color: #337ab7; color: white;">
-                            <tr>
-                                <th style="text-align: left;">Nombre archivo</th>
-                                <th style="text-align: center;">Fecha alta</th>
-                            </tr>
-                        </thead>
-                        <tr ng-if="detalleTicketCtrl.listArchivosTicket.length > 0"
-                            ng-repeat="archivo in detalleTicketCtrl.listArchivosTicket">
-                            <td style="text-align: left;">
-                                <a style="cursor: pointer;"
-                                   ng-click="detalleTicketCtrl.descargarArchivo(archivo)">{{archivo.nombreArchivo}}</a>
-                            </td>
-                            <td style="text-align: center;">{{archivo.fecReg| fecha}}</td>
-                        </tr>
-                        <tr ng-if="detalleTicketCtrl.listArchivosTicket.length == 0">
-                            <td colspan="2" style="text-align: center;">
-                                El ticket no cuenta con archivos registrados
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-12"
-                     style="border-bottom: 1px solid #3774a8; font-size: 20px;">
-                    <label>Notas</label>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <form class="form-horizontal" name="formNota" novalidate>
-                    <div class="col-md-12 col-sm-12">
-                        <table class="table table-hover">
-                            <thead
-                                style="height: 15px; background-color: #337ab7; color: white;">
-                                <tr>
-                                    <th style="text-align: center;">Fecha</th>
-                                    <th style="text-align: center;">Usuario</th>
-                                    <th>Nota</th>
-                                </tr>
-                            </thead>
-                            <tr ng-if="detalleTicketCtrl.listNotasTicket.length > 0"
-                                ng-repeat="nota in detalleTicketCtrl.listNotasTicket">
-                                <td style="text-align: center;">
-                                   {{nota.fechaReg| fecha}} 
-                                </td>
-                                <td style="text-align: center;">
-                                   {{nota.usuarioReg}} 
-                                </td>
-                                <td>{{nota.observacion}}</td>
-                            </tr>
-                            <tr ng-if="detalleTicketCtrl.listNotasTicket.length == 0">
-                                <td colspan="3" style="text-align: center;">
-                                    El ticket no cuenta con notas.
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
-            </div>
-            <div class="row">
-                <div class="col-md-12"
-                     style="border-bottom: 1px solid #3774a8; font-size: 20px;">
-                    <label>Bitácora</label>
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-hover">
-                        <thead
-                            style="height: 15px; background-color: #337ab7; color: white;">
-                            <tr>
-                                <th style="text-align: center;">Fecha</th>
-                                <th style="text-align: center;">Usuario</th>
-                                <th>Movimiento</th>
-                            </tr>
-                        </thead>
-                        <tr ng-if="detalleTicketCtrl.listLogTicket.length > 0"
-                            ng-repeat="log in detalleTicketCtrl.listLogTicket">
-                            <td style="text-align: center;">{{log.fecha| fecha}}</td>
-                            <td style="text-align: center;">{{log.usuario}}</td>
-                            <td>{{log.campo}}</td>
-                        </tr>
-                        <tr ng-if="detalleTicketCtrl.listLogTicket.length == 0">
-                            <td colspan="3" style="text-align: center;">
-                                El ticket no cuenta con registros en la bitácora.
-                            </td>
-                        </tr>
-                    </table>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">Resumen:</label> <br/> 
+                <div class="borde_azul">
+                    <label class="control-label label_detalle">{{detalleTicketCtrl.miTicket.descripcion}}</label>
                 </div>
             </div>
         </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-12">
+                <a style="font-size: 18px;" class="a_negro"
+                   ng-click="detalleTicketCtrl.editarTicket_action()">
+                    <i style="font-size: 14px !important;" class="fa fa-edit"></i>
+                    Editar ticket</a>
+            </div>
+        </div>
+        <editar-ticket ng-if="detalleTicketCtrl.beditarticket" 
+                       idticket="detalleTicketCtrl.miTicket.idTicket"
+                       modificar-ticket="detalleTicketCtrl.modificarTicket()">
+        </editar-ticket>
+
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-12">
+                <a style="font-size: 18px;" class="a_negro"
+                   ng-click="detalleTicketCtrl.asignarTicket_action()">
+                    <i style="font-size: 14px !important;" class="fa fa-arrow-circle-right"></i>
+                    Asignar ticket
+                </a>
+            </div>
+        </div>
+        <asignar-ticket-dir ng-if="detalleTicketCtrl.basignarticket" 
+                        idticket="detalleTicketCtrl.miTicket.idTicket"
+                        asignar-ticket="detalleTicketCtrl.asignarTicket()">
+        </asignar-ticket-dir> 
+        <div class="row" style="margin-top: 15px; margin-bottom: 10px;">
+            <div class="col-md-12">
+                <a style="font-size: 18px;" class="a_negro"
+                   ng-click="detalleTicketCtrl.bitacoraTicket_action()">
+                    <i style="font-size: 14px !important;" class="fa fa-arrow-circle-right"></i>
+                    Bitácora
+                </a>
+            </div>
+        </div>
+        <bitacora-ticket ng-if="detalleTicketCtrl.bbitacoraticket" 
+                        idticket="detalleTicketCtrl.miTicket.idTicket"
+                        bitacora-action="detalleTicketCtrl.bitacoraAction()">
+        </bitacora-ticket> 
     </div>
+
 </div>   
