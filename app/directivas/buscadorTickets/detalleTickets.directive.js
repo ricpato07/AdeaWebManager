@@ -34,7 +34,7 @@
         detalleTicketCtrl.fechaEntrega = {};
         detalleTicketCtrl.fechaEntrega.minDate = new Date();
         detalleTicketCtrl.tiempoAtencion = new Date(1900, 1, 1);
-        detalleTicketCtrl.beditarticket = false;
+        detalleTicketCtrl.beditarticket = true;
         detalleTicketCtrl.basignarticket = false;
         detalleTicketCtrl.bbitacoraticket = false;
 

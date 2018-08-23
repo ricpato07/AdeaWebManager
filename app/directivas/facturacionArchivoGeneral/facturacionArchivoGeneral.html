@@ -40,8 +40,6 @@
 			<div class="row"
 				ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'S'">
 
-
-
 				<div class="col-md-12">
 					<h4 style="border-bottom: 1px solid #337ab7;">Cargar
 						Incidencias</h4>
@@ -103,13 +101,24 @@
 					</div>
 				</div>
 
-				
-				<div class="col-md-12" ng-if="facturacionArchivoGeneralCtrl.incidencias.length > 0">
-					<br/><br/>
-					<adea-tabla dt-data-source="facturacionArchivoGeneralCtrl.incidencias"
+
+				<div class="col-md-12"
+					ng-if="facturacionArchivoGeneralCtrl.incidencias.length > 0">
+					<br /> <br />
+					<adea-tabla
+						dt-data-source="facturacionArchivoGeneralCtrl.incidencias"
 						config="facturacionArchivoGeneralCtrl.tblIncidencias">
 					</adea-tabla>
 				</div>
+
+			</div>
+
+			<br /> <br />
+
+			<div class="row" ng-if="facturacionArchivoGeneralCtrl.bndProforma">
+				<adea-proforma cartera="facturacionArchivoGeneralCtrl.carteraSeleccionada"
+					parametros="facturacionArchivoGeneralCtrl.parametrosProforma"
+					periodo="facturacionArchivoGeneralCtrl.periodoFac" modo="'A'"></adea-proforma>
 			</div>
 		</div>
 
@@ -151,9 +160,16 @@
 			ng-if="facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'S'">
 
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-8" style="padding-right: 0;">
 					<h4 style="border-bottom: 1px solid #337ab7;">Descarga de
 						Layout Facturaci&oacute;n</h4>
+				</div>
+				<div class="col-md-4"
+					style="border-bottom: 1px solid #337ab7; text-align: right;">
+					<a role="button" style="font-size: 29px; text-decoration: none;"
+						style="color: green;" class="fa fa-check-circle"
+						ng-click="facturacionArchivoGeneralCtrl.confirmarLayouts()"
+						tooltip title="Actualizar Preforma"></a>
 				</div>
 			</div>
 			<div class="row">

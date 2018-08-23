@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
         <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.min.css">
         <!-- endbuild -->
-
+        
         <!-- build:js app/components.js -->
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/angular/angular.js"></script>
@@ -69,6 +69,8 @@
         <script src="bower_components/pdfmake/build/pdfmake.js"></script>
         <script src="bower_components/html2canvas/build/html2canvas.js"></script>
         <script src='bower_components/pdfmake/build/vfs_fonts.js'></script>
+        <script src='bower_components/jspdf/dist/jspdf.min.js'></script>
+        <script src="bower_components/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
         <!-- endbuild -->
 
         <!-- build:js app/lib/libs.js -->
@@ -77,9 +79,9 @@
         <script src="app/lib/angular-datatables/dist/angular-datatables.min.js"></script>
         <script src="app/i18n/angular-locale_es-mx.js"></script>
         <!-- endbuild -->
-
+        
         <script src="app/lib/kanban/DlhSoft.Kanban.Angular.Components.js"></script>
-
+       
         <!-- build:app -->
         <script src="app/adea.module.js"></script>
         <script src="app/adea.routes.js"></script>
@@ -107,7 +109,7 @@
         <script src="app/directivas/asignarTicket/asignarTicket.directive.js"></script>
         <script src="app/directivas/modalMessage/modal.directive.js"></script>
         <script src="app/directivas/bitacoraTicket/bitacoraTicket.directive.js"></script>
-
+        
         <script src="app/servicios/servicios.modulo.js"></script>
         <script src="app/servicios/adea.services.js"></script>
         <script src="app/servicios/proyecto.services.js"></script>
@@ -136,10 +138,9 @@
         <script src="app/componentes/Visor/visor.controller.js"></script>
         <script src="app/componentes/resumenProyectos/resumenProyectos.controller.js"></script>
         <script src="app/componentes/seguimiento/tableroRecursos.controller.js"></script>
-        <script src="app/componentes/capturaUsuarios/capturaUsuariosAdea.controller.js"></script>       
+        <script src="app/componentes/capturaUsuarios/capturaUsuariosAdea.controller.js"></script>
         <!-- endbuild -->
-
-
+        
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <!-- Site wrapper -->

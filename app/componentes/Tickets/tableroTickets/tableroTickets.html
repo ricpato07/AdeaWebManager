@@ -1,16 +1,16 @@
 <toaster-container
-    toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
 
 <div ng-if="false" class="row" style="margin-bottom: 25px;">
-    <div class="col-md-10" style=""></div>
-    <div class="col-md-2" style="">
-        <label>No. Ticket:</label> 
-        <input id="numticket" name="numticket"
-               maxlength="10" type="text" class="form-control input-md"
-               ng-keyup="$event.keyCode == 13 && tableroTicketsCtrl.buscarTicket()"
-               ng-pattern="/^[0-9]*$/" ng-model="tableroTicketsCtrl.idticketbusqueda"
-               ng-required="true">
-    </div>
+        <div class="col-md-10" style=""></div>
+        <div class="col-md-2" style="">
+            <label>No. Ticket:</label> 
+            <input id="numticket" name="numticket"
+                   maxlength="10" type="text" class="form-control input-md"
+                   ng-keyup="$event.keyCode == 13 && tableroTicketsCtrl.buscarTicket()"
+                   ng-pattern="/^[0-9]*$/" ng-model="tableroTicketsCtrl.idticketbusqueda"
+                   ng-required="true">
+        </div>
 </div>
 
 <detalle-tickets ng-if="tableroTicketsCtrl.bbuscar"
@@ -49,34 +49,34 @@
                             <div class="col-md-3">
                                 <div ng-if="tableroTicketsCtrl.bcombos"
                                      ng-class="{ 'has-success': form.area.$dirty || form.area.$valid ,
-                                             'has-error': form.area.$dirty && form.area.$invalid}">
-                                    <label class="control-label">*Áreas:</label> 
-                                    <select
-                                        class="form-control input-md" id="area" name="area"
-                                        ng-required="true"
-                                        ng-disabled="!tableroTicketsCtrl.bareas"
-                                        ng-change="tableroTicketsCtrl.areas_action()"
-                                        ng-model="tableroTicketsCtrl.user.idArea"
-                                        ng-options="opt.idArea as opt.nombre for opt in tableroTicketsCtrl.areaslist">
-                                        <option value="">Selecciona el área</option>
-                                    </select>
-                                </div>
+                             'has-error': form.area.$dirty && form.area.$invalid}">
+                                <label class="control-label">*Áreas:</label> 
+                                <select
+                                    class="form-control input-md" id="area" name="area"
+                                    ng-required="true"
+                                    ng-disabled="!tableroTicketsCtrl.bareas"
+                                    ng-change="tableroTicketsCtrl.areas_action()"
+                                    ng-model="tableroTicketsCtrl.user.idArea"
+                                    ng-options="opt.idArea as opt.nombre for opt in tableroTicketsCtrl.areaslist">
+                                    <option value="">Selecciona el área</option>
+                                </select>
+                            </div>
                             </div>
                             <div class="col-md-3">
                                 <div ng-if="tableroTicketsCtrl.bcombos"
                                      ng-class="{ 'has-success': form.categoria.$dirty || form.categoria.$valid ,
-                                                 'has-error': form.categoria.$dirty && form.categoria.$invalid}">
-                                    <label class="control-label">*Categorías:</label> 
-                                    <select
-                                        class="form-control input-md" id="categoria" name="categoria"
-                                        ng-disabled="!tableroTicketsCtrl.bcategorias"
-                                        ng-change="tableroTicketsCtrl.categorias_action()"
-                                        ng-model="tableroTicketsCtrl.user.idCategoria"
-                                        ng-options="opt.idCategoria as opt.nombreCategoria for opt in tableroTicketsCtrl.categoriaslist">
-                                        <option value="">Selecciona la categoría</option>
-                                    </select>
-                                </div>
+                             'has-error': form.categoria.$dirty && form.categoria.$invalid}">
+                                <label class="control-label">*Categorías:</label> 
+                                <select
+                                    class="form-control input-md" id="categoria" name="categoria"
+                                    ng-disabled="!tableroTicketsCtrl.bcategorias"
+                                    ng-change="tableroTicketsCtrl.categorias_action()"
+                                    ng-model="tableroTicketsCtrl.user.idCategoria"
+                                    ng-options="opt.idCategoria as opt.nombreCategoria for opt in tableroTicketsCtrl.categoriaslist">
+                                    <option value="">Selecciona la categoría</option>
+                                </select>
                             </div>
+                        </div>
                             <div class="col-md-3">
                                 <label>No. Ticket:</label> 
                                 <input id="numticket" name="numticket"

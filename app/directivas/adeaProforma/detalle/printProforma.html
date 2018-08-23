@@ -25,45 +25,61 @@
 						<div class="col-md-12"
 							ng-if="proformaCtrl.proforma.listProformaDet.length > 0">
 
-							<table class="table table-hover">
+							<table id="proformaTable" class="table table-hover">
 								<thead style="background-color: #337ab7; color: white;">
 									<tr>
-										<th style="text-align: left; width: 66%;">Descripci&oacute;n
+										<th width="66" align="left" style="text-align: left; width: 45%;">Descripci&oacute;n
 											Item</th>
-										<th style="text-align: center; width: 21%;">Tipo</th>
-										<th style="text-align: center; width: 10%;">Unidad</th>
-										<th style="text-align: center; width: 8%;">Cantidad</th>
-										<th style="text-align: center; width: 7%;">Precio
-											Unitario</th>
-										<th style="text-align: center;">Total</th>
+										<th width="21" align="center" style="text-align: left; width: 30%;">Tipo</th>
+										<th width="10" align="center" style="text-align: center;">Unidad</th>
+										<th width="8" align="center" style="text-align: right;">Cantidad</th>
+										<th width="7" align="center" style="text-align: right;">Precio</th>
+										<th align="center" style="text-align: right;">Total</th>
 									</tr>
 								</thead>
 								<tr ng-repeat="item in proformaCtrl.proforma.listProformaDet">
 									<td>{{item.descItem}}</td>
-									<td style="text-align: center;">{{item.tipo}}</td>
-									<td style="text-align: center;">{{item.descUnidad}}</td>
-									<td style="text-align: right;">{{item.cantidad}}</td>
-									<td style="text-align: right;">{{item.precioUnitario |
+									<td align="left">{{item.tipo}}</td>
+									<td align="center">{{item.descUnidad}}</td>
+									<td align="right">{{item.cantidad}}</td>
+									<td align="right">{{item.precioUnitario |
 										moneda}}</td>
-									<td style="text-align: right;">{{item.subtotal | moneda}}</td>
+									<td align="right">{{item.subtotal | moneda}}</td>
+								</tr>
+								<tr>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
 								</tr>
 								<tr
 									style="border-style: double none none none; border-top-color: #337ab7;">
-									<td colspan="4"></td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
 									<td style="text-align: right; font-weight: bold;">SubTotal</td>
-									<td style="text-align: right;">{{proformaCtrl.proforma.subtotal
+									<td align="right">{{proformaCtrl.proforma.subtotal
 										| moneda}}</td>
 								</tr>
 								<tr>
-									<td colspan="4"></td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
 									<td style="text-align: right; font-weight: bold;">Iva</td>
-									<td style="text-align: right;">{{proformaCtrl.proforma.iva
+									<td align="right">{{proformaCtrl.proforma.iva
 										| moneda}}</td>
 								</tr>
 								<tr>
-									<td colspan="4"></td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
+									<td>&nbsp</td>
 									<td style="text-align: right; font-weight: bold;">Total</td>
-									<td style="text-align: right;">{{proformaCtrl.proforma.total
+									<td align="right">{{proformaCtrl.proforma.total
 										| moneda}}</td>
 								</tr>
 							</table>
@@ -74,7 +90,7 @@
 					<div class="col-md-6 text-right"></div>
 					<div class="col-md-6 text-right">
 						<a class="btn btn-primary" style="margin-top: 41px;" role="button"
-							ng-click="proformaCtrl.descargarProforma()" tooltip
+							ng-click="proformaCtrl.descargarProformaPrint()" tooltip
 							title="Guarda Proforma" data-placement="midle">Descargar</a>
 					</div>
 				</div>

@@ -62,7 +62,7 @@
 					 scltcod: consultaFacturacionCtrl.idClienteSeleccionado
 			 };
 	        	
-			 var promesa = FacturacionServicios.consultaCarteraCliente(params).$promise;
+			 var promesa = MantenimientoFacServicios.consultaCartera(params).$promise;
 
 			 promesa.then(function (respuesta) {
 				 consultaFacturacionCtrl.carteraCliente = respuesta;
@@ -82,6 +82,12 @@
 			 consultaFacturacionCtrl.tipoCartera = filtro[0].layoutFac;
 			 
 			 $log.info(consultaFacturacionCtrl.tipoCartera);
+			 
+			 var filtro = _.filter(consultaFacturacionCtrl.carteraCliente, function (act) {
+        		 return act.idCarteraCliente == consultaFacturacionCtrl.idCarteraCliente;
+        	 });
+        	 
+			 consultaFacturacionCtrl.carteraSeleccionada = filtro[0];
 			 
 			 if(consultaFacturacionCtrl.tipoCartera == 'A'){
 				 consultaPeriodosArcGenerales();
@@ -148,6 +154,10 @@
 			if(consultaFacturacionCtrl.tipoCartera == 'A'){
 				$log.info(consultaFacturacionCtrl.periodoSeleccionado);
 				consultaGrpCatalogos(consultaFacturacionCtrl.periodoSeleccionado.idPeriodosFacturados);
+				consultaFacturacionCtrl.parametrosProforma = {
+	        			idCartera: consultaFacturacionCtrl.idCarteraCliente,
+	        			pIdPeriodo: consultaFacturacionCtrl.periodoSeleccionado.idPeriodosFacturados
+	        	};
 			}else{
 				consultaCatalogos(consultaFacturacionCtrl.periodoSeleccionado.idPeriodoFactGral, null);
 				consultaFacturacionCtrl.parametrosProforma = {

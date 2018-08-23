@@ -220,7 +220,7 @@
                 method: 'POST', headers: {'Content-Type': 'application/json'},
                 params: {
                     idArea: '@idArea'
-                }
+            }
             }
         });
 
@@ -392,7 +392,7 @@
         function consultaAreasAWM(params) {
             return areas.consultaAreaAWM({servicio: 'consultaAreas.action'}, params);
         }
-        
+
         function consultaAreaObjeto(params) {
             return areas.consultaAreaObjeto({servicio: 'consultaArea.action'}, params);
         }

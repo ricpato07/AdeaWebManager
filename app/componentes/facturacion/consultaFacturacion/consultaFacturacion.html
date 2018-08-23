@@ -24,7 +24,7 @@
 						ng-model="consultaFacturacionCtrl.idClienteSeleccionado"
 						ng-change="consultaFacturacionCtrl.consultaCarteraCli()"
 						style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
-						placeholder="Selecciona un Ticket">{{$select.selected.nomCliente}}</ui-select-match>
+						placeholder="Selecciona un Cliente">{{$select.selected.nomCliente}}</ui-select-match>
 					<ui-select-choices
 						repeat="cliente.scltcod as cliente in consultaFacturacionCtrl.clientes | propsFilter: {nomCliente: $select.search, scltcod: $select.search}">
 					<div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>

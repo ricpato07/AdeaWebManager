@@ -37,7 +37,7 @@
                    ng-click="detalleTicketCtrl.editarTicket_action()">
                     <i style="font-size: 14px !important;" class="fa fa-edit"></i>
                     Editar ticket</a>
-            </div>
+            </div> 
         </div>
         <editar-ticket ng-if="detalleTicketCtrl.beditarticket" 
                        idticket="detalleTicketCtrl.miTicket.idTicket"
@@ -54,8 +54,8 @@
             </div>
         </div>
         <asignar-ticket-dir ng-if="detalleTicketCtrl.basignarticket" 
-                        idticket="detalleTicketCtrl.miTicket.idTicket"
-                        asignar-ticket="detalleTicketCtrl.asignarTicket()">
+                            idticket="detalleTicketCtrl.miTicket.idTicket"
+                            asignar-ticket="detalleTicketCtrl.asignarTicket()">
         </asignar-ticket-dir> 
         <div class="row" style="margin-top: 15px; margin-bottom: 10px;">
             <div class="col-md-12">
@@ -67,9 +67,9 @@
             </div>
         </div>
         <bitacora-ticket ng-if="detalleTicketCtrl.bbitacoraticket" 
-                        idticket="detalleTicketCtrl.miTicket.idTicket"
-                        bitacora-action="detalleTicketCtrl.bitacoraAction()">
+                         idticket="detalleTicketCtrl.miTicket.idTicket"
+                         bitacora-action="detalleTicketCtrl.bitacoraAction()">
         </bitacora-ticket> 
     </div>
 
-</div>   
+</div>

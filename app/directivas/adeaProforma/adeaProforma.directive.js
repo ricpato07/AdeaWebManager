@@ -26,11 +26,16 @@
         proformaCtrl.addProforma = addProforma;
         proformaCtrl.eliminarItem = eliminarItem;
         proformaCtrl.suma = suma;
+        proformaCtrl.descargarProformaPrint = descargarProformaPrint;
         
         proformaCtrl.itemNuevo = {};
         proformaCtrl.itemNuevo.precioUnitario = 0;
         proformaCtrl.itemNuevo.cantidad = 0;
         proformaCtrl.itemNuevo.subtotal = 0;
+        
+        imgToBase64('app/resources/img/AdeaLogo.jpg', function(base64) {
+        	proformaCtrl.base64Img = base64; 
+        });
 
         activar();
 
@@ -71,6 +76,31 @@
         	
         	angular.element('#printProforma').modal('hide');
         }
+        
+        function descargarProformaPrint(){
+        	var doc = new jsPDF('l');
+        	var elem = document.getElementById("proformaTable");
+
+        	doc.addImage(proformaCtrl.base64Img, 'JPEG', 7, 8, 50, 20);
+        	doc.setFontSize(12);
+        	doc.text(100, 20, $scope.cartera.descCartera.trim());
+        	doc.text(195, 20, "Periodo de Facturación: " + $scope.periodo);
+            var res = doc.autoTableHtmlToJson(elem);
+            
+            
+            doc.autoTable(res.columns, res.data, {
+            	startY: 33,
+            	margin: {horizontal: 7},
+                bodyStyles: {valign: 'top'},
+                styles: {overflow: 'linebreak', columnWidth: 'wrap'},
+                columnStyles: {1: {
+                    columnWidth: 'auto'
+                }, 3: { halign:'right'}, 4: { halign:'right'}, 5: { halign:'right'}}
+            });
+            
+            doc.save('proforma_'+ $scope.cartera.descCartera.replace(" ", "").trim() +'.pdf');
+        }
+        
         
         function downloadArchivoFact(nombreArchivo){
         	
@@ -178,6 +208,31 @@
         	proformaCtrl.itemNuevo.subtotal = Number(subTotal.toFixed(2));
         }
         
+        
+        // You could either use a function similar to this or pre convert an
+		// image with for example http://dopiaza.org/tools/datauri
+        // https://stackoverflow.com/a/20285053/827047
+        function imgToBase64(src, callback) {
+            var outputFormat = src.substr(-3) === 'png' ? 'image/png' : 'image/jpeg';
+            var img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.onload = function() {
+                var canvas = document.createElement('CANVAS');
+                var ctx = canvas.getContext('2d');
+                var dataURL;
+                canvas.height = this.naturalHeight;
+                canvas.width = this.naturalWidth;
+                ctx.drawImage(this, 0, 0);
+                dataURL = canvas.toDataURL(outputFormat);
+                callback(dataURL);
+            };
+            img.src = src;
+            if (img.complete || img.complete === undefined) {
+                img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                img.src = src;
+            }
+        }
+        
     }
 
 
@@ -191,7 +246,8 @@
             scope: {
                 parametros: '=',
                 periodo: '=?',
-                modo: '=?'
+                modo: '=?',
+                cartera: '='
             },
             templateUrl: 'app/directivas/adeaProforma/adeaProforma.html'
         };

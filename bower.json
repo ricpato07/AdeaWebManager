@@ -36,7 +36,8 @@
 		"file-saver": "1.3.4",
 		"angular-money-directive": "1.2.5",
 		"pdfmake": "0.1.36",
-		"html2canvas": "0.4.1"
+		"html2canvas": "0.4.1",
+		"jspdf-autotable": "2.3.4"
 	},
 	"devDependencies": {
 		"angular-bootstrap-multiselect": "https://github.com/bentorfs/angular-bootstrap-multiselect.git#^1.1.11"

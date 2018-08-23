@@ -20,7 +20,8 @@
 
 			<div class="col-md-4">
 				<label class="control-label">Archivos de Soporte:</label><br /> <br />
-				<label style="font-weight: normal;  margin-left: 50px;">{{consultaFacturacionCtrl.periodoSeleccionado.bndLayouts | palomaotache}}</label>
+				<label style="font-weight: normal; margin-left: 50px;">{{consultaFacturacionCtrl.periodoSeleccionado.bndLayouts
+					| palomaotache}}</label>
 			</div>
 		</div>
 		<br />
@@ -44,7 +45,12 @@
 				<label class="control-label">Mensaje de error:</label> <label>{{consultaFacturacionCtrl.periodoSeleccionado.mensajeError}}</label>
 			</div>
 		</div>
-
+		<br />
+		<div class="row">
+			<adea-proforma cartera="consultaFacturacionCtrl.carteraSeleccionada"
+				parametros="consultaFacturacionCtrl.parametrosProforma"
+				periodo="consultaFacturacionCtrl.periodoSeleccionado.periodo"></adea-proforma>
+		</div>
 
 	</div>
 	<div class="col-md-6"

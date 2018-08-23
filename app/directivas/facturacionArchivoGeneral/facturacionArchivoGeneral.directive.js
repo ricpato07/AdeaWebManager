@@ -13,9 +13,9 @@
         .controller('FacturacionArchivoGeneral', FacturacionArchivoGeneral)
         .directive('facArchivoGral', facArchivoGral);
 
-    FacturacionArchivoGeneral.$inject = ['$log', '$scope', 'AdeaServicios', '$filter', '$compile', 'FacturacionServicios', '$window', 'tblIncidencias'];
+    FacturacionArchivoGeneral.$inject = ['$log', '$scope', 'AdeaServicios', '$filter', '$compile', 'FacturacionServicios', '$window', 'tblIncidencias', 'ProformaServicios', '$timeout'];
 
-    function FacturacionArchivoGeneral($log, $scope, AdeaServicios, $filter, $compile, FacturacionServicios, $window, tblIncidencias) {
+    function FacturacionArchivoGeneral($log, $scope, AdeaServicios, $filter, $compile, FacturacionServicios, $window, tblIncidencias, ProformaServicios, $timeout) {
 
         var facturacionArchivoGeneralCtrl = this;
         
@@ -30,10 +30,13 @@
         facturacionArchivoGeneralCtrl.generaPeriodos = generaPeriodos;
         facturacionArchivoGeneralCtrl.uploadDocumento = uploadDocumento;
         facturacionArchivoGeneralCtrl.uploadIncidencias = uploadIncidencias;
+        facturacionArchivoGeneralCtrl.confirmarLayouts = confirmarLayouts;
+        
         facturacionArchivoGeneralCtrl.bndGeneraPeriodos = true;
         facturacionArchivoGeneralCtrl.bndProcesoInc = false;
         facturacionArchivoGeneralCtrl.bndCargarArchivo = true;
         consultaPeriodosValidos();
+        facturacionArchivoGeneralCtrl.bndProforma = false;
         
         function consultaPeriodosValidos(){
         	$log.info('consultaPeriodosValidos');
@@ -125,12 +128,28 @@
             	if(respuesta.awmPeriodosFacturados != null && respuesta.awmPeriodosFacturados != '' && respuesta.awmPeriodosFacturados != undefined){
             		facturacionArchivoGeneralCtrl.periodoExistente = respuesta.awmPeriodosFacturados;
             		facturacionArchivoGeneralCtrl.periodos.fecHasta = respuesta.fecHasta;
+            		var params = {
+                			idCartera: facturacionArchivoGeneralCtrl.carteraSeleccionada.idCarteraCliente,
+                			pIdPeriodo: facturacionArchivoGeneralCtrl.periodoExistente.idPeriodosFacturados
+                	};
+        			
+        			facturacionArchivoGeneralCtrl.parametrosProforma = params;
             		consultaGrpCatalogos();
             		facturacionArchivoGeneralCtrl.bndGeneraFac = 'V';
             		
             		if(facturacionArchivoGeneralCtrl.periodoExistente.bndLayouts == 'S'){
             			//Consulta incidencias
             			consultaIncidencias();
+            			
+            			
+            			var fechaPer = new Date(facturacionArchivoGeneralCtrl.periodos.fecHasta);
+
+            			var primerDia = new Date(fechaPer.getFullYear(), fechaPer.getMonth(), 1);
+            			facturacionArchivoGeneralCtrl.periodoFac = $filter('fechaSFecha')(primerDia) +  ' al ' + $filter('fechaSFecha')(facturacionArchivoGeneralCtrl.periodos.fecHasta);
+            			
+            			
+            		    facturacionArchivoGeneralCtrl.bndProforma = true;
+
             		}
             	}else if(respuesta.fecHasta != null && respuesta.awmPeriodosFacturados == null){
             		facturacionArchivoGeneralCtrl.periodos = respuesta;
@@ -284,6 +303,7 @@
 
             promesa.then(function (respuesta) {
             	facturacionArchivoGeneralCtrl.catalogoFac = respuesta;
+            	
             });
 
             promesa.catch(function (error) {
@@ -410,6 +430,31 @@
             promesa.catch(function (error) {
                 AdeaServicios.alerta("error", "Error al consultar las Incidencias");
             });
+        }
+        
+        function confirmarLayouts(){
+        	$log.info('confirmarLayouts');
+        	facturacionArchivoGeneralCtrl.bndProforma = false;
+        	var params = {
+        			idCartera: facturacionArchivoGeneralCtrl.carteraSeleccionada.idCarteraCliente,
+        			idPeriodo: facturacionArchivoGeneralCtrl.periodoExistente.idPeriodosFacturados
+        	};
+        	
+        	var promesa = ProformaServicios.generaProforma(params).$promise;
+
+        	promesa.then(function (respuesta) {
+        		if(respuesta.idProformaCab != null && respuesta.idProformaCab != undefined){
+        			facturacionArchivoGeneralCtrl.idProformaCab = respuesta.idProformaCab;
+        			AdeaServicios.alerta("success", "Se genero de manera Satisfactoria la Proforma");
+        			facturacionArchivoGeneralCtrl.bndProforma = true;
+        		}else{
+        			AdeaServicios.alerta("error", "Se genero un error al procesar la proforma "+ respuesta.error);
+        		}
+        	});
+
+        	promesa.catch(function (error) {
+        		AdeaServicios.alerta("error", "Error al generar la proforma");
+        	});
         }
     }
 
