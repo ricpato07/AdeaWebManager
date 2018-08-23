@@ -97,6 +97,20 @@
 									money min="0.0" precision="2">
 							</div>
 						</div>
+						<div class="col-md-6"
+								ng-class="{
+                             'has-success': form.estatus.$dirty || form.estatus.$valid ,
+                             'has-error': form.estatus.$dirty && form.estatus.$invalid}">
+								<label class="control-label">Estatus:</label> <select
+									class="form-control input-md" id="estatus" name="estatus"
+									ng-required="true"
+									ng-model="configuracionProformaCtrl.itemEditable.estatus">
+									<option value="">Seleccione</option>
+									<option value="A">Activo</option>
+									<option value="I">Inactivo</option>
+								</select>
+
+							</div>
 					</div>
 					<br />
 					<div class="row">
