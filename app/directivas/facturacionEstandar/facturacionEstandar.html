@@ -53,8 +53,9 @@
 					style="font-size: 29px; padding-right: 10px; text-decoration: none;"
 					style="color: green;" class="fa fa-refresh"
 					ng-click="facturacionEstandarCtrl.procesaFacturacionGral()" tooltip
-					title="Reprocesar Soporte"></a> <a role="button"
-					ng-if="facturacionEstandarCtrl.msgVal == null || facturacionEstandarCtrl.msgVal == undefined || facturacionEstandarCtrl.msgVal == ''"
+					title="Reprocesar Soporte"></a> 
+				<a role="button"
+					ng-if="facturacionEstandarCtrl.periodo.bndLayout == 'S'"
 					style="font-size: 29px; text-decoration: none;"
 					style="color: green;" class="fa fa-check-circle"
 					ng-click="facturacionEstandarCtrl.confirmarLayouts()" tooltip

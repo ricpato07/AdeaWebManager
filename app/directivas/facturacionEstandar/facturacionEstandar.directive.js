@@ -117,18 +117,18 @@
             	facturacionEstandarCtrl.catalogoFac = respuesta;
             	var val = 0;
             	
-            	angular.forEach(facturacionEstandarCtrl.catalogoFac, function (obj) {
+            	/*angular.forEach(facturacionEstandarCtrl.catalogoFac, function (obj) {
                    if(obj.archivoVal != '---'){
                 	   val ++;
                    }
-                });
+                });*/
             	
-            	if(val == 0){
+            	//if(val == 0){
             		facturacionEstandarCtrl.parametrosProforma = params;
                 	facturacionEstandarCtrl.bndProforma = true;
-            	}else{
+            	/*}else{
             		facturacionEstandarCtrl.msgVal = 'El proceso arrojo validaciones no cumplidas, favor de validar los archivos de Validación para corregir las incidencias desde la fuente de Datos';
-            	}
+            	}*/
             });
 
             promesa.catch(function (error) {
