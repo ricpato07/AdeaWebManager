@@ -96,7 +96,8 @@
 		    consConfProforma: {
 		    	method: 'POST', headers: {'Content-Type': 'application/json'}, isArray : true,
 		    	params: {
-		    		idCartera: '@idCartera'
+		    		idCartera: '@idCartera',
+		    		estatus: '@estatus'
 		    	}
 		    }
 		});

@@ -21,7 +21,10 @@
             },
         
             consultaGrl: {
-            method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true
+            method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true,
+            params: {
+            	estatus: '@estatus'
+            }
         }
         });
 
@@ -212,6 +215,12 @@
                     pIdArea: '@pIdArea',
                     pIdResponsable: '@pIdResponsable'
                 }
+            },
+            consultaAreaObjeto: {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                params: {
+                    idArea: '@idArea'
+                }
             }
         });
 
@@ -273,6 +282,7 @@
             consultaDesarrollo: consultaDesarrollo,
             consultaTickets: consultaTickets,
             consultaAreasAWM: consultaAreasAWM,
+            consultaAreaObjeto: consultaAreaObjeto,
             getIndicadoresRep: getIndicadoresRep,
             consultaClientesCompletos: consultaClientesCompletos,
             agregarActividadSub: agregarActividadSub,
@@ -322,8 +332,8 @@
             return clientes.consulta({servicio: 'getClientes.action'});
         }
         
-        function consultaClientesGeneral() {
-            return clientes.consultaGrl({servicio: 'getClientesGeneral.action'});
+        function consultaClientesGeneral(params) {
+            return clientes.consultaGrl({servicio: 'getClientesGeneral.action'}, params);
         }
 
 
@@ -381,6 +391,10 @@
 
         function consultaAreasAWM(params) {
             return areas.consultaAreaAWM({servicio: 'consultaAreas.action'}, params);
+        }
+        
+        function consultaAreaObjeto(params) {
+            return areas.consultaAreaObjeto({servicio: 'consultaArea.action'}, params);
         }
 
         function getIndicadoresRep(params) {
