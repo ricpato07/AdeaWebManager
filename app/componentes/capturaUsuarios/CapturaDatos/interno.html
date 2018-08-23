@@ -1,0 +1,210 @@
+<div class="row">
+	<div class="col-md-3"
+		ng-class="{'has-success': form.tipoMov.$dirty || form.tipoMov.$valid ,
+                   'has-error': form.tipoMov.$dirty && form.tipoMov.$invalid}">
+
+		<label class=" control-label">Tipo de Movimiento:</label> <select
+			class="form-control input-md" id="tipoMov" name="tipoMov"
+			tabindex="3" ng-required="true" ng-focus
+			ng-model="capturaUsuariosCtrl.captura.tipoMovimiento"
+			ng-change="capturaUsuariosCtrl.cambiaTipoMovimiento()"
+			title="Tipo de Movimiento"
+			ng-options="tipmov.codigo as tipmov.descripcion for tipmov in capturaUsuariosCtrl.tipoMov">
+			<option value="">Seleccione</option>
+		</select>
+
+
+	</div>
+	<div class="col-md-3"
+		ng-class="{'has-success': form.hd.$dirty || form.hd.$valid ,
+                   'has-error': form.hd.$dirty && form.hd.$invalid}">
+		<label class=" control-label">HD:</label>
+
+		<doble-captura tipo="'text'" titulo="'HD'" patron="'numerico'"
+			valor="capturaUsuariosCtrl.captura.hd" index="4"
+			maxlength="11" identificador="'hd'"></doble-captura>
+	</div>
+	<div class="col-md-3"
+		ng-class="{'has-success': form.fecSol.$dirty ||
+		form.fecSol.$valid , 'has-error': form.fecSol.$dirty &&
+		form.fecSol.$invalid}">
+		<label class=" control-label">Fecha Solicitud:</label>
+
+		<doble-captura tipo="'text'" titulo="'Fecha Solicitud'"
+			patron="'fecha'" valor="capturaUsuariosCtrl.captura.fechaSolicitud"
+			index="6" placeholder="'dd/mm/yyyy'" required="true" maxlength="10"
+			identificador="'fecSol'"></doble-captura>
+	</div>
+	<div class="col-md-3"
+		ng-class="{'has-success': form.nomSol.$dirty ||
+		form.nomSol.$valid , 'has-error': form.nomSol.$dirty &&
+		form.nomSol.$invalid}">
+		<label class=" control-label">Nombre Solicitante:</label>
+
+		<doble-captura tipo="'text'" titulo="'Nombre Solicitante'"
+			patron="'texto'"
+			valor="capturaUsuariosCtrl.captura.nombreSolicitante" index="8"
+			required="true" maxlength="50" identificador="'nomSol'"></doble-captura>
+	</div>
+</div>
+<br />
+<div class="row">
+	<div class="col-md-3"
+		ng-class="{'has-success': form.tipoPerfil.$dirty || form.tipoPerfil.$valid ,
+                   'has-error': form.tipoPerfil.$dirty && form.tipoPerfil.$invalid}">
+
+		<label class=" control-label">Tipo Perfil:</label> <select
+			class="form-control input-md" id="tipoPerfil" name="tipoPerfil"
+			tabindex="10" ng-required="true" ng-focus
+			ng-model="capturaUsuariosCtrl.captura.tipoPerfil"
+			title="Tipo de Perfil"
+			ng-options="tipPerfil.codigo as tipPerfil.descripcion for tipPerfil in capturaUsuariosCtrl.tipoPerfil">
+			<option value="">Seleccione</option>
+		</select>
+	</div>
+
+	<div class="col-md-3"
+		ng-class="{'has-success': form.tieneFirma.$dirty ||
+		form.tieneFirma.$valid , 'has-error': form.tieneFirma.$dirty &&
+		form.tieneFirma.$invalid}">
+		<label class=" control-label">Tiene Firmas:</label> <select
+			class="form-control input-md" id="tieneFirma" name="tieneFirma"
+			tabindex="11" ng-required="true" ng-focus
+			ng-model="capturaUsuariosCtrl.captura.tieneFirma" title="Tiene Firma"
+			ng-options="tFirma.codigo as tFirma.descripcion for tFirma in capturaUsuariosCtrl.tieneFirma">
+			<option value="">Seleccione</option>
+		</select>
+
+	</div>
+	<div class="col-md-3"
+		ng-class="{'has-success': form.iternet.$dirty ||
+		form.iternet.$valid , 'has-error': form.iternet.$dirty &&
+		form.iternet.$invalid}">
+		<label class=" control-label">Internet:</label><br /> <input ng-focus
+			funcion="capturaUsuariosCtrl.seleccionaInternet()" type="checkbox"
+			tabindex="12" id="tarjeta" name="tarjeta" title="Tiene Internet"
+			ng-true-value="'S'" ng-false-value="'N'"
+			style="margin-left: 16px; margin-top: 10px;"
+			ng-model="capturaUsuariosCtrl.captura.internet">
+
+	</div>
+	<div class="col-md-2"
+		ng-if="capturaUsuariosCtrl.captura.tipoMovimiento == 'M' || capturaUsuariosCtrl.captura.tipoMovimiento == 'A'"
+		ng-class="{'has-success': form.sinUsu.$dirty ||
+		form.sinUsu.$valid , 'has-error': form.sinUsu.$dirty &&
+		form.sinUsu.$invalid}">
+		<label class=" control-label">Sin Usuario:</label><br /> <input
+			ng-focus funcion="capturaUsuariosCtrl.seleccionaSinUsuario()"
+			ng-change="capturaUsuariosCtrl.seleccionaSinUsuarioChange()"
+			type="checkbox" tabindex="13" id="sinUsu" name="sinUsu"
+			title="Sin Usuario" ng-true-value="'S'" ng-false-value="'N'"
+			style="margin-left: 16px; margin-top: 10px;"
+			ng-model="capturaUsuariosCtrl.captura.sinUsuario">
+
+	</div>
+
+</div>
+<br />
+<div class="row" ng-if="capturaUsuariosCtrl.captura.sinUsuario == 'N'">
+	<div class="col-md-12">
+		<h4>Usuarios:</h4>
+	</div>
+</div>
+<div ng-form name="formUsu" novalidate
+	ng-if="capturaUsuariosCtrl.bndUsuarios && capturaUsuariosCtrl.captura.sinUsuario == 'N'">
+	<div class="row">
+		<div class="col-md-3"
+			ng-class="{'has-success': formUsu.tipoUsu.$valid,
+                   'has-error': formUsu.tipoUsu.$invalid}">
+
+			<label class=" control-label">Tipo de Usuario:</label> <select
+				class="form-control input-md" id="tipoUsu" name="tipoUsu"
+				tabindex="14" ng-model="capturaUsuariosCtrl.usuario.tipoUsuario"
+				ng-focus ng-change="capturaUsuariosCtrl.cambiaTipoUsuarioDeta()"
+				ng-options="tipoMov.codigo as tipoMov.descripcion for tipoMov in capturaUsuariosCtrl.tipoUsuarioCat">
+				<option value="">Seleccione</option>
+			</select>
+
+
+		</div>
+
+		<div class="col-md-3"
+			ng-if="capturaUsuariosCtrl.usuario.tipoUsuario == 'A'"
+			ng-class="{'has-success': 
+		formUsu.usuarioApp.$valid , 'has-error':
+		formUsu.usuarioApp.$invalid}">
+			<label class=" control-label">Usuario Aplicativo:</label> <select
+				class="form-control input-md" id="usuarioApp" name="usuarioApp"
+				tabindex="15" ng-focus
+				ng-model="capturaUsuariosCtrl.usuario.usuarioAplicativo"
+				title="Tipo de Usuario"
+				ng-options="usuCap.codigo as usuCap.descripcion for usuCap in capturaUsuariosCtrl.usuarioCap">
+				<option value="">Seleccione</option>
+			</select>
+		</div>
+		
+		<div class="col-md-3"
+			ng-if="capturaUsuariosCtrl.usuario.tipoUsuario == 'C'"
+			ng-class="{'has-success': 
+		formUsu.correo.$valid , 'has-error':
+		formUsu.correo.$invalid}">
+			<label class=" control-label">Usuario Correo electronico:</label>
+
+			<doble-captura tipo="'text'" titulo="'E-mail'" patron="'correo'"
+				valor="capturaUsuariosCtrl.usuario.correo" index="16" maxlength="50"
+				identificador="'correo'"></doble-captura>
+		</div>
+
+		<div class="col-md-3"
+			ng-class="{'has-success': 
+		formUsu.usu.$valid , 'has-error':
+		formUsu.usu.$invalid, 'col-md-2': capturaUsuariosCtrl.usuario.tipoUsuario == 'C'}">
+			<label class=" control-label">Id Usuario:</label>
+
+			<doble-captura-minusculas ng-if="capturaUsuariosCtrl.bndTipoUsuario"
+				tipo="'text'" titulo="'Id Usuario'" patron="'texto'"
+				valor="capturaUsuariosCtrl.usuario.idUsuario" index="18"
+				maxlength="20" identificador="'usu'"></doble-captura-minusculas>
+		</div>
+
+		<div class="col-md-2">
+			<a class="btn btn-primary" role="button" tabindex="20"
+				style="margin-top: 23px;"
+				ng-if="capturaUsuariosCtrl.validaUsuarioInterno()"
+				ng-keyup="$event.keyCode == 13 && capturaUsuariosCtrl.agregarUsuarioInterno()"
+				ng-click="capturaUsuariosCtrl.agregarUsuarioInterno()" tooltip
+				title="Agregar Usuario" data-placement="midle">Agregar Usuario</a>
+		</div>
+	</div>
+</div>
+<br />
+<div class="row" ng-if="capturaUsuariosCtrl.captura.usuarios.length > 0">
+	<div class="col-md-12">
+		<table class="table table-hover">
+			<thead style="height: 15px; background-color: #337ab7; color: white;">
+				<tr>
+					<th style="text-align: center;">Tipo de Usuario</th>
+					<th style="text-align: center;">Id Usuario</th>
+					<th style="text-align: center;">Aplicaci&oacute;n / Correo
+						electr&oacute;nico</th>
+					<th style="text-align: center;">Eliminar</th>
+				</tr>
+			</thead>
+			<tr ng-repeat="usuarios in capturaUsuariosCtrl.captura.usuarios">
+				<td style="text-align: center;">{{usuarios.tipoUsuario |
+					tipoUsuario}}</td>
+				<td style="text-align: center;">{{usuarios.idUsuario |
+					idUsuario}}</td>
+				<td style="text-align: center;" ng-if="usuarios.tipoUsuario != 'C'">{{usuarios.usuarioAplicativo
+					| tipoAplicacion}}</td>
+				<td style="text-align: center;" ng-if="usuarios.tipoUsuario == 'C'">{{usuarios.correo
+					| cadenaVacia}}</td>
+				<td style="text-align: center;"><a
+					style="color: red; padding-right: 15px; cursor: pointer; font-size: 22px !important;"
+					title="Eliminar"
+					ng-click="capturaUsuariosCtrl.eliminarUsuario($index)"
+					class="fa fa fa-times"></a></td>
+			</tr>
+		</table>
+	</div>
+</div>
