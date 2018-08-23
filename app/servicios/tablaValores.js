@@ -153,7 +153,7 @@
             columnas: [
             	{valor: "acltrzsc", titulo: "Nombre Cliente"},
             	{valor: "nombreProyecto", titulo: "Nombre Proyecto"},
-                {valor: "tipoPoliza", titulo: "Tipo Poliza", alinear: "center"},
+                {valor: "tipoPoliza", titulo: "Tipo Poliza", alinear: "center", filtro: "tipoPoliza"},
                 {valor: "nombre", titulo: "Nombre Poliza", alinear: "center"},
                 {valor: "fechaVencimiento", titulo: "Fecha Vencimiento", alinear: "center", filtro: "date", formato: "dd/MM/yyyy"}
             ]
@@ -283,6 +283,7 @@
         
         .value("tblConfigProforma", {
             columnas: [
+            	{valor: "estatus", titulo: "Estatus", alinear: "center", filtro:"estatusAccion"},
             	{valor: "descripcion", titulo: "Item", alinear: "center"},
             	{valor: "tipo", titulo: "Tipo", filtro: "cadenaVacia", alinear: "center"},
             	{valor: "nombreSoporte", titulo: "Soporte", filtro: "cadenaVacia", alinear: "center"},
@@ -291,7 +292,7 @@
             	{valor: "tieneRegla", titulo: "Regla Calculo", alinear: "center", filtro: "palomaotache"}
             ]
         })
-        
+
         .value("tblDetalleTickets", {
             columnas: [
                 {valor: "idTicket", titulo: "No. Ticket", alinear: "center"},
