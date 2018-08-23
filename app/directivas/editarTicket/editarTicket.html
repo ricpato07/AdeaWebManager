@@ -1,0 +1,180 @@
+<div class="panel panel-default panel-primary">
+    <div class="panel-body">
+        <form class="form-horizontal" name="form" novalidate>
+            <div class="row">
+                <div class="col-md-4"
+                     ng-class="{'has-success': form.asignar.$dirty || form.asignar.$valid ,
+                             'has-error': form.asignar.$dirty && form.asignar.$invalid}">
+                    <label class="control-label">Área:</label> 
+                    <select
+                        class="form-control input-md" id="asignar" name="asignar"
+                        ng-required="true"
+                        ng-change="editarTicketsCtrl.comboarea_action()"
+                        ng-model="editarTicketsCtrl.miTicketEditable.idArea"
+                        ng-options="opt.idArea as opt.nombre for opt in editarTicketsCtrl.areaslist">
+                        <option value="">Seleccione</option>
+                    </select>
+                </div>
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.categoria.$dirty || form.categoria.$valid,
+                                 'has-error'
+                                 : form.categoria.$dirty&& form.categoria.$invalid}">
+                    <label class="control-label">Categoría:</label> 
+                    <select
+                        class="form-control input-md" id="categoria" name="categoria"
+                        ng-required="true"
+                        ng-disabled="!editarTicketsCtrl.beditar"
+                        ng-model="editarTicketsCtrl.miTicketEditable.categoria"
+                        ng-options="opt.idCategoria as opt.nombreCategoria for opt in  editarTicketsCtrl.listCategorias">
+                        <option value="">Seleccione</option>
+                    </select>
+                </div>
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.login.$dirty || form.login.$valid,
+                                 'has-error': form.login.$dirty && form.login.$invalid}">
+                    <label class=" control-label">Asignar a:</label>
+                    <ui-select id="login" name="login"
+                               ng-disabled="!editarTicketsCtrl.beditar"
+                               ng-model="editarTicketsCtrl.miTicketEditable.usuarioAsignado"
+                               style="min-width: 300px;" title="Elige un Usuario"> 
+                        <ui-select-match
+                            placeholder="Selecciona un usuario">{{$select.selected.nombre}}
+                        </ui-select-match>
+                        <ui-select-choices
+                            repeat="recurso.login as recurso in editarTicketsCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
+                            <div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
+                        </ui-select-choices> 
+                    </ui-select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.cliente.$dirty || form.cliente.$valid,
+                                 'has-error'
+                                 : form.cliente.$dirty && form.cliente.$invalid}">
+                    <label class=" control-label">Cliente:</label>
+                    <ui-select id="cliente" name="cliente"
+                               ng-disabled="!editarTicketsCtrl.beditar"
+                               ng-model="editarTicketsCtrl.miTicketEditable.idCliente"
+                               style="min-width: 300px;" title="Elige un Cliente"> 
+                        <ui-select-match
+                            placeholder="Selecciona un Cliente">{{$select.selected.acltrzsc}}
+                        </ui-select-match>
+                        <ui-select-choices
+                            repeat="cliente.scltcod as cliente in editarTicketsCtrl.clientes | propsFilter: {acltrzsc: $select.search, scltcod: $select.search}">
+                            <div ng-bind-html="cliente.acltrzsc | highlight: $select.search"></div>
+                        </ui-select-choices> 
+                    </ui-select>
+                </div>
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.prioridad.$dirty || form.prioridad.$valid,
+                                 'has-error'
+                                 : form.prioridad.$dirty&& form.prioridad.$invalid}">
+                    <label class="control-label">Prioridad:</label> 
+                    <select
+                        class="form-control input-md" id="prioridad" name="prioridad"
+                        ng-required="true"
+                        ng-disabled="!editarTicketsCtrl.beditar"
+                        ng-model="editarTicketsCtrl.miTicketEditable.prioridad"
+                        ng-options="opt.id as opt.descripcionCat for opt in editarTicketsCtrl.prioridad">
+                        <option value="">Seleccione</option>
+                    </select>
+                </div>
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.extension.$dirty || form.extension.$valid,
+                                 'has-error': form.extension.$dirty&& form.extension.$invalid}">
+                    <label class=" control-label" for="extension">Extensión:</label> 
+                    <input
+                        id="extension" name="extension" type="number" max="999999"
+                        class="form-control input-md" maxlength="6"
+                        ng-pattern="/^[0-9]*$/"
+                        ng-disabled="!editarTicketsCtrl.beditar"
+                        ng-model="editarTicketsCtrl.miTicketEditable.extension"
+                        ng-required="true">
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.resumen.$dirty || form.resumen.$valid,
+                                 'has-error'
+                                 : form.resumen.$dirty && form.resumen.$invalid}">
+                    <label class=" control-label" for="resumen">Resumen:</label> 
+                    <input id="resumen" name="resumen" type="text"
+                           ng-disabled="!editarTicketsCtrl.beditar"
+                           class="form-control input-md" maxlength="1000"
+                           ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+                           ng-model="editarTicketsCtrl.miTicketEditable.resumen" ng-required="true">
+                </div>
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.estatus.$dirty || form.estatus.$valid,
+                                 'has-error'
+                                 : form.estatus.$dirty && form.estatus.$invalid}">
+                    <label class="control-label">Estatus:</label> 
+                    <select
+                        ng-disabled="!editarTicketsCtrl.beditar"
+                        class="form-control input-md" id="estatus" name="estatus"
+                        ng-required="true" ng-model="editarTicketsCtrl.miTicketEditable.estatus"
+                        ng-options="opt.claveCat as opt.descripcionCat for opt in editarTicketsCtrl.estatusTicket">
+                        <option value="">Seleccione</option>
+                    </select>
+                </div>
+                <div class="col-md-4"
+                     ng-class="{
+                         'has-success': form.planta.$dirty || form.planta.$valid,
+                                 'has-error': form.planta.$dirty && form.planta.$invalid}">
+                    <label class="control-label">Planta:</label> 
+                    <select
+                        ng-disabled="!editarTicketsCtrl.beditar"
+                        class="form-control input-md" id="planta" name="planta"
+                        ng-required="true" ng-model="editarTicketsCtrl.miTicketEditable.planta"
+                        ng-options="opt.id as opt.descripcionCat for opt in editarTicketsCtrl.plantas">
+                        <option value="">Seleccione</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12"
+                     ng-class="{
+                         'has-success': form.descripcion.$dirty|| form.descripcion.$valid,
+                                 'has-error': form.descripcion.$dirty &&  form.descripcion.$invalid}">
+                    <label class=" control-label" for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" ng-required="true"
+                              maxlength="4000" minlength="10"
+                              ng-disabled="!editarTicketsCtrl.beditar"
+                              ng-model="editarTicketsCtrl.miTicketEditable.descripcion"
+                              class="input-md"
+                              style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+                              rows="10">
+                    </textarea>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <a class="btn btn-primary" style="margin-top: 10px;" role="button"
+                       ng-click="editarTicketsCtrl.modificarTicket()"
+                       ng-if="form.$valid && editarTicketsCtrl.noHaCambiado() && editarTicketsCtrl.beditar"
+                       tooltip title="Guarda Ticket" data-placement="midle">
+                        Modificar ticket 
+                    </a>
+                    <a class="btn btn-primary" style="margin-top: 10px;" role="button"
+                       disabled="true"
+                       ng-if="!(form.$valid && editarTicketsCtrl.noHaCambiado() && editarTicketsCtrl.beditar)"
+                       tooltip title="Guarda Ticket" data-placement="midle">
+                        Modificar ticket 
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
