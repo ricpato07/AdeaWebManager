@@ -40,7 +40,7 @@
             getAreas: {
                 method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true,
                 params: {
-                    user: '@user'                   
+                    user: '@user'
                 }
             },
             getCategorias: {
@@ -61,19 +61,32 @@
             getUltimoTicketEntrega: {
                 method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true,
                 params: {
-                    user: '@user'  
+                    user: '@user'
                 }
             },
             updateAsignarTicket: {
-                method: 'POST', headers: {'Content-Type': 'application/json'}, 
+                method: 'POST', headers: {'Content-Type': 'application/json'},
                 params: {
-                    ticket: '@ticket'  
+                    ticket: '@ticket'
                 }
             },
             updateEstadoTicket: {
-                method: 'POST', headers: {'Content-Type': 'application/json'}, 
+                method: 'POST', headers: {'Content-Type': 'application/json'},
                 params: {
-                    ticket: '@ticket'  
+                    ticket: '@ticket'
+                }
+            },
+            getUltimasActividades: {
+                method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true,
+                params: {
+                    user: '@user'
+                }
+            },
+            getUltimoSubproyecto: {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                params: {
+                    user: '@user',
+                    idTicket: '@idTicket'
                 }
             }
         });
@@ -90,7 +103,9 @@
             getComplejidad: getComplejidad,
             getUltimoTicketEntrega: getUltimoTicketEntrega,
             updateAsignarTicket: updateAsignarTicket,
-            updateEstadoTicket: updateEstadoTicket
+            updateEstadoTicket: updateEstadoTicket,
+            getUltimasActividades: getUltimasActividades,
+            getUltimoSubproyecto: getUltimoSubproyecto
         };
 
         return tableroService;
@@ -98,46 +113,53 @@
         function getTotalesTickets(params) {
             return tickets.getTotales({servicio: 'gettotalestickets.action'}, params);
         }
-        
+
         function getDetalleTickets(params) {
             return tickets.getDetalle({servicio: 'getdetalletickets.action'}, params);
         }
-        
+
         function getUser() {
             return tickets.getUser({servicio: 'getuser.action'});
         }
-        
-         function getAreasByUser(params) {
+
+        function getAreasByUser(params) {
             return tickets.getAreas({servicio: 'getareas.action'}, params);
         }
-        
-         function getCategoriasByArea(params) {
+
+        function getCategoriasByArea(params) {
             return tickets.getCategorias({servicio: 'getcategorias.action'}, params);
         }
-        
+
         function getTicket(params) {
             return tickets.getTicket({servicio: 'getticket.action'}, params);
         }
-        
+
         function getComplejidad() {
             return tickets.getComplejidad({servicio: 'getcomplejidad.action'});
         }
-        
+
         function getTicket(params) {
             return tickets.getTicket({servicio: 'getticket.action'}, params);
         }
-        
+
         function getUltimoTicketEntrega(params) {
             return tickets.getUltimoTicketEntrega({servicio: 'getultimoticketentrega.action'}, params);
         }
-         
+
         function updateAsignarTicket(params) {
             return tickets.updateAsignarTicket({servicio: 'updateasignarticket.action'}, params);
         }
+        
         function updateEstadoTicket(params) {
             return tickets.updateEstadoTicket({servicio: 'updateestadoticket.action'}, params);
         }
         
-
+        function getUltimasActividades(params) {
+            return tickets.getUltimasActividades({servicio: 'getultimasactividades.action'}, params);
+        }
+        
+        function getUltimoSubproyecto(params) {
+            return tickets.getUltimoSubproyecto({servicio: 'getultimosubproyecto.action'}, params);
+        }
     }
 })();
