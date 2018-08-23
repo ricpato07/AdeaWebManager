@@ -22,7 +22,7 @@
         tableroTicketsCtrl.bbusquedacorrecta = false;
         tableroTicketsCtrl.idticketbusqueda;
         tableroTicketsCtrl.btablero = true;
-
+        
         init();
         function init() {
             tableroTicketsCtrl.bareas = false;
@@ -41,17 +41,17 @@
                 $log.info(tableroTicketsCtrl.plantilla.perfil);
                 tableroTicketsCtrl.user.usuario = tableroTicketsCtrl.usuario.login;
                 tableroTicketsCtrl.user.perfil = tableroTicketsCtrl.plantilla.perfil;
-//                tableroTicketsCtrl.user.usuario = "rvillanueva";
-//                tableroTicketsCtrl.user.perfil = "8";
+                
+                
                 tableroTicketsCtrl.bbusqueda = false;
                 //caso para gerente - carga combos
-                if (tableroTicketsCtrl.user.perfil == "8") {
+//                if (tableroTicketsCtrl.user.perfil == "8") {
                     tableroTicketsCtrl.bbusqueda = true;
                     var params = {
                         user: tableroTicketsCtrl.user.usuario
                     };
                     var promesa2 = tableroServicios.getAreasByUser(params).$promise;
-
+		
                     promesa2.then(function (respuesta2) {
                         $log.info("areas");
                         $log.info(respuesta2);
@@ -61,7 +61,8 @@
                     promesa2.catch(function (error2) {
                         $log.error(error2);
                     });
-                }
+//                }
+                
                 consultaTotales(tableroTicketsCtrl.user.usuario, null, null);
                 //listar por defecto los asignados
                 consultaDetalle("7");
