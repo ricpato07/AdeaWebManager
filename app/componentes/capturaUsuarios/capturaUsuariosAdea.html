@@ -1,0 +1,43 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+
+
+<form class="form-horizontal" name="form" novalidate>
+	<adea-captura titulo="'Usuarios Adea'"
+		valid="capturaUsuariosCtrl.validDirectiva" form="form"
+		valid-op="capturaUsuariosCtrl.validaUsuarioGuardar()"
+		limpia-form="capturaUsuariosCtrl.limpiarFormulario()"
+		operatoria-cfg="capturaUsuariosCtrl.operatoriaCfg"
+		datos-captura="capturaUsuariosCtrl.captura"
+		bnd-modo="capturaUsuariosCtrl.bndModo" valida-autorizacion="capturaUsuariosCtrl.valAutorizacion"
+		autorizacion="capturaUsuariosCtrl.autorizacion">
+
+
+	<div class="row">
+		<div class="col-md-3"
+			ng-class="{'has-success': form.tipoUsuario.$dirty || form.tipoUsuario.$valid ,
+                   'has-error': form.tipoUsuario.$dirty && form.tipoUsuario.$invalid}">
+			<label class=" control-label">Tipo de Usuario:</label> <select
+				class="form-control input-md" id="app" name="app" tabindex="2"
+				ng-required="true" ng-disabled="!capturaUsuariosCtrl.validDirectiva"
+				ng-model="capturaUsuariosCtrl.captura.tipoUsuarioValue"
+				ng-change="capturaUsuariosCtrl.cambiaTipoUsuario()"
+				ng-options="tipUser.codigo as tipUser.descripcion for tipUser in capturaUsuariosCtrl.tipoUsuario">
+				<option value="">Seleccione</option>
+			</select>
+		</div>
+	</div>
+
+	<br />
+	<div ng-if="capturaUsuariosCtrl.captura.tipoUsuarioValue == 'I'"
+		ng-include="'app/componentes/capturaUsuarios/CapturaDatos/interno.html'"></div>
+	<div ng-if="capturaUsuariosCtrl.captura.tipoUsuarioValue == 'E'"
+		ng-include="'app/componentes/capturaUsuarios/CapturaDatos/externo.html'"></div>
+
+
+	</adea-captura>
+
+</form>
+
+<div
+	ng-include="'app/directivas/adeaCaptura/modal/autorizacionMdl.html'"></div>
