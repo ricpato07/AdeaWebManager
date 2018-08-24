@@ -13,9 +13,9 @@
             .directive('detalleTickets', detalleTickets);
 
     detalleTickets.$inject = ['$log'];
-    detalleTicketsController.$inject = ['$log', '$scope', '$timeout', 'AdeaServicios', 'tableroServicios', 'ticketServicios', 'proyectoServicios', '$window', '$filter'];
+    detalleTicketsController.$inject = ['$log', '$scope', '$timeout', 'AdeaServicios', 'tableroServicios'];
 
-    function detalleTicketsController($log, $scope, $timeout, AdeaServicios, tableroServicios, ticketServicios, proyectoServicios, $window, $filter) {
+    function detalleTicketsController($log, $scope, $timeout, AdeaServicios, tableroServicios) {
 
         var detalleTicketCtrl = this;
         detalleTicketCtrl.buscarTicket = buscarTicket;
@@ -34,8 +34,8 @@
         detalleTicketCtrl.fechaEntrega = {};
         detalleTicketCtrl.fechaEntrega.minDate = new Date();
         detalleTicketCtrl.tiempoAtencion = new Date(1900, 1, 1);
-        detalleTicketCtrl.beditarticket = true;
-        detalleTicketCtrl.basignarticket = false;
+        detalleTicketCtrl.beditarticket = false;
+        detalleTicketCtrl.basignarticket = true;
         detalleTicketCtrl.bbitacoraticket = false;
 
 
@@ -65,7 +65,6 @@
 
 
             //variables para pruebas
-//            detalleTicketCtrl.miTicket.idTicket = 25;
 //            detalleTicketCtrl.bbusquedacorrecta = true;
 
             var promesa = tableroServicios.getTicket(params).$promise;

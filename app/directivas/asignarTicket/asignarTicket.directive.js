@@ -12,8 +12,8 @@
             .controller('asignarTicketController', asignarTicketController)
             .directive('asignarTicketDir', asignarTicketDir);
     asignarTicketDir.$inject = ['$log'];
-    asignarTicketController.$inject = ['$log', '$scope', '$timeout', 'AdeaServicios', 'tableroServicios', 'proyectoServicios', '$window'];
-    function asignarTicketController($log, $scope, $timeout, AdeaServicios, tableroServicios, proyectoServicios, $window) {
+    asignarTicketController.$inject = ['$log', '$scope', '$timeout', 'AdeaServicios', 'tableroServicios', 'proyectoServicios'];
+    function asignarTicketController($log, $scope, $timeout, AdeaServicios, tableroServicios, proyectoServicios) {
 
         var asignarTicketCtrl = this;
         asignarTicketCtrl.asignado_change = asignado_change;
@@ -25,6 +25,7 @@
         asignarTicketCtrl.aceptarModal = aceptarModal;
         asignarTicketCtrl.cancelarModal = cancelarModal;
         asignarTicketCtrl.comentario_change = comentario_change;
+        asignarTicketCtrl.disabledDays = disabledDays;
         asignarTicketCtrl.idticketbusqueda = $scope.idticketbusqueda;
         asignarTicketCtrl.bbuscar = $scope.bbuscar;
         asignarTicketCtrl.usuario = $scope.usuario;
@@ -44,7 +45,7 @@
         asignarTicketCtrl.modal.mensaje = "Al reasignar este ticket cambiará la información del ticket pero es necesario actualizar la planeación de las actividades. ¿Deseas continuar?";
         asignarTicketCtrl.modal.show_modal = false;
         asignarTicketCtrl.modal.baceptarModal = false;
-        asignarTicketCtrl.beditar = true;
+        var ultima_actividad;
         cargar_consultas();
 
         /*Datos para pruebas*/
@@ -70,6 +71,7 @@
         function cargar_consultas() {
             buscarTicket($scope.idticket);
             consultaComplejidad();
+            consultaDiasFestivos();
         }
 
         function buscarTicket(idticketBusqueda) {
@@ -103,12 +105,18 @@
                 }
 
                 valida_BAsignar(false);
-                
+
                 asignarTicketCtrl.usuarioAsignado = asignarTicketCtrl.miTicket.usuarioAsignado;
                 asignarTicketCtrl.miTicket.bAsignado = 0;
+                asignarTicketCtrl.beditar = true;
+                asignarTicketCtrl.beditar_atencion = true;
+
                 if (asignarTicketCtrl.miTicket.usuarioAsignado != null) {
-                    asignarTicketCtrl.miTicket.bAsignado = 1;
-                    valida_reAsignacion();
+                    if (asignarTicketCtrl.miTicket.fechaEntrega != undefined && asignarTicketCtrl.miTicket.fechaEntrega != null) {
+                        asignarTicketCtrl.miTicket.bAsignado = 1;
+                        asignarTicketCtrl.beditar_atencion = false;
+                        valida_reAsignacion();
+                    }
                 }
             });
             promesa.catch(function (error) {
@@ -125,6 +133,32 @@
         function fecha_entrega_change() {
             $log.info("fecha_entrega_change");
             valida_BAsignar(false);
+        }
+
+        function consultaDiasFestivos() {
+            $log.info("consultaDiasFestivos");
+            var promesaList = AdeaServicios.consultaDiasFestivos().$promise;
+            promesaList.then(function (respuesta) {
+                $log.info(respuesta);
+                asignarTicketCtrl.diasFestivos = respuesta;
+            });
+            promesaList.catch(function (error) {
+                AdeaServicios.alerta("error", "Error al consultar los días festivos: " + error.data);
+            });
+        }
+
+        function disabledDays(data) {
+            var date = data.date,
+                    mode = data.mode;
+            var bndDay = false;
+
+            angular.forEach(asignarTicketCtrl.diasFestivos, function (obj) {
+                if (data.date.getTime() == obj.holiday) {
+                    bndDay = true;
+                }
+            });
+
+            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)) || bndDay;
         }
 
 
@@ -162,22 +196,28 @@
 
         function valida_reAsignacion() {
             $log.info("valida_reAsignacion");
-            asignarTicketCtrl.beditar = true;
 
             if (asignarTicketCtrl.tipoFlujo == "1") {
+                asignarTicketCtrl.beditar = true;
                 var params = {
                     user: asignarTicketCtrl.miTicket.usuarioAsignado,
                     idTicket: asignarTicketCtrl.miTicket.idTicket
                 };
                 var promesa = tableroServicios.getUltimoSubproyecto(params).$promise;
                 promesa.then(function (respuesta) {
-                    $log.info(respuesta);
+                    $log.info("respuesta.idSubProyecto ");
+                    $log.info(respuesta.idSubProyecto);
+                    $log.info("asignarTicketCtrl.miTicket.reAsigna");
                     $log.info(asignarTicketCtrl.miTicket.reAsigna);
-                    if(respuesta == 0){
-                        if(asignarTicketCtrl.miTicket.reAsigna != 1){
-                            asignarTicketCtrl.beditar = false; 
+                    //si esta asignado y no se va a reasignar
+                    //si idSubProyecto es 0 no es el ultimo subproyecto
+
+                    if (asignarTicketCtrl.miTicket.bAsignado == 1 && asignarTicketCtrl.miTicket.reAsigna == 0) {
+                        if (respuesta.idSubProyecto == 0) {
+                            asignarTicketCtrl.beditar = false;
                         }
                     }
+                    $log.info(asignarTicketCtrl.beditar);
                 });
                 promesa.catch(function (error) {
                     AdeaServicios.alerta("error", "Error al obtener el último subproyecto");
@@ -188,7 +228,6 @@
         function getUltimaActividad(lista) {
             $log.info("getUltimaActividad");
             $log.info(lista);
-            var ultima_actividad;
 
             if (lista != undefined && lista != null && lista.length > 0) {
                 ultima_actividad = angular.copy(lista[0]);
@@ -201,14 +240,90 @@
                 }
                 $log.info("horas");
                 $log.info(asignarTicketCtrl.horas);
+                $log.info("ultima_actividad");
                 $log.info(ultima_actividad);
 
-                asignarTicketCtrl.miTicket.fechaInicio = getDateFormat(ultima_actividad.fecFin);
+                asignarTicketCtrl.miTicket.fechaInicio = getValidDay(ultima_actividad.fecFin);
                 if (asignarTicketCtrl.horas >= 9) {
-                    asignarTicketCtrl.miTicket.fechaInicio.setDate(asignarTicketCtrl.miTicket.fechaInicio.getDate() + 1);
+                    var fechaInicio = angular.copy(asignarTicketCtrl.miTicket.fechaInicio);
+                    fechaInicio.setDate(fechaInicio.getDate() + 1);
+                    asignarTicketCtrl.miTicket.fechaInicio = getValidDay(fechaInicio);
                 }
             }
             tiempo_change();
+        }
+
+        function getValidDay(date) {
+            date = getDateFormat(date);
+            while (!isValidDay(date)) {
+                date.setDate(date.getDate() + 1);
+            }
+            return date;
+        }
+
+        function isValidDay(date) {
+            $log.info("isValidDay");
+            $log.info(date);
+
+            if (date.getDay() === 0 || date.getDay() === 6) {
+                return false;
+            }
+            var encontrado = false;
+            angular.forEach(asignarTicketCtrl.diasFestivos, function (obj) {
+                if (date.getTime() == obj.holiday) {
+                    $log.info("encontrado");
+                    encontrado = true;
+                }
+            });
+            if (encontrado) {
+                return false;
+            }
+            return true;
+        }
+        function tiempo_change() {
+            $log.info("tiempo_change");
+            var tiempo_acumulado = 0;
+            var HORAS_DIA = 9;
+            if (asignarTicketCtrl.miTicket.fechaInicio != undefined && asignarTicketCtrl.miTicket.fechaInicio != null) {
+                if (asignarTicketCtrl.miTicket.tiempoAtencion != undefined && asignarTicketCtrl.miTicket.tiempoAtencion != null) {
+                    var tiempoAtencion = getDateFormat(asignarTicketCtrl.miTicket.tiempoAtencion);
+                    asignarTicketCtrl.miTicket.fechaInicio = getDateFormat(asignarTicketCtrl.miTicket.fechaInicio);
+                    tiempo_acumulado = tiempoAtencion.getHours();
+                    //solo aplica para el flujo 1 planeación
+                    if (asignarTicketCtrl.tipoFlujo == "1") {
+                        if (ultima_actividad != undefined && ultima_actividad != null) {
+                            $log.info("asignarTicketCtrl.miTicket.fechaInicio.getTime()");
+                            $log.info(asignarTicketCtrl.miTicket.fechaInicio.getTime());
+                            $log.info("ultima_actividad.fecFin");
+                            $log.info(ultima_actividad.fecFin);
+                            if (asignarTicketCtrl.miTicket.fechaInicio.getTime() == ultima_actividad.fecFin) {
+                                if (asignarTicketCtrl.horas < HORAS_DIA) {
+                                    tiempo_acumulado = tiempo_acumulado + asignarTicketCtrl.horas;
+                                }
+                            }
+                        }
+                    }
+                    $log.info("tiempo_acumulado");
+                    $log.info(tiempo_acumulado);
+
+                    asignarTicketCtrl.miTicket.fechaEntrega = angular.copy(asignarTicketCtrl.miTicket.fechaInicio);
+                    var sum_dias;
+                    var div = Math.trunc(tiempo_acumulado / HORAS_DIA);
+                    var mod = tiempo_acumulado % HORAS_DIA;
+
+                    if (div > 0) {
+                        sum_dias = div;
+                        if (mod == 0) {
+                            sum_dias = sum_dias - 1;
+                        }
+
+                        var fechaEntrega = angular.copy(asignarTicketCtrl.miTicket.fechaEntrega);
+                        fechaEntrega.setDate(fechaEntrega.getDate() + sum_dias);
+                        asignarTicketCtrl.miTicket.fechaEntrega = getValidDay(fechaEntrega);
+                    }
+                }
+            }
+            valida_BAsignar(false);
         }
 
         function getDateFormat(fecha) {
@@ -321,34 +436,6 @@
             valida_BAsignar(false);
         }
 
-        function tiempo_change() {
-            $log.info("tiempo_change");
-            var tiempo_acumulado = 0;
-            var HORAS_DIA = 9;
-            if (asignarTicketCtrl.miTicket.fechaInicio != undefined && asignarTicketCtrl.miTicket.fechaInicio != null) {
-                var tiempoAtencion = getDateFormat(asignarTicketCtrl.miTicket.tiempoAtencion);
-                tiempo_acumulado = tiempoAtencion.getHours();
-                if (asignarTicketCtrl.horas < HORAS_DIA) {
-                    tiempo_acumulado = tiempo_acumulado + asignarTicketCtrl.horas;
-                }
-                $log.info(tiempo_acumulado);
-                asignarTicketCtrl.miTicket.fechaInicio = getDateFormat(asignarTicketCtrl.miTicket.fechaInicio);
-                asignarTicketCtrl.miTicket.fechaEntrega = angular.copy(asignarTicketCtrl.miTicket.fechaInicio);
-                var sum_dias;
-                var div = Math.trunc(tiempo_acumulado / HORAS_DIA);
-                var mod = tiempo_acumulado % HORAS_DIA;
-
-                if (div > 0) {
-                    sum_dias = div;
-                    if (mod == 0) {
-                        sum_dias = sum_dias - 1;
-                    }
-                    asignarTicketCtrl.miTicket.fechaEntrega.setDate(asignarTicketCtrl.miTicket.fechaEntrega.getDate() + sum_dias);
-                }
-            }
-            valida_BAsignar(false);
-        }
-
         function atencion_change(tipoFlujo) {
             $log.info("atencion_change");
             $log.info(tipoFlujo);
@@ -458,10 +545,12 @@
                 }
             }
 
+            // si no se puede editar no habilita el botón para asignar
             if (!asignarTicketCtrl.beditar) {
                 asignarTicketCtrl.btnAsignar = false;
                 return asignarTicketCtrl.btnAsignar;
             }
+
 //            if (asignarTicketCtrl.bcomentario) {
 //                if (asignarTicketCtrl.miTicket.motivoReasigna == undefined || asignarTicketCtrl.miTicket.motivoReasigna == null) {
 //                    asignarTicketCtrl.btnAsignar = false;

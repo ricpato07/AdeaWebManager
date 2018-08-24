@@ -17,7 +17,7 @@
                                type="radio" 
                                ng-model="asignarTicketCtrl.tipoFlujo" 
                                ng-change="asignarTicketCtrl.atencion_change('1')" 
-                               ng-disabled="!asignarTicketCtrl.beditar"
+                               ng-disabled="!asignarTicketCtrl.beditar_atencion"
                                value="1"> 
 
                         <label style="font-size: 14px; font-weight: normal;" for="planeacion">
@@ -28,7 +28,7 @@
                                type="radio" 
                                ng-model="asignarTicketCtrl.tipoFlujo" 
                                ng-change="asignarTicketCtrl.atencion_change('2')" 
-                               ng-disabled="!asignarTicketCtrl.beditar"
+                               ng-disabled="!asignarTicketCtrl.beditar_atencion"
                                value="2"> 
                         <label style="font-size: 14px; font-weight: normal;" for="sin_planeacion">
                             <i class="fa fa-times fa-2x"></i>
@@ -140,7 +140,7 @@
                         ng-model="asignarTicketCtrl.miTicket.fechaEntrega"  
                         placeholder="dd/mm/yyyy"
                         is-open="asignarTicketCtrl.fechaEntrega.abierto" close-text="Cerrar"
-                        datepicker-options="{minDate: asignarTicketCtrl.fechaEntrega.minDate}"
+                        datepicker-options="{minDate: asignarTicketCtrl.fechaEntrega.minDate, dateDisabled: asignarTicketCtrl.disabledDays}"
                         clear-text="Borrar" current-text="Hoy" />
                 </div>
             </div>
