@@ -46,25 +46,26 @@
         asignarTicketCtrl.modal.show_modal = false;
         asignarTicketCtrl.modal.baceptarModal = false;
         var ultima_actividad;
+        var bfechaInicio;
         cargar_consultas();
 
         /*Datos para pruebas*/
         /*
-         asignarTicketCtrl.area.tipoFlujo = 1;
+         asignarTicketCtrl.area.tipoFlujo = 3;
          asignarTicketCtrl.miTicket.nombreArea = "Sistemas";
          asignarTicketCtrl.miTicket.nombreCategoria = "Soporte aplicativo";
          asignarTicketCtrl.tipoFlujo = asignarTicketCtrl.area.tipoFlujo.toString();
          asignarTicketCtrl.miTicket.usuarioAsignado = "rgarciau";
          asignarTicketCtrl.miTicket.complejidad = "A";
          asignarTicketCtrl.miTicket.tiempoAtencion = asignarTicketCtrl.tiempoAtencion;
-         asignarTicketCtrl.ultimoticketlist = [
-         {id: 1, horasAsig: 5, fecFin: asignarTicketCtrl.fechaEntrega.minDate, nombreActividad: "Actividad de prueba"},
-         {id: 2, horasAsig: 2, fecFin: asignarTicketCtrl.fechaEntrega.minDate, nombreActividad: "Es una actividad de la causa"}
-         ];
+//         asignarTicketCtrl.ultimoticketlist = [
+//         {id: 1, horasAsig: 5, fecFin: asignarTicketCtrl.fechaEntrega.minDate, nombreActividad: "Actividad de prueba"},
+//         {id: 2, horasAsig: 2, fecFin: asignarTicketCtrl.fechaEntrega.minDate, nombreActividad: "Es una actividad de la causa"}
+//         ];
          getUltimaActividad(asignarTicketCtrl.ultimoticketlist);
          tipo_flujo_action(asignarTicketCtrl.area.tipoFlujo, false);
          asignarTicketCtrl.miTicket.reAsigna = 1;
-         asignarTicketCtrl.bcomentario = true;
+//         asignarTicketCtrl.bcomentario = true;
          asignarTicketCtrl.beditar = false;
          */
 
@@ -170,6 +171,7 @@
             asignarTicketCtrl.ultimoticketlist = undefined;
             asignarTicketCtrl.miTicket.fechaInicio = new Date();
             asignarTicketCtrl.miTicket.fechaEntrega = undefined;
+            bfechaInicio = true;
 
             if (asignarTicketCtrl.miTicket.usuarioAsignado != undefined) {
                 valida_BAsignar(false);
@@ -211,7 +213,6 @@
                     $log.info(asignarTicketCtrl.miTicket.reAsigna);
                     //si esta asignado y no se va a reasignar
                     //si idSubProyecto es 0 no es el ultimo subproyecto
-
                     if (asignarTicketCtrl.miTicket.bAsignado == 1 && asignarTicketCtrl.miTicket.reAsigna == 0) {
                         if (respuesta.idSubProyecto == 0) {
                             asignarTicketCtrl.beditar = false;
@@ -243,29 +244,25 @@
                 $log.info("ultima_actividad");
                 $log.info(ultima_actividad);
 
-                asignarTicketCtrl.miTicket.fechaInicio = getValidDay(ultima_actividad.fecFin);
+                asignarTicketCtrl.miTicket.fechaInicio = getDateFormat(ultima_actividad.fecFin);
                 if (asignarTicketCtrl.horas >= 9) {
-                    var fechaInicio = angular.copy(asignarTicketCtrl.miTicket.fechaInicio);
-                    fechaInicio.setDate(fechaInicio.getDate() + 1);
-                    asignarTicketCtrl.miTicket.fechaInicio = getValidDay(fechaInicio);
+                    bfechaInicio = false;
+                    asignarTicketCtrl.miTicket.fechaInicio.setDate(asignarTicketCtrl.miTicket.fechaInicio.getDate() + 1);
+                }
+                while(!isValidDay(asignarTicketCtrl.miTicket.fechaInicio)){
+                    bfechaInicio = false;
+                    asignarTicketCtrl.miTicket.fechaInicio.setDate(asignarTicketCtrl.miTicket.fechaInicio.getDate() + 1);
                 }
             }
             tiempo_change();
         }
-
-        function getValidDay(date) {
-            date = getDateFormat(date);
-            while (!isValidDay(date)) {
-                date.setDate(date.getDate() + 1);
-            }
-            return date;
-        }
-
+       
         function isValidDay(date) {
             $log.info("isValidDay");
             $log.info(date);
 
             if (date.getDay() === 0 || date.getDay() === 6) {
+                $log.info(false);
                 return false;
             }
             var encontrado = false;
@@ -276,51 +273,66 @@
                 }
             });
             if (encontrado) {
+                $log.info(false);
                 return false;
             }
+            $log.info(true);
             return true;
         }
+
         function tiempo_change() {
             $log.info("tiempo_change");
-            var tiempo_acumulado = 0;
-            var HORAS_DIA = 9;
+            var horasAcumuladas = 0;
+            var IHORASDIA = 9;
             if (asignarTicketCtrl.miTicket.fechaInicio != undefined && asignarTicketCtrl.miTicket.fechaInicio != null) {
                 if (asignarTicketCtrl.miTicket.tiempoAtencion != undefined && asignarTicketCtrl.miTicket.tiempoAtencion != null) {
                     var tiempoAtencion = getDateFormat(asignarTicketCtrl.miTicket.tiempoAtencion);
+                    horasAcumuladas = tiempoAtencion.getHours();
                     asignarTicketCtrl.miTicket.fechaInicio = getDateFormat(asignarTicketCtrl.miTicket.fechaInicio);
-                    tiempo_acumulado = tiempoAtencion.getHours();
-                    //solo aplica para el flujo 1 planeación
-                    if (asignarTicketCtrl.tipoFlujo == "1") {
-                        if (ultima_actividad != undefined && ultima_actividad != null) {
-                            $log.info("asignarTicketCtrl.miTicket.fechaInicio.getTime()");
-                            $log.info(asignarTicketCtrl.miTicket.fechaInicio.getTime());
-                            $log.info("ultima_actividad.fecFin");
-                            $log.info(ultima_actividad.fecFin);
-                            if (asignarTicketCtrl.miTicket.fechaInicio.getTime() == ultima_actividad.fecFin) {
-                                if (asignarTicketCtrl.horas < HORAS_DIA) {
-                                    tiempo_acumulado = tiempo_acumulado + asignarTicketCtrl.horas;
+
+                    $log.info("horasAcumuladas");
+                    $log.info(horasAcumuladas);
+                   
+                    var fecha = angular.copy(asignarTicketCtrl.miTicket.fechaInicio);
+                    var horasDia;
+                    var horasOcupadas = 0;
+
+                    while (horasAcumuladas > 0) {
+                        if (bfechaInicio) {
+                            horasOcupadas = asignarTicketCtrl.horas;
+                            $log.info("horasOcupadas");
+                            $log.info(horasOcupadas);
+                            bfechaInicio = false;
+                        }
+                        if (isValidDay(fecha)) {
+                            if (horasAcumuladas > IHORASDIA) {
+                                if (horasOcupadas > 0) {
+                                    horasDia = IHORASDIA - horasOcupadas;
+                                    horasOcupadas = 0;
+                                } else {
+                                    horasDia = IHORASDIA;
+                                }
+                            } else if (horasAcumuladas <= IHORASDIA) {
+                                if (horasOcupadas > 0) {
+                                    if(horasAcumuladas > IHORASDIA - horasOcupadas){
+                                       horasDia = IHORASDIA - horasOcupadas;
+                                       horasOcupadas = 0;  
+                                    }else{
+                                       horasDia =  horasAcumuladas;
+                                    }
+                                } else {
+                                    horasDia = horasAcumuladas;
                                 }
                             }
+                            horasAcumuladas = horasAcumuladas - horasDia;
+                        }
+                         $log.info("horasAcumuladas final");
+                         $log.info(horasAcumuladas);
+                        if (horasAcumuladas > 0) {
+                            fecha.setDate(fecha.getDate() + 1);
                         }
                     }
-                    $log.info("tiempo_acumulado");
-                    $log.info(tiempo_acumulado);
-
-                    asignarTicketCtrl.miTicket.fechaEntrega = angular.copy(asignarTicketCtrl.miTicket.fechaInicio);
-                    var sum_dias;
-                    var div = Math.trunc(tiempo_acumulado / HORAS_DIA);
-                    var mod = tiempo_acumulado % HORAS_DIA;
-
-                    if (div > 0) {
-                        sum_dias = div;
-                        if (mod == 0) {
-                            sum_dias = sum_dias - 1;
-                        }
-
-                        var fechaEntrega = angular.copy(asignarTicketCtrl.miTicket.fechaEntrega);
-                        fechaEntrega.setDate(fechaEntrega.getDate() + sum_dias);
-                        asignarTicketCtrl.miTicket.fechaEntrega = getValidDay(fechaEntrega);
-                    }
+                    asignarTicketCtrl.miTicket.fechaEntrega = fecha;
                 }
             }
             valida_BAsignar(false);
