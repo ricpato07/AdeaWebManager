@@ -191,10 +191,8 @@
 
         function consultaClientes() {
             $log.info("consultaClientes----");
-
-            var params = {estatus: 'A'};
-
-            var promesa = proyectoServicios.consultaClientesGeneral(params).$promise;
+          
+            var promesa = proyectoServicios.consultaClientes().$promise;
 
             promesa.then(function (respuesta) {
 

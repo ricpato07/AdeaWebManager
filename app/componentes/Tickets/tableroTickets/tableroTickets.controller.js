@@ -23,7 +23,7 @@
         tableroTicketsCtrl.idticketbusqueda;
         tableroTicketsCtrl.btablero = true;
         init();
-        
+
         /*
          * 
          Datos de prueba

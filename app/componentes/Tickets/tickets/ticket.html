@@ -1,10 +1,13 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+
 <div class="row">
-	<form ng-submit="ticketCtrl.buscarTicket()">
+	<form>
 		<div class="col-md-10" style=""></div>
 		<div class="col-md-2" style="">
 			<label>No. Ticket:</label> <input id="numticket" name="numticket"
 				maxlength="10" type="text" class="form-control input-md"
-				ng-keyup="$event.keyCode == 13 && ticketCtrl.buscarTicket()"
+				ng-keyup="$event.keyCode == 13 && ticketCtrl.buscarTicket(ticketCtrl.idTicketBusqueda)"
 				ng-pattern="/^[0-9]*$/" ng-model="ticketCtrl.idTicketBusqueda"
 				ng-required="true">
 		</div>

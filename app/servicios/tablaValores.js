@@ -305,5 +305,13 @@
                 {valor: "nombreEstatus", titulo: "Status", alinear: "center"}
             ]
         })
+        
+        .value("tblListaCategorias", {
+            columnas: [
+                {valor: "estatus", titulo: "Estatus", alinear: "center", filtro:"estatusAccion"},
+                {valor: "nombreCategoria", titulo: "Nombre Categoría"}
+              
+            ]
+        })
 
 })();

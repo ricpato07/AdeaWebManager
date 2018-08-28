@@ -157,6 +157,12 @@
 	        controller: 'CapturaUsuariosController',
 	        controllerAs: 'capturaUsuariosCtrl'
 	    });
+	    
+	    $routeProvider.when('/mntCategoria', {
+	        templateUrl: 'app/componentes/Tickets/categoria/mntCategoria.html',
+	        controller: 'MntCategoriaController',
+	        controllerAs: 'mntCategoriaCtrl'
+	    });
 
 	    
         $routeProvider.otherwise({redirectTo: '/inicio'});

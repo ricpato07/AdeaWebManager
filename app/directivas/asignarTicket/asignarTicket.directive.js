@@ -106,7 +106,7 @@
                 }
 
                 valida_BAsignar(false);
-
+                
                 asignarTicketCtrl.usuarioAsignado = asignarTicketCtrl.miTicket.usuarioAsignado;
                 asignarTicketCtrl.miTicket.bAsignado = 0;
                 asignarTicketCtrl.beditar = true;
@@ -114,10 +114,10 @@
 
                 if (asignarTicketCtrl.miTicket.usuarioAsignado != null) {
                     if (asignarTicketCtrl.miTicket.fechaEntrega != undefined && asignarTicketCtrl.miTicket.fechaEntrega != null) {
-                        asignarTicketCtrl.miTicket.bAsignado = 1;
+                    asignarTicketCtrl.miTicket.bAsignado = 1;
                         asignarTicketCtrl.beditar_atencion = false;
-                        valida_reAsignacion();
-                    }
+                    valida_reAsignacion();
+                }
                 }
             });
             promesa.catch(function (error) {
@@ -215,7 +215,7 @@
                     //si idSubProyecto es 0 no es el ultimo subproyecto
                     if (asignarTicketCtrl.miTicket.bAsignado == 1 && asignarTicketCtrl.miTicket.reAsigna == 0) {
                         if (respuesta.idSubProyecto == 0) {
-                            asignarTicketCtrl.beditar = false;
+                            asignarTicketCtrl.beditar = false; 
                         }
                     }
                     $log.info(asignarTicketCtrl.beditar);
@@ -252,11 +252,11 @@
                 while(!isValidDay(asignarTicketCtrl.miTicket.fechaInicio)){
                     bfechaInicio = false;
                     asignarTicketCtrl.miTicket.fechaInicio.setDate(asignarTicketCtrl.miTicket.fechaInicio.getDate() + 1);
-                }
+            }
             }
             tiempo_change();
         }
-       
+
         function isValidDay(date) {
             $log.info("isValidDay");
             $log.info(date);
@@ -303,7 +303,7 @@
                             $log.info("horasOcupadas");
                             $log.info(horasOcupadas);
                             bfechaInicio = false;
-                        }
+                                }
                         if (isValidDay(fecha)) {
                             if (horasAcumuladas > IHORASDIA) {
                                 if (horasOcupadas > 0) {
@@ -311,7 +311,7 @@
                                     horasOcupadas = 0;
                                 } else {
                                     horasDia = IHORASDIA;
-                                }
+                            }
                             } else if (horasAcumuladas <= IHORASDIA) {
                                 if (horasOcupadas > 0) {
                                     if(horasAcumuladas > IHORASDIA - horasOcupadas){
@@ -319,19 +319,19 @@
                                        horasOcupadas = 0;  
                                     }else{
                                        horasDia =  horasAcumuladas;
-                                    }
+                        }
                                 } else {
                                     horasDia = horasAcumuladas;
-                                }
-                            }
-                            horasAcumuladas = horasAcumuladas - horasDia;
+                    }
                         }
+                            horasAcumuladas = horasAcumuladas - horasDia;
+                    }
                          $log.info("horasAcumuladas final");
                          $log.info(horasAcumuladas);
                         if (horasAcumuladas > 0) {
                             fecha.setDate(fecha.getDate() + 1);
-                        }
-                    }
+                }
+            }
                     asignarTicketCtrl.miTicket.fechaEntrega = fecha;
                 }
             }

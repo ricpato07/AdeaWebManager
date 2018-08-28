@@ -296,7 +296,7 @@
 	        	if(planeacionProyectoCtrl.usuario != null){
 			        consultaClientes();
 		            consultaPlantilla();
-		            consultaTickets();
+		            //consultaTickets();
 		            consultaEstatus();
 		            consultaAreas();
 		            consultaTipoProyecto();

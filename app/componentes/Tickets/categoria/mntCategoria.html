@@ -1,0 +1,59 @@
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+<br />
+
+<div class="panel panel-default panel-primary">
+	<div class="panel-heading" style="height: 35px;">
+		<h4 class="panel-title pull-left" style="margin-top: 0px;">
+			<i class="fa fa-filter">&nbsp;&nbsp; Categor&iacute;as </i>
+		</h4>
+	</div>
+
+
+	<div class="panel-body">
+
+		<div class="container-fluid">
+			<div class="row">
+
+				<div class="col-md-4"
+					ng-class="{
+                             'has-success': form.area.$dirty || form.area.$valid ,
+                             'has-error': form.area.$dirty && form.area.$invalid}">
+					<label class="control-label">*Selecciona &Aacute;rea:</label> <select
+						class="form-control input-md" id="area" name="area"
+						ng-required="true"
+						ng-change="mntCategoriaCtrl.consultaCategorias()"
+						ng-model="mntCategoriaCtrl.idArea"
+						ng-options="opt.idArea as opt.nombre for opt in mntCategoriaCtrl.areasAWM">
+						<option value="">Seleccione</option>
+					</select>
+
+				</div>
+				<div class="col-md-8 text-right" style="text-align: right;">
+					<a class="btn btn-primary" data-target='#agregarCategoria'
+						role="button" data-toggle="modal"
+						ng-click="mntCategoriaCtrl.limpiaValores()"
+						title="Agregar Categoría" data-toggle="tooltip"
+						data-placement="midle">Agregar Categor&iacute;a </a>
+					<a
+						class="btn btn-primary" data-target='#editarCategoria'
+						role="button" data-toggle="modal" ng-click="mntCategoriaCtrl.consultaPlantilla(mntCategoriaCtrl.catEditable.idArea)"
+						ng-if="mntCategoriaCtrl.catEditable != null && mntCategoriaCtrl.catEditable != '' && mntCategoriaCtrl.catEditable != undefined"
+						title="Editar Categoría" data-toggle="tooltip"
+						data-placement="midle">Editar Categor&iacute;a </a>
+				</div>
+			</div>
+		</div>
+
+		<adea-tabla dt-data-source="mntCategoriaCtrl.listCategorias"
+			config="mntCategoriaCtrl.tblListaCategorias"
+			registro-seleccionado="mntCategoriaCtrl.catSeleccionado"
+			seleccionar-registro="mntCategoriaCtrl.seleccionarCat(reg);">
+
+		</adea-tabla>
+	</div>
+</div>
+<div
+	ng-include="'app/componentes/Tickets/categoria/modal/agregarCategoria.html'"></div>
+<div
+	ng-include="'app/componentes/Tickets/categoria/modal/editarCategoria.html'"></div>

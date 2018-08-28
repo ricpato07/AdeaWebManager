@@ -19,6 +19,7 @@
 		reportarTicketCtrl.cambiarModo = cambiarModo;
 		reportarTicketCtrl.consultaPlantillaArea = consultaPlantillaArea;
 		reportarTicketCtrl.consultaDatosArea = consultaDatosArea;
+		reportarTicketCtrl.consultaProyectos = consultaProyectos;
 		
 		reportarTicketCtrl.urlServicio =  serviceUrl + "ticket/registrarTicket.action";
 		reportarTicketCtrl.modo = 'R';
@@ -85,7 +86,7 @@
 	        }
 	        
 	        
-	        function consultaPlanta() {
+	    function consultaPlanta() {
 
 	            var params = {
 	                keyCatalogo: 'PLANTA',
@@ -109,14 +110,12 @@
 	            });
 
 
-	        }
+	     }
 	        
 
-	        function consultaClientes() {
+	     function consultaClientes() {
 	        	
-	        	var params = {estatus: 'A'};
-	        	
-	            var promesa = proyectoServicios.consultaClientesGeneral(params).$promise;
+	            var promesa = proyectoServicios.consultaClientes().$promise;
 
 	            promesa.then(function (respuesta) {
 
@@ -134,7 +133,7 @@
 
 	        }
 	        
-	        function consultaAreasAwm() {
+	     function consultaAreasAwm() {
 
 	            var params = {
 	                pIdArea: null
@@ -157,7 +156,7 @@
 
 	        }
 	        
-	        function agregarTicket(){
+	      function agregarTicket(){
 	        	
 	        	var formData = new FormData();
 	        	
@@ -172,21 +171,27 @@
 	        	formData.append('resumen', reportarTicketCtrl.ticketNuevo.resumen);
 	        	formData.append('extension', reportarTicketCtrl.ticketNuevo.extension);
 	        	formData.append('planta', reportarTicketCtrl.ticketNuevo.planta);
-	        	formData.append('usuarioAsignado', reportarTicketCtrl.ticketNuevo.usuarioAsignado);
+	        	formData.append('idProyecto', reportarTicketCtrl.ticketNuevo.idProyecto);
 	        	formData.append('descripcion', reportarTicketCtrl.ticketNuevo.descripcion);
+	        	
 	        	
 
 		        var promesa = ticketServicios.registrarTicket(formData).$promise;
 
 		        promesa.then(function (respuesta) {
-		        	reportarTicketCtrl.ticket = respuesta;
-		        	reportarTicketCtrl.modo = 'E';
-		        	reportarTicketCtrl.ticketNuevo = null;
-		        	reportarTicketCtrl.archivo = null;
+		        	if(respuesta.idTicket != '' && respuesta.idTicket != null && respuesta.idTicket != undefined){
+		        		reportarTicketCtrl.ticket = respuesta;
+			        	reportarTicketCtrl.modo = 'E';
+			        	reportarTicketCtrl.ticketNuevo = null;
+			        	reportarTicketCtrl.archivo = null;
+		        	}else{
+		        		AdeaServicios.alerta("error", "Ocurrio un error al generar el ticket: " + respuesta.error);
+		        	}
+		        
 		        });
 
 		        promesa.catch(function (error) {
-		            AdeaServicios.alerta("error", "Error al consulta las Areas de Adea: " + error.data);
+		            AdeaServicios.alerta("error", "Ocurrio un error al generar el ticket: " + error.data);
 		        });
 	        }
 	        
@@ -219,6 +224,30 @@
 	                })
 	        }
 	        
+	        function consultaProyectos() {
+	        	reportarTicketCtrl.listProyectos = [];
+	        	reportarTicketCtrl.ticketNuevo.idProyecto = null;
+
+	            if (AdeaServicios.validarDato(reportarTicketCtrl.ticketNuevo.idCliente)) {
+
+	                var params = {pidCliente: reportarTicketCtrl.ticketNuevo.idCliente};
+
+	                var promesa = proyectoServicios.consultaProyecto(params).$promise;
+
+	                promesa.then(function (respuesta) {
+	                	reportarTicketCtrl.listProyectos = respuesta;
+
+
+	                    if (reportarTicketCtrl.listProyectos.length == 0) {
+	                        AdeaServicios.alerta("error", "No existen Proyectos del cliente seleccionado");
+	                    }
+	                });
+
+	                promesa.catch(function (error) {
+	                    AdeaServicios.alerta("error", "Error al consulta de Proyectos: " + error.data.error);
+	                })
+	            }
+	        }
 
 	}
 })();

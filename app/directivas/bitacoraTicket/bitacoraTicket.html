@@ -100,15 +100,15 @@
         <table class="table table-hover">
             <thead
                 style="height: 15px; background-color: #337ab7; color: white;">
-                <tr>
+                    <tr>
                     <th style="text-align: left;">Relación</th>
                     <th style="text-align: center;">Ticket</th>
                     <th style="text-align: center;">Estatus</th>
                     <th style="text-align: center;">Asignado</th>
                     <th>Resumen</th>
                     <th ng-if="bitacoraTicketCtrl.bEditar"></th>
-                </tr>
-            </thead>
+                    </tr>
+                </thead>
             <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length > 0"
                 ng-repeat="relacion in bitacoraTicketCtrl.listRelacionTicket">
                 <td style="text-align: left;">{{relacion.relacion}}
@@ -127,14 +127,14 @@
                        ng-click="bitacoraTicketCtrl.eliminarRelacion(relacion.idTicketRelacion)">                                                                                
                     </a>
                 </td>
-            </tr>
+                </tr>
             <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length == 0">
                 <td colspan="6" style="text-align: center;">
                     El ticket no cuenta con relaciones asociadas</td>
             </tr>
-        </table>
+            </table>
 
-    </div>
+        </div>
 </div>
 <div class="row">
     <div class="col-md-12"

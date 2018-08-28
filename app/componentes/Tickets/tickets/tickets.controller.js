@@ -5,9 +5,9 @@
         .module('adeaModule')
         .controller('TicketController', TicketController);
 
-    TicketController.$inject = ['$log', 'tblSubProyectos', 'proyectoServicios', 'AdeaServicios', 'tblMisTickets', 'ticketServicios', '$window', '$filter'];
+    TicketController.$inject = ['$log', 'tblSubProyectos', 'proyectoServicios', 'AdeaServicios', 'tblMisTickets', 'ticketServicios', '$window', '$filter', '$timeout'];
 
-    function TicketController($log, tblSubProyectos, proyectoServicios, AdeaServicios, tblMisTickets, ticketServicios, $window, $filter) {
+    function TicketController($log, tblSubProyectos, proyectoServicios, AdeaServicios, tblMisTickets, ticketServicios, $window, $filter, $timeout) {
 
         var ticketCtrl = this;
 
@@ -28,6 +28,8 @@
         ticketCtrl.modificaNota = modificaNota;
         ticketCtrl.eliminarNota = eliminarNota;
         ticketCtrl.buscarTicket = buscarTicket;
+        ticketCtrl.consultaProyectos = consultaProyectos;
+        ticketCtrl.consultaCategorias = consultaCategorias;
         
         ticketCtrl.bndArchivos = true;
         ticketCtrl.modoVista = 'C';
@@ -104,9 +106,6 @@
 	        		} else if(tipo == 'R' && estatus == 4) {
 	        			ticketCtrl.ticketsResueltas = respuesta;
 	        		}
-	        		
-	        	}else{
-	        		AdeaServicios.alerta("error", "El Usuario no tiene tickets");
 	        	}
 
 	        });
@@ -119,57 +118,54 @@
         function seleccionarmiTicket(reg){
         	ticketCtrl.miTicketSeleccionado = reg;
         	ticketCtrl.miTicketEditable = angular.copy(ticketCtrl.miTicketSeleccionado);
-        	ticketCtrl.modoVista = 'M';
-        	consultaCategorias();
-        	consultaPlantillaArea();
-        	consultaPrioridad();
-        	consultaPlanta();
-        	consultaClientes();
-        	consultaEstatus();
-        	consultaArchivosTicket();
-        	consultaCatRel();
-        	consultaRelacionTicket();
-        	consultaObservaciones();
-        	consultaBitacora();
+        	// ticketCtrl.modoVista = 'M';
+        	buscarTicket(ticketCtrl.miTicketEditable.idTicket);
+        	/*
+			 * consultaCategorias(); consultaPlantillaArea();
+			 * consultaPrioridad(); consultaPlanta(); consultaClientes();
+			 * consultaEstatus(); consultaArchivosTicket(); consultaCatRel();
+			 * consultaRelacionTicket(); consultaObservaciones();
+			 * consultaBitacora();
+			 */
         }
         
         function buscarTicket(idTicket){
+        	$log.info('buscarTicket');
+        	$log.info(idTicket);
+        	ticketCtrl.miTicketEditable = null;
+        	$window.scrollTo(0, 0);
+        		var params = {
+            			idTicket: idTicket 
+    			};
+            	
+    	        var promesa = ticketServicios.consultaTicket(params).$promise;
+    	
+    	        promesa.then(function (respuesta) {
+    	        	if(respuesta.length > 0){
+    	        		ticketCtrl.miTicketSeleccionado = respuesta[0];
+    	            	ticketCtrl.miTicketEditable = angular.copy(respuesta[0]);
+    	            	ticketCtrl.modoVista = 'M';
+    	            	consultaAreasAwm();
+    	            	consultaCategorias();
+    	            	consultaPlantillaArea();
+    	            	consultaPrioridad();
+    	            	consultaPlanta();
+    	            	consultaClientes();
+    	            	consultaEstatus();
+    	            	consultaArchivosTicket();
+    	            	consultaCatRel();
+    	            	consultaRelacionTicket();
+    	            	consultaObservaciones();
+    	            	consultaBitacora();
+    	            	ticketCtrl.idTicketBusqueda = null;
+    	            	ticketCtrl.consultaProyectos(ticketCtrl.miTicketEditable.idCliente);
+    	        	}else{
+    	        		$log.info('no hay');
+    	        		AdeaServicios.alerta("error", "No existe el ticket con el numero indicado");
+    	        	}
+    	        });
+
         	
-        	var idTicketSel = null;
-        	
-        	if(idTicket == null || idTicket == '' || idTicket == undefined){
-        		idTicketSel = ticketCtrl.idTicketBusqueda;
-        	}else{
-        		idTicketSel = idTicket;
-        	}
-        	
-        	var params = {
-        			idTicket: idTicketSel 
-			};
-        	
-	        var promesa = ticketServicios.consultaTicket(params).$promise;
-	
-	        promesa.then(function (respuesta) {
-	        	if(respuesta.length > 0){
-	        		ticketCtrl.miTicketSeleccionado = respuesta[0];
-	            	ticketCtrl.miTicketEditable = angular.copy(ticketCtrl.miTicketSeleccionado);
-	            	ticketCtrl.modoVista = 'M';
-	            	consultaCategorias();
-	            	consultaPlantillaArea();
-	            	consultaPrioridad();
-	            	consultaPlanta();
-	            	consultaClientes();
-	            	consultaEstatus();
-	            	consultaArchivosTicket();
-	            	consultaCatRel();
-	            	consultaRelacionTicket();
-	            	consultaObservaciones();
-	            	consultaBitacora();
-	            	ticketCtrl.idTicketBusqueda = null;
-	        	}else{
-	        		AdeaServicios.alerta("error", "El Usuario no tiene tickets");
-	        	}
-	        });
         	
         }
         
@@ -235,10 +231,8 @@
         
         
         function consultaClientes() {
-        	
-        	var params = {estatus: 'A'};
-        	
-            var promesa = proyectoServicios.consultaClientesGeneral(params).$promise;
+       	
+            var promesa = proyectoServicios.consultaClientes().$promise;
 
             promesa.then(function (respuesta) {
 
@@ -252,8 +246,6 @@
             promesa.catch(function (error) {
                 AdeaServicios.alerta("error", "Error al consulta clientes: " + error.data);
             })
-
-
         }
         
         function consultaAreasAwm() {
@@ -282,7 +274,7 @@
         function consultaCategorias() {
 			 
 			 var params = {
-					 idArea: ticketCtrl.miTicketSeleccionado.idArea
+					 idArea: ticketCtrl.miTicketEditable.idArea
 			 };
 
 	            var promesa = ticketServicios.consultaCategorias(params).$promise;
@@ -363,8 +355,12 @@
                 var promesa = ticketServicios.modificacionDatosGrl(ticketCtrl.miTicketEditable).$promise;
 
                 promesa.then(function (respuesta) {
-                	ticketCtrl.modoVista = 'C';
-                	consultaUsuario();
+                	if(respuesta.error = 'ok'){
+                		ticketCtrl.modoVista = 'C';
+                		consultaUsuario();
+                	}else{
+                		AdeaServicios.alerta("error", "Error al modificar el ticket: " + respuesta.error);
+                	}
                 });
 
                 promesa.catch(function (error) {
@@ -701,6 +697,31 @@
             })
    
         }
+        
+        function consultaProyectos(idCliente) {
+        	ticketCtrl.listProyectos = [];
+
+            if (AdeaServicios.validarDato(idCliente)) {
+
+                var params = {pidCliente: idCliente};
+
+                var promesa = proyectoServicios.consultaProyecto(params).$promise;
+
+                promesa.then(function (respuesta) {
+                	ticketCtrl.listProyectos = respuesta;
+
+
+                    if (ticketCtrl.listProyectos.length == 0) {
+                        AdeaServicios.alerta("error", "No existen Proyectos del cliente seleccionado");
+                    }
+                });
+
+                promesa.catch(function (error) {
+                    AdeaServicios.alerta("error", "Error al consulta de Proyectos: " + error.data.error);
+                })
+            }
+        }
+        
         
     }
 })

@@ -1,0 +1,70 @@
+<div class="modal fade" id="editarCategoria" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<!-- modal-lg  si queremos q la modal este mas grande-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true" style="width: 20px;">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Editar Categori&iacute;a</h4>
+			</div>
+
+			<div class="modal-body scrollFactura">
+				<form class="form-horizontal" name="form" novalidate>
+					<div class="row">
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.area.$dirty || form.area.$valid ,
+                             'has-error': form.area.$dirty && form.area.$invalid}">
+							<label class="control-label">*Selecciona &Aacute;rea:</label> <select
+								class="form-control input-md" id="area" name="area"
+								ng-required="true"
+								ng-change="mntCategoriaCtrl.consultaPlantilla(mntCategoriaCtrl.catEditable.idArea)"
+								ng-model="mntCategoriaCtrl.catEditable.idArea"
+								ng-options="opt.idArea as opt.nombre for opt in mntCategoriaCtrl.areasAWM">
+								<option value="">Seleccione</option>
+							</select>
+
+						</div>
+						<div class="col-md-6"
+							ng-class="{
+                             'has-success': form.tipo.$dirty || form.tipo.$valid ,
+                             'has-error': form.tipo.$dirty && form.tipo.$invalid}">
+							<label class="control-label">Nombre Categor&iacute;a:</label> <input
+								id="tipo" name="tipo" maxlength="100" type="text"
+								class="form-control input-md" ng-required="true"
+								ng-pattern="/^[0-9a-zA-Z_-\s,.Ã¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘ÃœÃ¼:\(\)]*$/"
+								ng-model="mntCategoriaCtrl.catEditable.nombreCategoria">
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-md-12"
+							ng-class="{
+                             'has-success': form.plantilla.$dirty || form.plantilla.$valid ,
+                             'has-error': form.plantilla.$dirty && form.plantilla.$invalid}">
+							<label class="control-label">Asignar Gerente:</label>
+							<multiselect show-search="true" id="plantilla" name="plantilla"
+								ng-if="mntCategoriaCtrl.listPlantillaGerente.length > 0"
+								labels="mntCategoriaCtrl.labelsMultiselect"
+								ng-model="mntCategoriaCtrl.catEditable.gerentes"
+								options="mntCategoriaCtrl.listPlantillaGerente"
+								id-prop="idPlantilla" display-prop="nombre"></multiselect>
+						</div>
+					</div>
+					<br />
+					<div class="row" style="border-top: 1px solid #bbd3de">
+						<div class="col-md-6 text-right"></div>
+						<div class="col-md-6 text-right">
+							<a class="btn btn-primary" style="margin-top: 41px;"
+								role="button" ng-click="mntCategoriaCtrl.editarCategoria()"
+								ng-if="form.$valid"
+								tooltip title="Guarda Recurso" data-placement="midle">Guardar</a>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

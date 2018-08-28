@@ -62,11 +62,11 @@
                                ng-model="editarTicketsCtrl.miTicketEditable.idCliente"
                                style="min-width: 300px;" title="Elige un Cliente"> 
                         <ui-select-match
-                            placeholder="Selecciona un Cliente">{{$select.selected.acltrzsc}}
+                            placeholder="Selecciona un Cliente">{{$select.selected.nomCliente}}
                         </ui-select-match>
                         <ui-select-choices
-                            repeat="cliente.scltcod as cliente in editarTicketsCtrl.clientes | propsFilter: {acltrzsc: $select.search, scltcod: $select.search}">
-                            <div ng-bind-html="cliente.acltrzsc | highlight: $select.search"></div>
+                            repeat="cliente.idClienteDetalle as cliente in editarTicketsCtrl.clientes | propsFilter: {nomCliente: $select.search, idClienteDetalle: $select.search}">
+                            <div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
                         </ui-select-choices> 
                     </ui-select>
                 </div>

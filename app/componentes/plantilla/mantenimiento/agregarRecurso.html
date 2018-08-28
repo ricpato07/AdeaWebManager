@@ -24,7 +24,7 @@
 								<label class=" control-label" for="nombre">Nombre:</label> <input
 									id="nombre" name="nombre" maxlength="50" type="text"
 									class="form-control input-md"
-									ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+									ng-pattern="/^[0-9a-zA-Z_-\s,.Ã¡Ã©Ã­Ã³ÃºÃ�Ã‰Ã�Ã“ÃšÃ±Ã‘:\(\)]*$/"
 									ng-model="plantillaProyectoCtrl.recurso.nombre"
 									ng-required="true">
 							</div>
@@ -56,6 +56,7 @@
 									ng-model="plantillaProyectoCtrl.recurso.costo"
 									ng-required="true">
 							</div>
+							<br/>
 							<div class="col-md-6"
 								ng-class="{'has-success': form.login.$dirty || form.login.$valid ,
                              'has-error': form.login.$dirty && form.login.$invalid}">

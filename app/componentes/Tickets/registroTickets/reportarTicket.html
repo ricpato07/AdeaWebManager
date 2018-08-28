@@ -13,7 +13,8 @@
 			<form class="form-horizontal" name="form" novalidate>
 				<div class="row">
 					<div class="col-md-12" style="font-size: 15px;">Introduzca
-						los detalles de la incidencia, una vez que la información sea correcta se habilitará el botón de guardar.</div>
+						los detalles de la incidencia, una vez que la información sea
+						correcta se habilitará el botón de guardar.</div>
 				</div>
 				<br /> <br />
 				<div class="row">
@@ -48,6 +49,25 @@
 					</div>
 					<div class="col-md-4"
 						ng-class="{
+                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
+                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
+						<label class=" control-label">Cliente:</label>
+						<ui-select id="cliente" name="cliente"
+							ng-change="reportarTicketCtrl.consultaProyectos()"
+							ng-model="reportarTicketCtrl.ticketNuevo.idCliente"
+							style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
+							placeholder="Selecciona un Cliente">{{$select.selected.nomCliente}}</ui-select-match>
+						<ui-select-choices
+							repeat="cliente.idClienteDetalle as cliente in reportarTicketCtrl.clientes | propsFilter: {nomCliente: $select.search, idClienteDetalle: $select.search}">
+						<div ng-bind-html="cliente.nomCliente | highlight: $select.search"></div>
+						</ui-select-choices> </ui-select>
+					</div>
+
+				</div>
+				<br />
+				<div class="row">
+					<!-- <div class="col-md-3"
+						ng-class="{
                              'has-success': form.login.$dirty || form.login.$valid ,
                              'has-error': form.login.$dirty && form.login.$invalid}">
 						<label class=" control-label">Asignar a:</label>
@@ -59,24 +79,24 @@
 							repeat="recurso.login as recurso in reportarTicketCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
 						<div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
 						</ui-select-choices> </ui-select>
-					</div>
-				</div>
-				<br />
-				<div class="row">
+					</div> -->
+
 					<div class="col-md-4"
 						ng-class="{
-                             'has-success': form.cliente.$dirty || form.cliente.$valid ,
-                             'has-error': form.cliente.$dirty && form.cliente.$invalid}">
-						<label class=" control-label">Cliente:</label>
-						<ui-select id="cliente" name="cliente"
-							ng-model="reportarTicketCtrl.ticketNuevo.idCliente"
-							style="min-width: 300px;" title="Elige un Cliente"> <ui-select-match
-							placeholder="Selecciona un Cliente">{{$select.selected.acltrzsc}}</ui-select-match>
+                             'has-success': form.proyecto.$dirty || form.proyecto.$valid ,
+                             'has-error': form.proyecto.$dirty && form.proyecto.$invalid}">
+						<label class=" control-label">Proyecto:</label>
+						<ui-select id="proyecto" name="proyecto" ng-required="true"
+							ng-model="reportarTicketCtrl.ticketNuevo.idProyecto"
+							style="min-width: 300px;" title="Elige un Proyecto">
+						<ui-select-match placeholder="Selecciona un Proyecto">{{$select.selected.nombre}}</ui-select-match>
 						<ui-select-choices
-							repeat="cliente.scltcod as cliente in reportarTicketCtrl.clientes | propsFilter: {acltrzsc: $select.search, scltcod: $select.search}">
-						<div ng-bind-html="cliente.acltrzsc | highlight: $select.search"></div>
+							repeat="proyecto.idProyecto as proyecto in reportarTicketCtrl.listProyectos | propsFilter: {nombre: $select.search, idProyecto: $select.search}">
+						<div ng-bind-html="proyecto.nombre | highlight: $select.search"></div>
 						</ui-select-choices> </ui-select>
 					</div>
+
+
 					<div class="col-md-4"
 						ng-class="{
                              'has-success': form.prioridad.$dirty || form.prioridad.$valid ,
@@ -94,14 +114,13 @@
 						ng-class="{
                              'has-success': form.extension.$dirty || form.extension.$valid ,
                              'has-error': form.extension.$dirty && form.extension.$invalid}">
-						<label class=" control-label" for="extension">*Extensión:</label> <input
-							id="extension" name="extension" type="number" max="999999"
+						<label class=" control-label" for="extension">*Extensión:</label>
+						<input id="extension" name="extension" type="number" max="999999"
 							class="form-control input-md" maxlength="6"
 							ng-pattern="/^[0-9]*$/"
 							ng-model="reportarTicketCtrl.ticketNuevo.extension"
 							ng-required="true">
 					</div>
-
 
 				</div>
 				<br />
@@ -130,8 +149,6 @@
 						</select>
 
 					</div>
-
-
 				</div>
 				<br />
 				<div class="row">

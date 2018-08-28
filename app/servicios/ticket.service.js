@@ -133,6 +133,18 @@
                 	pcNombre: '@pcNombre',
                 	pcRuta: '@pcRuta'
                 }
+            },
+            agregarCat: {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                params: {
+                	categoria: '@categoria'
+                }
+            },
+            editCat: {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                params: {
+                	categoria: '@categoria'
+                }
             }
         });
 
@@ -154,7 +166,9 @@
             eliminarNota: eliminarNota,
             consultaLogTicket: consultaLogTicket,
             descargarArchivoAdjuntos: descargarArchivoAdjuntos,
-            eliminaAdjunto: eliminaAdjunto 
+            eliminaAdjunto: eliminaAdjunto,
+            agregarCategoria: agregarCategoria,
+            editarCategoria: editarCategoria
         };
 
         return serviciosTicket;
@@ -240,6 +254,13 @@
         	
         }
         
+        function agregarCategoria(params){
+        	return tickets.agregarCat({servicio: 'agregarCategoria.action'}, params);
+        }
+        
+        function editarCategoria(params){
+        	return tickets.editCat({servicio: 'editarCategoria.action'}, params);
+        }
         
     }
 })();
