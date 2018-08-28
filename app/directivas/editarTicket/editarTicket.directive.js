@@ -22,6 +22,7 @@
         editarTicketsCtrl.noHaCambiado = noHaCambiado;
         editarTicketsCtrl.comboarea_action = comboarea_action;
         editarTicketsCtrl.modificarTicket = modificarTicket;
+        editarTicketsCtrl.idticket = $scope.idticket;
         editarTicket($scope.idticket);
 
         function editarTicket(idTicket) {
