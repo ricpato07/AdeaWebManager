@@ -124,6 +124,11 @@
 
         function close_menu(imenu) {
             switch (imenu) {
+                case 0:
+                    detalleTicketCtrl.basignarticket = false;
+                    detalleTicketCtrl.beditarticket = false;
+                    detalleTicketCtrl.bbitacoraticket = false;
+                    break;
                 case 1:
                     detalleTicketCtrl.basignarticket = false;
                     detalleTicketCtrl.bbitacoraticket = false;
@@ -159,13 +164,14 @@
 
         function modificarTicket() {
             $log.info("modificarTicket -- detalleTickets.directive ----");
-            detalleTicketCtrl.beditarticket = false;
-            buscarTicket();
+            close_menu(0);
+            //buscarTicket();
         }
 
         function asignarTicket() {
             $log.info("asignarTicket -- detalleTickets.directive ----");
-            detalleTicketCtrl.basignarticket = false;
+            close_menu(0);
+            //buscarTicket();
         }
 
         function bitacoraAction() {
