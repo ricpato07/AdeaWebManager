@@ -6,41 +6,6 @@
 </div>
 <br />
 <div class="row">
-    <div
-        ng-class="{'col-md-6': bitacoraTicketCtrl.bEditar,
-                   'col-md-12': !bitacoraTicketCtrl.bEditar}">
-        <table class="table table-hover">
-            <thead
-                style="height: 15px; background-color: #337ab7; color: white;">
-                <tr>
-                    <th style="text-align: left;">Nombre archivo</th>
-                    <th style="text-align: center;">Fecha alta</th>
-                    <th ng-if="bitacoraTicketCtrl.bEditar"></th>
-                </tr>
-            </thead>
-            <tr ng-if="bitacoraTicketCtrl.listArchivosTicket.length > 0"
-                ng-repeat="archivo in bitacoraTicketCtrl.listArchivosTicket">
-                <td style="text-align: left;">
-                    <a style="cursor: pointer;"
-                       ng-click="bitacoraTicketCtrl.descargarArchivo(archivo)">
-                        {{archivo.nombreArchivo}}
-                    </a>
-                </td>
-                <td style="text-align: center;">{{archivo.fecReg| fecha}}</td>
-                <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
-                    <a class="fa fa-times"
-                       style="color: red; font-weight: bold; cursor: pointer; font-size: 16px;"
-                       tooltip title="Eliminar"
-                       ng-click="bitacoraTicketCtrl.eliminarArchivo(archivo)">                                                                                    
-                    </a>
-                </td>
-            </tr>
-            <tr ng-if="bitacoraTicketCtrl.listArchivosTicket.length == 0">
-                <td colspan="3" style="text-align: center;">
-                    El ticket no cuenta con archivos registrados</td>
-            </tr>
-        </table>
-    </div>
     <div class="col-md-6"
          ng-if="bitacoraTicketCtrl.bEditar">
         <div class="row">
@@ -62,6 +27,30 @@
 </div>
 <br />
 <div class="row">
+    <div class = "col-md-12">
+        <div ng-if="bitacoraTicketCtrl.listArchivosTicket.length > 0" 
+             ng-repeat="archivo in bitacoraTicketCtrl.listArchivosTicket">
+            <p class="item">
+                <span class="item_list">
+                <a style="cursor: pointer;"
+                       ng-click="bitacoraTicketCtrl.descargarArchivo(archivo)">
+                        {{archivo.nombreArchivo}}
+                    </a>
+                | {{archivo.fecReg| fecha}}</span>
+                <button ng-click="bitacoraTicketCtrl.eliminarArchivo(archivo)"
+                        ng-if="bitacoraTicketCtrl.bEditar"
+                        class="btn btn-default button_right" type="button">
+                    <i class="fa fa-times"></i>
+                </button>
+            </p>
+        </div>
+        <div ng-if="bitacoraTicketCtrl.listArchivosTicket.length == 0">
+            <p>El ticket no cuenta con archivos registrados</p>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
     <div class="col-md-12"
          style="border-bottom: 1px solid #3774a8; font-size: 20px;">
         <label>Relaciones</label>
@@ -69,47 +58,6 @@
 </div>
 <br />
 <div class="row">
-    <div
-        ng-class="{'col-md-6': bitacoraTicketCtrl.bEditar,
-                   'col-md-12': !bitacoraTicketCtrl.bEditar}">
-        <table class="table table-hover">
-            <thead
-                style="height: 15px; background-color: #337ab7; color: white;">
-                <tr>
-                    <th style="text-align: left;">Relación</th>
-                    <th style="text-align: left;">Ticket</th>
-                    <th style="text-align: center;">Estatus</th>
-                    <th style="text-align: center;">Asignado</th>
-                    <th>Resumen</th>
-                    <th ng-if="bitacoraTicketCtrl.bEditar"></th>
-                </tr>
-            </thead>
-            <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length > 0"
-                ng-repeat="relacion in bitacoraTicketCtrl.listRelacionTicket">
-                <td style="text-align: left;">{{relacion.relacion}}
-                    [{{relacion.fecRel| fecha}}]</td>
-                <td style="text-align: center;">
-                    {{relacion.idTicketRel}}
-                </td>
-                <td style="text-align: center;">{{relacion.estatusDesc}}</td>
-                <td style="text-align: center;">{{relacion.usuarioAsignado|
-							cadenaVacia}}</td>
-                <td style="text-align: center;">{{relacion.resumen}}</td>
-                <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
-                    <a class="fa fa-times"
-                       tooltip title="Eliminar"
-                       style="font-size: 16px; color: red; font-weight: bold; cursor: pointer;"
-                       ng-click="bitacoraTicketCtrl.eliminarRelacion(relacion.idTicketRelacion)">                                                                                
-                    </a>
-                </td>
-            </tr>
-            <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length == 0">
-                <td colspan="6" style="text-align: center;">
-                    El ticket no cuenta con relaciones asociadas</td>
-            </tr>
-        </table>
-
-    </div>
     <div class="col-md-6" ng-if="bitacoraTicketCtrl.bEditar">
         <form class="form-horizontal" name="formRel" novalidate>
             <div class="col-md-5"
@@ -146,6 +94,48 @@
         </form>
     </div>
 </div>
+<br/>
+<div class="row">    
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead
+                style="height: 15px; background-color: #337ab7; color: white;">
+                <tr>
+                    <th style="text-align: left;">Relación</th>
+                    <th style="text-align: center;">Ticket</th>
+                    <th style="text-align: center;">Estatus</th>
+                    <th style="text-align: center;">Asignado</th>
+                    <th>Resumen</th>
+                    <th ng-if="bitacoraTicketCtrl.bEditar"></th>
+                </tr>
+            </thead>
+            <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length > 0"
+                ng-repeat="relacion in bitacoraTicketCtrl.listRelacionTicket">
+                <td style="text-align: left;">{{relacion.relacion}}
+                    [{{relacion.fecRel| fecha}}]</td>
+                <td style="text-align: center;">
+                    {{relacion.idTicketRel}}
+                </td>
+                <td style="text-align: center;">{{relacion.estatusDesc}}</td>
+                <td style="text-align: center;">{{relacion.usuarioAsignado|
+							cadenaVacia}}</td>
+                <td>{{relacion.resumen}}</td>
+                <td ng-if="bitacoraTicketCtrl.bEditar" style="text-align: center;">
+                    <a class="fa fa-times"
+                       tooltip title="Eliminar"
+                       style="font-size: 16px; color: red; font-weight: bold; cursor: pointer;"
+                       ng-click="bitacoraTicketCtrl.eliminarRelacion(relacion.idTicketRelacion)">                                                                                
+                    </a>
+                </td>
+            </tr>
+            <tr ng-if="bitacoraTicketCtrl.listRelacionTicket.length == 0">
+                <td colspan="6" style="text-align: center;">
+                    El ticket no cuenta con relaciones asociadas</td>
+            </tr>
+        </table>
+
+    </div>
+</div>
 <div class="row">
     <div class="col-md-12"
          style="border-bottom: 1px solid #3774a8; font-size: 20px;">
@@ -155,14 +145,47 @@
 <br />
 <div class="row">
     <form class="form-horizontal" name="formNota" novalidate>
-        <div ng-class="{'col-md-6': bitacoraTicketCtrl.bEditar,
-                        'col-md-12': !bitacoraTicketCtrl.bEditar}">
+        <div class="col-md-6" style="text-align: left; margin-bottom: 15px;" 
+             ng-if="bitacoraTicketCtrl.bEditar"
+             ng-class="{'has-success': formNota.nota.$dirty || formNota.nota.$valid ,
+                             'has-error': formNota.nota.$dirty && formNota.nota.$invalid}">
+            <label>{{bitacoraTicketCtrl.modoGuardar?'Nueva':'Editar'}} nota</label>
+            <textarea id="nota" name="nota" ng-required="true" maxlength="1000"
+                      minlength="10" ng-model="bitacoraTicketCtrl.nota" class="input-md"
+                      style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+                      rows="2">
+            </textarea>
+            <div style="width: 100%; text-align: right;">
+                <a class="btn btn-primary" role="button"
+                   style="margin-top: 15px; cursor: pointer;"
+                   ng-click="bitacoraTicketCtrl.guardarNota()"
+                   ng-if="formNota.$valid && bitacoraTicketCtrl.modoGuardar"
+                   title="Guardar Nota" data-placement="midle">
+                    Guardar 
+                </a> 
+                <a class="btn btn-primary" role="button"
+                   style="margin-top: 15px; cursor: pointer;"
+                   ng-click="bitacoraTicketCtrl.modificaNota()"
+                   ng-if="formNota.$valid && !bitacoraTicketCtrl.modoGuardar && bitacoraTicketCtrl.noHaCambiadoNota()"
+                   tooltip title="Guardar Nota" data-placement="midle">
+                    Modificar
+                </a>
+                <a class="btn btn-default" role="button"
+                   style="margin-top: 15px; cursor: pointer;"
+                   ng-click="bitacoraTicketCtrl.cancelarNota()"
+                   ng-if="!bitacoraTicketCtrl.modoGuardar && formNota.$valid"
+                   tooltip title="Guardar Nota" data-placement="midle">
+                    Cancelar 
+                </a>
+            </div>
+        </div>
+        <div class="col-md-12">
             <table class="table table-hover">
                 <thead
                     style="height: 15px; background-color: #337ab7; color: white;">
                     <tr>
                         <th style="text-align: left;">Usuario</th>
-                        <th style="text-align: center;">Nota:</th>
+                        <th>Nota</th>
                         <th ng-if="bitacoraTicketCtrl.bEditar"></th>
                         <th ng-if="bitacoraTicketCtrl.bEditar"></th>
                     </tr>
@@ -193,40 +216,6 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-6" style="text-align: left;" 
-             ng-if="bitacoraTicketCtrl.bEditar"
-             ng-class="{'has-success': formNota.nota.$dirty || formNota.nota.$valid ,
-                             'has-error': formNota.nota.$dirty && formNota.nota.$invalid}">
-            <label>{{bitacoraTicketCtrl.modoGuardar?'Nueva':'Editar'}} Nota</label>
-            <textarea id="nota" name="nota" ng-required="true" maxlength="1000"
-                      minlength="10" ng-model="bitacoraTicketCtrl.nota" class="input-md"
-                      style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
-                      rows="5">
-            </textarea>
-            <div style="width: 100%; text-align: right;">
-                <a class="btn btn-primary" role="button"
-                   style="margin-top: 20px; cursor: pointer;"
-                   ng-click="bitacoraTicketCtrl.guardarNota()"
-                   ng-if="formNota.$valid && bitacoraTicketCtrl.modoGuardar"
-                   title="Guardar Nota" data-placement="midle">
-                    Guardar 
-                </a> 
-                <a class="btn btn-primary" role="button"
-                   style="margin-top: 20px; cursor: pointer;"
-                   ng-click="bitacoraTicketCtrl.modificaNota()"
-                   ng-if="formNota.$valid && !bitacoraTicketCtrl.modoGuardar && bitacoraTicketCtrl.noHaCambiadoNota()"
-                   tooltip title="Guardar Nota" data-placement="midle">
-                    Modificar
-                </a>
-                <a class="btn btn-default" role="button"
-                   style="margin-top: 20px; cursor: pointer;"
-                   ng-click="bitacoraTicketCtrl.cancelarNota()"
-                   ng-if="!bitacoraTicketCtrl.modoGuardar && formNota.$valid"
-                   tooltip title="Guardar Nota" data-placement="midle">
-                    Cancelar 
-                </a>
-            </div>
-        </div>
     </form>
 </div>
 <div class="row">
@@ -243,7 +232,7 @@
                 style="height: 15px; background-color: #337ab7; color: white;">
                 <tr>
                     <th style="text-align: center;">Fecha</th>
-                    <th style="text-align: center;">Usuario:</th>
+                    <th style="text-align: center;">Usuario</th>
                     <th>Campo</th>
                 </tr>
             </thead>
