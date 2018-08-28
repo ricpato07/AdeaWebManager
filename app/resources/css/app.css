@@ -2912,3 +2912,41 @@ table.dataTable thead th, table.dataTable thead td{
 .borde_rojo{
     border: 1px solid #da4453; padding: 10px;
 }
+
+.item{
+    float: left;
+    margin-left: 15px !important;
+}
+.item_list{
+    border-color: #D2D2D2;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 10px;
+    padding: 10px;
+    background-color: #FBF8EA;
+    border-radius: 4px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    float: left;
+    font-size: 12px;
+}
+
+.item_list_round{
+    border-color: #D2D2D2;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 10px;
+    padding: 10px;
+    background-color: #FBF8EA;
+    border-radius: 4px;
+    float: left;
+    font-size: 12px;
+}
+
+.button_right{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    height: 39px;
+    float: left;
+    margin-left: -1px;
+}
