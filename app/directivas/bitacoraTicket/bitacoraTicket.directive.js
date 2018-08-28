@@ -33,9 +33,8 @@
         bitacoraTicketCtrl.bEditar = true;
         bitacoraTicketCtrl.bndArchivos = true;
         bitacoraTicketCtrl.modoGuardar = true;
-        
         buscarTicket(bitacoraTicketCtrl.idticket);
-
+        
         function buscarTicket(idTicket) {
          
             if (idTicket == null || idTicket == '' || idTicket == undefined) {
@@ -50,8 +49,6 @@
 
             promesa.then(function (respuesta) {
                 if (respuesta.length > 0) {
-//                    bitacoraTicketCtrl.miTicketSeleccionado = respuesta[0];
-//                    bitacoraTicketCtrl.miTicketEditable = angular.copy(bitacoraTicketCtrl.miTicketSeleccionado);
                     bitacoraTicketCtrl.miTicketEditable = respuesta[0];
                     consultaArchivosTicket();
                     consultaCatRel();
