@@ -22,8 +22,16 @@
         tableroTicketsCtrl.bbusquedacorrecta = false;
         tableroTicketsCtrl.idticketbusqueda;
         tableroTicketsCtrl.btablero = true;
-
         init();
+        
+        /*
+         * 
+         Datos de prueba
+         */        
+//        tableroTicketsCtrl.bbusqueda = true;
+//        tableroTicketsCtrl.bbusquedacorrecta = true;
+        /**/
+        
         function init() {
             tableroTicketsCtrl.bareas = false;
             tableroTicketsCtrl.bcategorias = false;
