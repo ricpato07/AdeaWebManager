@@ -2,165 +2,171 @@
     <div class="panel-body">
         <form class="form-horizontal" name="form" novalidate>
             <div class="row">
-                <div class="col-md-4">
-                    <label class="control-label">Área:</label> 
-                    <label class="control-label label_detalle">{{asignarTicketCtrl.miTicket.nombreArea}}</label>
-                    <br/> 
-                    <label class="control-label">Categoría:</label>
-                    <label class="control-label label_detalle">{{asignarTicketCtrl.miTicket.nombreCategoria}}</label>
-                </div>
-                <div class="col-md-4"
-                     ng-if="asignarTicketCtrl.btipoatencion">
-                    <label class="control-label">Tipo de atención:</label> 
-                    <div style="margin-top: 5px; margin-bottom: 15px;">
-                        <input id="planeacion" 
-                               type="radio" 
-                               ng-model="asignarTicketCtrl.tipoFlujo" 
-                               ng-change="asignarTicketCtrl.atencion_change('1')" 
-                               ng-disabled="!asignarTicketCtrl.beditar_atencion"
-                               value="1"> 
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Área:</label> 
+                            <label class="control-label label_detalle">{{asignarTicketCtrl.miTicket.nombreArea}}</label>
+                            <br/> 
+                            <label class="control-label">Categoría:</label>
+                            <label class="control-label label_detalle">{{asignarTicketCtrl.miTicket.nombreCategoria}}</label>
+                        </div>
+                        <div class="col-md-4"
+                             ng-if="asignarTicketCtrl.btipoatencion">
+                            <label class="control-label">Tipo de atención:</label> 
+                            <div style="margin-top: 5px; margin-bottom: 15px;">
+                                <input id="planeacion" 
+                                       type="radio" 
+                                       ng-model="asignarTicketCtrl.tipoFlujo" 
+                                       ng-change="asignarTicketCtrl.atencion_change('1')" 
+                                       ng-disabled="!asignarTicketCtrl.beditar_atencion"
+                                       value="1"> 
 
-                        <label style="font-size: 14px; font-weight: normal;" for="planeacion">
-                            <i class="fa fa-file-text-o fa-2x"></i>
-                            Planeación de actividades
-                        </label>  
-                        <input id="sin_planeacion" style="margin-left: 20px;" 
-                               type="radio" 
-                               ng-model="asignarTicketCtrl.tipoFlujo" 
-                               ng-change="asignarTicketCtrl.atencion_change('2')" 
-                               ng-disabled="!asignarTicketCtrl.beditar_atencion"
-                               value="2"> 
-                        <label style="font-size: 14px; font-weight: normal;" for="sin_planeacion">
-                            <i class="fa fa-times fa-2x"></i>
-                            Sin planeación
-                        </label>   
-                    </div>
-                </div>
-                <div class="col-md-4"
-                     ng-if="asignarTicketCtrl.busuarioasignado"
-                     ng-class="{
+                                <label style="font-size: 14px; font-weight: normal;" for="planeacion">
+                                    <i class="fa fa-file-text-o fa-2x"></i>
+                                    Soporte
+                                </label>  
+                                <input id="sin_planeacion" style="margin-left: 20px;" 
+                                       type="radio" 
+                                       ng-model="asignarTicketCtrl.tipoFlujo" 
+                                       ng-change="asignarTicketCtrl.atencion_change('2')" 
+                                       ng-disabled="!asignarTicketCtrl.beditar_atencion"
+                                       value="2"> 
+                                <label style="font-size: 14px; font-weight: normal;" for="sin_planeacion">
+                                    <i class="fa fa-file fa-2x"></i>
+                                    Proyecto
+                                </label>   
+                            </div>
+                        </div>
+                        <div class="col-md-4"
+                             ng-if="asignarTicketCtrl.busuarioasignado"
+                             ng-class="{
                          'has-success': form.asignado.$dirty || form.asignado.$valid,
-                                 'has-error'
-                                 : form.asignado.$dirty && form.asignado.$invalid}">
-                    <label class=" control-label">Asignar a:</label>
-                    <ui-select id="asignado" name="asignado"
-                               ng-model="asignarTicketCtrl.miTicket.usuarioAsignado"
-                               ng-change="asignarTicketCtrl.asignado_change()"
-                               style="min-width: 300px;" title="Elige un usuario"> 
-                        <ui-select-match placeholder="Selecciona un usuario">{{$select.selected.nombre}}
-                        </ui-select-match>
-                        <ui-select-choices
-                            repeat="recurso.login as recurso in asignarTicketCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
-                            <div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
-                        </ui-select-choices> 
-                    </ui-select>
-                    <br/>
-                    <div ng-show="asignarTicketCtrl.ultimoticketlist != undefined" class="dataTable_wrapper">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="centered">Actividad</th>
-                                    <th class="centered">Horas ({{asignarTicketCtrl.horas}})</th>
-                                    <th class="centered">Fecha de entrega</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="item in asignarTicketCtrl.ultimoticketlist" class="gradeA">
-                                    <td>{{item.nombreActividad}}</td>
-                                    <td class="centered">{{item.horasAsig}}</td>
-                                    <td class="centered">{{item.fecFin| date:'dd-MM-yyyy'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                         'has-error': form.asignado.$dirty && form.asignado.$invalid}">
+                            <label class=" control-label">Asignar a:</label>
+                            <ui-select id="asignado" name="asignado"
+                                       ng-model="asignarTicketCtrl.miTicket.usuarioAsignado"
+                                       ng-change="asignarTicketCtrl.asignado_change()"
+                                       style="min-width: 300px;" title="Elige un usuario"> 
+                                <ui-select-match placeholder="Selecciona un usuario">{{$select.selected.nombre}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                    repeat="recurso.login as recurso in asignarTicketCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
+                                    <div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
+                                </ui-select-choices> 
+                            </ui-select>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4"
-                     ng-if="asignarTicketCtrl.bcomplejidad"
-                     ng-class="{
-                         'has-success': form.complejidad.$dirty || form.complejidad.$valid,
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-4"
+                             ng-if="asignarTicketCtrl.bcomplejidad"
+                             ng-class="{
+                         'has-success': form.complejidad.$dirty|| form.complejidad.$valid,
                                  'has-error'
-                                 : form.complejidad.$dirty && form.complejidad.$invalid}">
-                    <label class="control-label">Complejidad:</label>
-                    <select
-                        class="form-control input-md" id="complejidad" name="complejidad"
-                        ng-required="true"
-                        ng-change="asignarTicketCtrl.complejidad_change()"
-                        ng-model="asignarTicketCtrl.miTicket.complejidad"
-                        ng-disabled="!asignarTicketCtrl.beditar"
-                        ng-options="opt.codigo as opt.descripcion for opt in asignarTicketCtrl.complejidadlist">
-                        <option value="">Selecciona la complejidad</option>
-                    </select>
-                </div>
-                <div class="col-md-4"
-                     ng-if="asignarTicketCtrl.btiempoestimado"
-                     ng-class="{
+                                 : form.complejidad.$dirty &&  form.complejidad.$invalid}">
+                            <label class="control-label">Complejidad:</label>
+                            <select
+                                class="form-control input-md" id="complejidad" name="complejidad"
+                                ng-required="true"
+                                ng-change="asignarTicketCtrl.complejidad_change()"
+                                ng-model="asignarTicketCtrl.miTicket.complejidad"
+                                ng-disabled="!asignarTicketCtrl.beditar"
+                                ng-options="opt.codigo as opt.descripcion for opt in asignarTicketCtrl.complejidadlist">
+                                <option value="">Selecciona la complejidad</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4"
+                             ng-if="asignarTicketCtrl.btiempoestimado"
+                             ng-class="{
                          'has-success': form.atencion.$dirty || form.atencion.$valid,
                                  'has-error' : form.atencion.$dirty && form.atencion.$invalid}">
-                    <label style="float: left;" class="control-label">
-                        Tiempo estimado de atención:
-                    </label>
-                    <div style="float: left; margin-left: 15px;" 
-                         uib-timepicker 
-                         ng-disabled="!asignarTicketCtrl.beditar"
-                         ng-model="asignarTicketCtrl.miTicket.tiempoAtencion" 
-                         ng-change="asignarTicketCtrl.tiempo_change()" 
-                         hour-step="1" 
-                         minute-step="1" 
-                         show-meridian="false">
-                    </div>
-                </div>
-                <div ng-if="asignarTicketCtrl.bfechainicio || asignarTicketCtrl.bfechatermino" 
-                     class="col-md-4">
-                    <div ng-if="asignarTicketCtrl.bfechainicio">
-                        <label class=" control-label">Fecha de inicio:</label>
-                        <label class="control-label label_detalle">
-                            {{asignarTicketCtrl.miTicket.fechaInicio| date:'dd/MM/yyyy'}}
-                        </label>
-                    </div>
-                    <div ng-if="asignarTicketCtrl.bfechatermino" style="margin-top: 10px;">
-                        <label class=" control-label">Fecha de entrega:</label>
-                        <label class="control-label label_detalle">
-                            {{asignarTicketCtrl.miTicket.fechaEntrega| date:'dd/MM/yyyy'}}
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-4"
-                     ng-if="asignarTicketCtrl.bfecha_est_entrega"
-                     ng-class="{
-                         'has-success': form.fecha_entrega.$dirty || form.fecha_entrega.$valid,
+                            <label style="float: left;" class="control-label">
+                                Tiempo estimado de atención:
+                            </label>
+                            <div style="float: left; margin-left: 15px;" 
+                                 uib-timepicker 
+                                 ng-disabled="!asignarTicketCtrl.beditar"
+                                 ng-model="asignarTicketCtrl.miTicket.tiempoAtencion" 
+                                 ng-change="asignarTicketCtrl.tiempo_change()" 
+                                 hour-step="1" 
+                                 minute-step="1" 
+                                 show-meridian="false">
+                            </div>
+                        </div>
+                        <div class="col-md-4" 
+                             ng-if="asignarTicketCtrl.bfechainicio || asignarTicketCtrl.bfechatermino">
+                            <div ng-if="asignarTicketCtrl.bfechainicio">
+                                <label class=" control-label">Fecha de inicio:</label>
+                                <label class="control-label label_detalle">
+                                    {{asignarTicketCtrl.miTicket.fechaInicio| date:'dd/MM/yyyy'}}
+                                </label>
+                            </div>
+                            <div ng-if="asignarTicketCtrl.bfechatermino" style="margin-top: 10px;">
+                                <label class=" control-label">Fecha de entrega:</label>
+                                <label class="control-label label_detalle">
+                                    {{asignarTicketCtrl.miTicket.fechaEntrega| date:'dd/MM/yyyy'}}
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4"
+                             ng-if="asignarTicketCtrl.bfecha_est_entrega"
+                             ng-class="{
+                         'has-success': form.fecha_entrega.$dirty ||  form.fecha_entrega.$valid,
                                  'has-error' : form.fecha_entrega.$dirty && form.fecha_entrega.$invalid}">
-                    <label class=" control-label">Fecha estimada de entrega:</label>
-                    <input
-                        type="text" class="form-control" id="fecha_est_entrega" name="fecha_est_entrega"
-                        uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
-                        ng-click="asignarTicketCtrl.abrirFechaEntrega()"
-                        ng-change="asignarTicketCtrl.fecha_entrega_change()"
-                        ng-model="asignarTicketCtrl.miTicket.fechaEntrega"  
-                        placeholder="dd/mm/yyyy"
-                        is-open="asignarTicketCtrl.fechaEntrega.abierto" close-text="Cerrar"
-                        datepicker-options="{minDate: asignarTicketCtrl.fechaEntrega.minDate, dateDisabled: asignarTicketCtrl.disabledDays}"
-                        clear-text="Borrar" current-text="Hoy" />
+                            <label class=" control-label">Fecha estimada de entrega:</label>
+                            <input
+                                type="text" class="form-control" id="fecha_est_entrega" name="fecha_est_entrega"
+                                uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
+                                ng-click="asignarTicketCtrl.abrirFechaEntrega()"
+                                ng-change="asignarTicketCtrl.fecha_entrega_change()"
+                                ng-model="asignarTicketCtrl.miTicket.fechaEntrega"  
+                                placeholder="dd/mm/yyyy"
+                                is-open="asignarTicketCtrl.fechaEntrega.abierto" close-text="Cerrar"
+                                datepicker-options="{minDate: asignarTicketCtrl.fechaEntrega.minDate, dateDisabled: asignarTicketCtrl.disabledDays}"
+                                clear-text="Borrar" current-text="Hoy" />
+                        </div>
+                    </div>
+                </div>  
+                <div class="col-md-4">
+                    <div ng-if="asignarTicketCtrl.busuarioasignado">
+                        <div ng-show="asignarTicketCtrl.ultimoticketlist != undefined" class="dataTable_wrapper">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="centered">Ticket</th>
+                                        <th class="centered">Actividad</th>
+                                        <th class="centered">Horas ({{asignarTicketCtrl.horas}})</th>
+                                        <th class="centered">Fecha de entrega</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in asignarTicketCtrl.ultimoticketlist" class="gradeA">
+                                        <td>{{item.idTicket}}</td>
+                                        <td>{{item.nombreActividad}}</td>
+                                        <td class="centered">{{item.horasAsig}}</td>
+                                        <td class="centered">{{item.fecFin| date:'dd-MM-yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-if="asignarTicketCtrl.bcomentario"
+                         ng-class="{
+                         'has-success': form.motivo_reasigna.$dirty || form.motivo_reasigna.$valid,
+                                 'has-error' : form.motivo_reasigna.$dirty && for m.motivo_reasigna.$invalid}">
+                        <label class=" control-label">Motivo de la reasignación:</label>
+                        <textarea id="motivo_reasigna" name="motivo_reasigna" ng-required="true"
+                                  maxlength="1000" minlength="10"
+                                  ng-model="asignarTicketCtrl.miTicket.motivoReasigna"
+                                  class="input-md"
+                                  style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
+                                  rows="3">
+                        </textarea>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4"
-                     ng-if="asignarTicketCtrl.bcomentario"
-                     ng-class="{
-                         'has-success': form.motivo_reasigna.$dirty || form.motivo_reasigna.$valid,
-                                 'has-error' : form.motivo_reasigna.$dirty && form.motivo_reasigna.$invalid}">
-                    <label class=" control-label">Motivo de la reasignación:</label>
-                    <textarea id="motivo_reasigna" name="motivo_reasigna" ng-required="true"
-                              maxlength="1000" minlength="10"
-                              ng-model="asignarTicketCtrl.miTicket.motivoReasigna"
-                              class="input-md"
-                              style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
-                              rows="3">
-                    </textarea>
-                </div>
-                <div ng-class="{'col-md-12 text-right': !asignarTicketCtrl.bcomentario, 'col-md-8 text-right': asignarTicketCtrl.bcomentario}"
-                     class="col-md-12 text-right">
+                <div class="col-md-12 text-right">
                     <a class="btn btn-primary" role="button"
                        ng-if="asignarTicketCtrl.btnAsignar"
                        ng-click="asignarTicketCtrl.asignarTicket()"
