@@ -34,9 +34,9 @@
         detalleTicketCtrl.fechaEntrega = {};
         detalleTicketCtrl.fechaEntrega.minDate = new Date();
         detalleTicketCtrl.tiempoAtencion = new Date(1900, 1, 1);
-        detalleTicketCtrl.beditarticket = false;
+        detalleTicketCtrl.beditarticket = true;
         detalleTicketCtrl.basignarticket = true;
-        detalleTicketCtrl.bbitacoraticket = false;
+        detalleTicketCtrl.bbitacoraticket = true;
 
 
         buscarTicket();
@@ -64,8 +64,14 @@
             detalleTicketCtrl.bbusquedaincorrecta = false;
 
 
-            //variables para pruebas
+            /*
+             * 
+             Datos de prueba
+             */
 //            detalleTicketCtrl.bbusquedacorrecta = true;
+            /*
+             * 
+             */
 
             var promesa = tableroServicios.getTicket(params).$promise;
 
@@ -136,19 +142,19 @@
         function editarTicket_action() {
             $log.info("editarTicket_action---");
             detalleTicketCtrl.beditarticket = !detalleTicketCtrl.beditarticket;
-            close_menu(1);
+//            close_menu(1);
         }
 
         function asignarTicket_action() {
             $log.info("asignarTicket_action---");
             detalleTicketCtrl.basignarticket = !detalleTicketCtrl.basignarticket;
-            close_menu(2);
+//            close_menu(2);
         }
 
         function bitacoraTicket_action() {
             $log.info("bitacoraTicket_action -- detalleTickets.directive ----");
             detalleTicketCtrl.bbitacoraticket = !detalleTicketCtrl.bbitacoraticket;
-            close_menu(3);
+//            close_menu(3);
         }
 
         function modificarTicket() {
