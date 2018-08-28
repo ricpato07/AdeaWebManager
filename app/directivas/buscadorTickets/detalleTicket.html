@@ -23,7 +23,7 @@
     </div>
 
     <div class="panel-body">
-        <div class="row">
+        <div class="row" ng-if="false">
             <div class="col-md-12">
                 <label class="control-label">Resumen:</label> <br/> 
                 <div class="borde_azul">
@@ -31,19 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 15px;">
-            <div class="col-md-12">
-                <a style="font-size: 18px;" class="a_negro"
-                   ng-click="detalleTicketCtrl.editarTicket_action()">
-                    <i style="font-size: 14px !important;" class="fa fa-edit"></i>
-                    Editar ticket</a>
-            </div>
-        </div>
-        <editar-ticket ng-if="detalleTicketCtrl.beditarticket" 
-                       idticket="detalleTicketCtrl.miTicket.idTicket"
-                       modificar-ticket="detalleTicketCtrl.modificarTicket()">
-        </editar-ticket>
-
+        
         <div class="row" style="margin-top: 15px;">
             <div class="col-md-12">
                 <a style="font-size: 18px;" class="a_negro"
@@ -57,19 +45,20 @@
                         idticket="detalleTicketCtrl.miTicket.idTicket"
                         asignar-ticket="detalleTicketCtrl.asignarTicket()">
         </asignar-ticket-dir> 
-        <div class="row" style="margin-top: 15px; margin-bottom: 10px;">
+        
+        <div class="row" style="margin-top: 15px;">
             <div class="col-md-12">
                 <a style="font-size: 18px;" class="a_negro"
-                   ng-click="detalleTicketCtrl.bitacoraTicket_action()">
-                    <i style="font-size: 14px !important;" class="fa fa-arrow-circle-right"></i>
-                    Bitácora
-                </a>
+                   ng-click="detalleTicketCtrl.editarTicket_action()">
+                    <i style="font-size: 14px !important;" class="fa fa-edit"></i>
+                    Editar ticket</a>
             </div>
         </div>
-        <bitacora-ticket ng-if="detalleTicketCtrl.bbitacoraticket" 
-                        idticket="detalleTicketCtrl.miTicket.idTicket"
-                        bitacora-action="detalleTicketCtrl.bitacoraAction()">
-        </bitacora-ticket> 
+        <editar-ticket ng-if="detalleTicketCtrl.beditarticket" 
+                       idticket="detalleTicketCtrl.miTicket.idTicket"
+                       modificar-ticket="detalleTicketCtrl.modificarTicket()">
+        </editar-ticket>
+                                    
     </div>
 
 </div>   
