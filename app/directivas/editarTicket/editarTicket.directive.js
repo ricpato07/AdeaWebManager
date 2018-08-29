@@ -23,6 +23,10 @@
         editarTicketsCtrl.comboarea_action = comboarea_action;
         editarTicketsCtrl.modificarTicket = modificarTicket;
         editarTicketsCtrl.idticket = $scope.idticket;
+        editarTicketsCtrl.basignaUsuario = true;
+        if ($scope.basignaUsuario != undefined && $scope.basignaUsuario != null) {
+            editarTicketsCtrl.basignaUsuario = $scope.basignaUsuario;
+        }
         editarTicket($scope.idticket);
 
         function editarTicket(idTicket) {
@@ -57,7 +61,7 @@
                     consultaPrioridad();
                     consultaPlanta();
                     consultaClientes();
-                    consultaEstatus();
+                    consultaEstatusbyEstatus();
                     consultaArchivosTicket();
                     consultaCatRel();
                     consultaRelacionTicket();
@@ -234,6 +238,27 @@
             });
         }
 
+        function consultaEstatusbyEstatus() {
+
+            var params = {
+                estatus: editarTicketsCtrl.miTicketSeleccionado.estatus
+            };
+
+            var promesa = ticketServicios.consultaEstatus(params).$promise;
+
+            promesa.then(function (respuesta) {
+                editarTicketsCtrl.estatusTicket = respuesta;
+                if (editarTicketsCtrl.estatusTicket.length == 0) {
+                    AdeaServicios.alerta("error", "No existen estatus dentro del catálogo");
+                }
+            });
+
+            promesa.catch(function (error) {
+                AdeaServicios.alerta("error", "Error al consultar el catálogo de estatus: " + error.data);
+            });
+
+        }
+
         function consultaArchivosTicket() {
             $log.info("consultaArchivosTicket----");
 
@@ -334,7 +359,7 @@
                 AdeaServicios.alerta("error", "Error al consulta la Bitacora del Ticket: " + error.data);
             });
         }
-                
+
         function noHaCambiado() {
             var bndCambio = false;
             if (!angular.equals(editarTicketsCtrl.miTicketSeleccionado, editarTicketsCtrl.miTicketEditable)) {
@@ -343,14 +368,14 @@
 
             return bndCambio;
         }
-        
+
         function modificarTicket() {
             $log.info("modificarTicket -- editarTicket.directive ----");
             var promesa = ticketServicios.modificacionDatosGrl(editarTicketsCtrl.miTicketEditable).$promise;
 
             promesa.then(function (respuesta) {
-               AdeaServicios.alerta("success", "El ticket se actualizó correctamente.");
-               $scope.modificarTicket(); 
+                AdeaServicios.alerta("success", "El ticket se actualizó correctamente.");
+                $scope.modificarTicket();
             });
 
             promesa.catch(function (error) {
@@ -369,7 +394,8 @@
             transclude: false,
             scope: {
                 idticket: '=',
-                modificarTicket: '&'
+                modificarTicket: '&?',
+                basignaUsuario: '=?'
             },
             templateUrl: 'app/directivas/editarTicket/editarTicket.html'
         };

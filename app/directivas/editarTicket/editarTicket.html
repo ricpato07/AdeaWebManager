@@ -9,6 +9,7 @@
                     <select
                         class="form-control input-md" id="asignar" name="asignar"
                         ng-required="true"
+                        ng-disabled="!editarTicketsCtrl.beditar"
                         ng-change="editarTicketsCtrl.comboarea_action()"
                         ng-model="editarTicketsCtrl.miTicketEditable.idArea"
                         ng-options="opt.idArea as opt.nombre for opt in editarTicketsCtrl.areaslist">
@@ -36,7 +37,7 @@
                                  'has-error': form.login.$dirty && form.login.$invalid}">
                     <label class=" control-label">Asignar a:</label>
                     <ui-select id="login" name="login"
-                               ng-disabled="!editarTicketsCtrl.beditar"
+                               ng-disabled="!(editarTicketsCtrl.beditar && editarTicketsCtrl.basignaUsuario)"
                                ng-model="editarTicketsCtrl.miTicketEditable.usuarioAsignado"
                                style="min-width: 300px;" title="Elige un Usuario"> 
                         <ui-select-match
@@ -123,7 +124,7 @@
                         ng-disabled="!editarTicketsCtrl.beditar"
                         class="form-control input-md" id="estatus" name="estatus"
                         ng-required="true" ng-model="editarTicketsCtrl.miTicketEditable.estatus"
-                        ng-options="opt.claveCat as opt.descripcionCat for opt in editarTicketsCtrl.estatusTicket">
+                        ng-options="opt.idEstatusCfg as opt.descEst for opt in editarTicketsCtrl.estatusTicket">
                         <option value="">Seleccione</option>
                     </select>
                 </div>
