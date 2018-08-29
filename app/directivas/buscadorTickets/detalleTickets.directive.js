@@ -37,7 +37,7 @@
         detalleTicketCtrl.beditarticket = true;
         detalleTicketCtrl.basignarticket = true;
         detalleTicketCtrl.bbitacoraticket = true;
-
+        detalleTicketCtrl.basignaUsuario = false;
 
         buscarTicket();
 
