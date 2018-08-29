@@ -67,7 +67,6 @@
                     <label class="control-label">Complejidad:</label>
                     <select
                         class="form-control input-md" id="complejidad" name="complejidad"
-                        ng-required="true"
                         ng-change="asignarTicketCtrl.complejidad_change()"
                         ng-model="asignarTicketCtrl.miTicket.complejidad"
                         ng-disabled="!asignarTicketCtrl.beditar"
@@ -116,7 +115,7 @@
                     <label class=" control-label">Fecha estimada de entrega:</label>
                     <input
                         type="text" class="form-control" id="fecha_est_entrega" name="fecha_est_entrega"
-                        uib-datepicker-popup="dd/MM/yyyy" ng-required="true"
+                        uib-datepicker-popup="dd/MM/yyyy"
                         ng-click="asignarTicketCtrl.abrirFechaEntrega()"
                         ng-change="asignarTicketCtrl.fecha_entrega_change()"
                         ng-model="asignarTicketCtrl.miTicket.fechaEntrega"  
@@ -155,8 +154,9 @@
                          'has-success': form.motivo_reasigna.$dirty || form.motivo_reasigna.$valid,
                                  'has-error' : form.motivo_reasigna.$dirty && form.motivo_reasigna.$invalid}">
                     <label class=" control-label">Motivo de la reasignación:</label>
-                    <textarea id="motivo_reasigna" name="motivo_reasigna" ng-required="true"
+                    <textarea id="motivo_reasigna" name="motivo_reasigna"
                               maxlength="1000" minlength="10"
+                              ng-required="true"
                               ng-model="asignarTicketCtrl.miTicket.motivoReasigna"
                               class="input-md"
                               style="resize: vertical; border: 1px solid #c3dff4 !important; width: 100%;"
@@ -168,13 +168,13 @@
             <div class="row">
                 <div class="col-md-12 text-right">
                     <a class="btn btn-primary" role="button"
-                       ng-if="asignarTicketCtrl.btnAsignar"
+                       ng-if="form.$valid && asignarTicketCtrl.btnAsignar"
                        ng-click="asignarTicketCtrl.asignarTicket()"
                        tooltip title="Asignar Ticket" data-placement="midle">
                         Asignar
                     </a>
                     <a class="btn btn-primary" role="button"
-                       ng-if="!asignarTicketCtrl.btnAsignar"
+                       ng-if="!(form.$valid && asignarTicketCtrl.btnAsignar)"
                        disabled="true"
                        tooltip title="Asignar Ticket" data-placement="midle">
                         Asignar
