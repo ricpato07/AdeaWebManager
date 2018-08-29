@@ -38,7 +38,7 @@
 						<label class=" control-label" for="nombre">*Nombre:</label> <input
 							id="nombre" name="nombre" type="text" maxlength="250"
 							class="form-control input-md"
-							ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑÜü:\(\)]*$/"
+							ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
 							ng-model="planeacionProyectoCtrl.subproyectoEditable.nombre"
 							ng-required="true">
 					</div>
@@ -177,7 +177,7 @@
 							ng-model="planeacionProyectoCtrl.subproyectoEditable.porJornada">
 					</div>
 				</div>
-				<br />
+				<!-- <br />
 				<div class="row">
 					<div class="col-md-6"
 						ng-class="{'has-success': form.ticket.$dirty || form.ticket.$valid ,
@@ -194,7 +194,7 @@
 						<div ng-bind-html="ticket.resumen | highlight: $select.search"></div>
 						</ui-select-choices> </ui-select>
 					</div>
-				</div>
+				</div> -->
 
 				<br />
 				<div class="row">

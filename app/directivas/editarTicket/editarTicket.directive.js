@@ -191,7 +191,7 @@
 
         function consultaClientes() {
             $log.info("consultaClientes----");
-          
+
             var promesa = proyectoServicios.consultaClientes().$promise;
 
             promesa.then(function (respuesta) {

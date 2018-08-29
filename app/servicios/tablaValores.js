@@ -8,11 +8,11 @@
      */
         .value("tblSubProyectos", {
             columnas: [
+            	{valor: "idTicket", titulo: "Ticket", alinear: "center"},
                 {valor: "descEstatus", titulo: "Estatus", alinear: "center"},
                 {valor: "nombre", titulo: "Nombre"},
                 {valor: "fecIni", titulo: "Fecha Inicio", filtro: "date", formato: "dd/MM/yyyy", alinear: "center"},
                 {valor: "fecFin", titulo: "Fecha Fin", filtro: "date", formato: "dd/MM/yyyy", alinear: "center"},
-                {valor: "fechaCap", titulo: "Fecha Captura", filtro: "date", formato: "dd/MM/yyyy", alinear: "center"},
                 {valor: "nombreLider", titulo: "Lider"},
                 {valor: "diferencia", titulo: "Duración (Dias)", alinear: "center"},
                 {valor: "descTipoSub", titulo: "Tipo Suproyecto", alinear: "center"},

@@ -77,6 +77,7 @@
         planeacionProyectoCtrl.graficaGantTraslapes = graficaGantTraslapes;
         planeacionProyectoCtrl.validaRangos = validaRangos;
         planeacionProyectoCtrl.seleccionRecursos = seleccionRecursos;
+        planeacionProyectoCtrl.seleccionaTab = seleccionaTab;
         
         // Inicializacion de Variables
         planeacionProyectoCtrl.subProyecto = {};
@@ -88,7 +89,6 @@
         planeacionProyectoCtrl.listActividadPlan = [];
         planeacionProyectoCtrl.actividad = {};
         planeacionProyectoCtrl.mostrarPlaneacion = false;
-        planeacionProyectoCtrl.mostrarSubProyectos = false;
         planeacionProyectoCtrl.mostrarActividades = false;
         planeacionProyectoCtrl.awmTicket = null;
         planeacionProyectoCtrl.modeEliminarAct = 'A';
@@ -104,6 +104,9 @@
         planeacionProyectoCtrl.fechaIniActRec = {abierto: false};
         planeacionProyectoCtrl.fechaFinActRec = {abierto: false};
         planeacionProyectoCtrl.bndGant = false;
+        planeacionProyectoCtrl.subGeneral = [];
+    	planeacionProyectoCtrl.subProyectos = [];
+    	planeacionProyectoCtrl.soporte = [];
         var promesaSel = null;
         
         // Inicializacion de Objetos para Fecha
@@ -325,7 +328,7 @@
 
         function consultaProyectos() {
             planeacionProyectoCtrl.listProyectos = [];
-            planeacionProyectoCtrl.subProyectos = [];
+ 
             if (AdeaServicios.validarDato(planeacionProyectoCtrl.cliente)) {
 
                 var params = {pidCliente: planeacionProyectoCtrl.cliente.idClienteDetalle};
@@ -349,7 +352,7 @@
         }
 
         function consultaSubProyectos() {
-
+        	
             if (AdeaServicios.validarDato(planeacionProyectoCtrl.proyecto)) {
 
                 var params = {pidProyecto: planeacionProyectoCtrl.proyecto.idProyecto};
@@ -357,12 +360,24 @@
                 var promesa = proyectoServicios.consultaSubProyecto(params).$promise;
 
                 promesa.then(function (respuesta) {
-                    planeacionProyectoCtrl.subProyectos = respuesta;
+                	planeacionProyectoCtrl.subGeneral = [];
+                	planeacionProyectoCtrl.subProyectos = [];
+                	planeacionProyectoCtrl.soporte = [];
+                	planeacionProyectoCtrl.subGeneral = respuesta;
 
-                    if (planeacionProyectoCtrl.subProyectos.length == 0) {
+                    if (respuesta.length == 0) {
                         AdeaServicios.alerta("error", "No existen SubProyectos del proyecto seleccionado: " + planeacionProyectoCtrl.proyecto.nombre);
                         planeacionProyectoCtrl.subProyectoSeleccionado = null;
-                    } 
+                    } else{
+                    	angular.forEach(respuesta, function (obj) {
+                    		
+                    		if(obj.tipoFlujo == 2){
+                    			planeacionProyectoCtrl.subProyectos.push(obj);
+                    		}else{
+                    			planeacionProyectoCtrl.soporte.push(obj);
+                    		}
+                        });
+                    }
                 });
 
                 promesa.catch(function (error) {
@@ -557,9 +572,7 @@
         	var fecIniPrimerAct = planeacionProyectoCtrl.listActividadesSubProy[0].fecIni;
         	var dateIni = new Date(fecIniPrimerAct);
         	dateIni.setHours(0,0,0,0);
-        	
-        	$log.info(dateFin);
-        	$log.info(planeacionProyectoCtrl.subproyectoEditable.fecFin);
+ 
         	
         	if(planeacionProyectoCtrl.subproyectoEditable.fecIni > dateIni.getTime() || planeacionProyectoCtrl.subproyectoEditable.fecFin < dateFin.getTime()){
         		 AdeaServicios.alerta("error", "La fecha de Finalización del Subproyecto no es valida ya que hay actividades planeadas para esas fechas");
@@ -576,6 +589,7 @@
                angular.forEach(planeacionProyectoCtrl.subproyectoEditable.areas, function (obj) {
                     delete obj.nombre;
                     delete obj.fecRegistro;
+                    delete obj.tipoFlujo;
                 });
 
                 var promesa = proyectoServicios.editarSubProyecto(planeacionProyectoCtrl.subproyectoEditable).$promise;
@@ -1721,6 +1735,12 @@
             promesa.catch(function (error) {
                 AdeaServicios.alerta("error", "Error al consulta el Catalogo : " + error.data);
             })
+        }
+        
+        function seleccionaTab(){
+        	planeacionProyectoCtrl.data = null;
+        	planeacionProyectoCtrl.soporteSeleccionado = null; 
+        	planeacionProyectoCtrl.subProyectoSeleccionado = null;
         }
 
         

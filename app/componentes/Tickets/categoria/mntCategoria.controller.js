@@ -106,7 +106,7 @@
 				 idArea = idAreaRel;
 			 }
 			
-			 var params = {pIdPerfil: '8', estatus: 'A', idArea: idArea};
+			 var params = {pIdPerfil: '8, 9', estatus: 'A', idArea: idArea};
 	           
 			 var promesa = proyectoServicios.consultaPlantilla(params).$promise;
 			 promesa.then(function (respuesta) {

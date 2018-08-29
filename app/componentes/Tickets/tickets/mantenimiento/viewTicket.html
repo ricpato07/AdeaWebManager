@@ -116,7 +116,7 @@
 						ng-disabled="ticketCtrl.miTicketEditable.estatus == 6"
 						class="form-control input-md" id="estatus" name="estatus"
 						ng-required="true" ng-model="ticketCtrl.miTicketEditable.estatus"
-						ng-options="opt.claveCat as opt.descripcionCat for opt in ticketCtrl.estatusTicket">
+						ng-options="opt.idEstatusCfg as opt.descEst for opt in ticketCtrl.estatusTicket">
 						<option value="">Seleccione</option>
 					</select>
 

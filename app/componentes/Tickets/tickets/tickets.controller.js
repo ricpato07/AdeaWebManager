@@ -65,7 +65,7 @@
         			consultaTicket(ticketCtrl.usuario.username, 'R');
         			
 	        		if(ticketCtrl.bndAdmin){
-	        			consultaTicket(null, 'T', 1);
+	        			consultaTicket(ticketCtrl.usuario.username, 'T', 1);
 	        			consultaTicket(null, 'R', 4);
 	        		}else{
 	        			consultaTicket(ticketCtrl.usuario.username, 'R', 4);
@@ -151,7 +151,7 @@
     	            	consultaPrioridad();
     	            	consultaPlanta();
     	            	consultaClientes();
-    	            	consultaEstatus();
+    	            	consultaEstatusbyEstatus();
     	            	consultaArchivosTicket();
     	            	consultaCatRel();
     	            	consultaRelacionTicket();
@@ -333,6 +333,30 @@
             };
 
             var promesa = AdeaServicios.consultaCatalogo(params).$promise;
+
+            promesa.then(function (respuesta) {
+
+            	ticketCtrl.estatusTicket = respuesta;
+
+                if (ticketCtrl.estatusTicket.length == 0) {
+                    AdeaServicios.alerta("error", "No existen Estatus dentro del catalogo");
+                }
+            });
+
+            promesa.catch(function (error) {
+                AdeaServicios.alerta("error", "Error al consulta el Catalogo: " + error.data);
+            })
+
+
+        }
+        
+        function consultaEstatusbyEstatus() {
+
+            var params = {
+                estatus: ticketCtrl.miTicketSeleccionado.estatus
+            };
+
+            var promesa = ticketServicios.consultaEstatus(params).$promise;
 
             promesa.then(function (respuesta) {
 

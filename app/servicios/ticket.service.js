@@ -145,6 +145,12 @@
                 params: {
                 	categoria: '@categoria'
                 }
+            },
+            consEstatus: {
+                method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true,
+                params: {
+                	estatus: '@estatus'
+                }
             }
         });
 
@@ -168,7 +174,8 @@
             descargarArchivoAdjuntos: descargarArchivoAdjuntos,
             eliminaAdjunto: eliminaAdjunto,
             agregarCategoria: agregarCategoria,
-            editarCategoria: editarCategoria
+            editarCategoria: editarCategoria,
+            consultaEstatus: consultaEstatus
         };
 
         return serviciosTicket;
@@ -260,6 +267,10 @@
         
         function editarCategoria(params){
         	return tickets.editCat({servicio: 'editarCategoria.action'}, params);
+        }
+        
+        function consultaEstatus(params){
+        	return tickets.consEstatus({servicio: 'consultaEstatus.action'}, params);
         }
         
     }
