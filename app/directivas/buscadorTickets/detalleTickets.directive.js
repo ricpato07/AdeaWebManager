@@ -128,6 +128,11 @@
                     detalleTicketCtrl.basignarticket = false;
                     detalleTicketCtrl.beditarticket = false;
                     detalleTicketCtrl.bbitacoraticket = false;
+                    $timeout(function () {
+                        detalleTicketCtrl.basignarticket = true;
+                        detalleTicketCtrl.beditarticket = true;
+                        detalleTicketCtrl.bbitacoraticket = true;
+                    });
                     break;
                 case 1:
                     detalleTicketCtrl.basignarticket = false;
