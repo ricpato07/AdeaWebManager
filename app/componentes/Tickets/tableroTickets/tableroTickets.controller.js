@@ -3,9 +3,9 @@
 
     angular.module('adeaModule').controller('TableroTicketsController', TableroTicketsController);
 
-    TableroTicketsController.$inject = ['$log', '$timeout', 'AdeaServicios', 'tableroServicios', 'tblDetalleTickets'];
+    TableroTicketsController.$inject = ['$log', '$timeout', 'AdeaServicios', 'tableroServicios', 'tblDetalleTickets', 'proyectoServicios'];
 
-    function TableroTicketsController($log, $timeout, AdeaServicios, tableroServicios, tblDetalleTickets) {
+    function TableroTicketsController($log, $timeout, AdeaServicios, tableroServicios, tblDetalleTickets, proyectoServicios) {
 
         var tableroTicketsCtrl = this;
         tableroTicketsCtrl.init = init;
@@ -18,27 +18,31 @@
         tableroTicketsCtrl.areas_action = areas_action;
         tableroTicketsCtrl.categorias_action = categorias_action;
         tableroTicketsCtrl.regresar = regresar;
+        tableroTicketsCtrl.busqueda_asignado_change = busqueda_asignado_change;
+        tableroTicketsCtrl.quitar_usuario_asignado = quitar_usuario_asignado;
         tableroTicketsCtrl.user = {};
         tableroTicketsCtrl.bbusquedacorrecta = false;
         tableroTicketsCtrl.idticketbusqueda;
         tableroTicketsCtrl.btablero = true;
+        tableroTicketsCtrl.status = undefined;
         init();
 
         /*
          * 
          Datos de prueba
-         */        
+         */
 //        tableroTicketsCtrl.bbusqueda = true;
 //        tableroTicketsCtrl.bbusquedacorrecta = true;
         /**/
-        
+
         function init() {
             tableroTicketsCtrl.bareas = false;
             tableroTicketsCtrl.bcategorias = false;
             usuarioLogueado();
         }
-		
+
         function usuarioLogueado() {
+            var area_item = undefined;
             var promesa = tableroServicios.getUser().$promise;
 
             promesa.then(function (respuesta) {
@@ -53,7 +57,7 @@
 
                 tableroTicketsCtrl.bbusqueda = false;
                 //caso para gerente - carga combos
-//                if (tableroTicketsCtrl.user.perfil == "8") {
+
                 tableroTicketsCtrl.bbusqueda = true;
                 var params = {
                     user: tableroTicketsCtrl.user.usuario
@@ -64,16 +68,17 @@
                     $log.info("areas");
                     $log.info(respuesta2);
                     tableroTicketsCtrl.areaslist = respuesta2;
+                    if (respuesta2 != undefined && respuesta2 != null) {
+                        area_item = respuesta2[0];
+                        mostrar_buscador(area_item);
+                    }
                 });
 
                 promesa2.catch(function (error2) {
                     $log.error(error2);
+                    mostrar_buscador(area_item);
                 });
-//                }
 
-                consultaTotales(tableroTicketsCtrl.user.usuario, null, null);
-                //listar por defecto los asignados
-                consultaDetalle("7");
             });
 
             promesa.catch(function (error) {
@@ -81,18 +86,57 @@
             });
         }
 
+        function busqueda_asignado_change() {
+            if (tableroTicketsCtrl.status != undefined) {
+                consultaDetalle(tableroTicketsCtrl.status);
+            }
+        }
+
+        function mostrar_buscador(area_item) {
+            //listar los asignados para rol diferente de gerente
+            if (tableroTicketsCtrl.user.perfil != "8") {
+                mostrar_action();
+            } else {
+                if (area_item != undefined && area_item != null) {
+                    tableroTicketsCtrl.user.imostrar = "1";
+                    mostrar_action();
+                    tableroTicketsCtrl.user.idArea = area_item.idArea;
+                    areas_action();
+                }
+            }
+            
+        }
+
+        function quitar_usuario_asignado() {
+            tableroTicketsCtrl.usuarioAsignado = undefined;
+            busqueda_asignado_change();
+        }
+
+        function consultaPlantillaArea() {
+            $log.info("ConsultaPlantilla----");
+            $log.info(tableroTicketsCtrl.user.idArea);
+            var params = {
+                idArea: tableroTicketsCtrl.user.idArea,
+                estatus: "A"
+            };
+            var promesa = proyectoServicios.consultaPlantillaArea(params).$promise;
+            promesa.then(function (respuesta) {
+
+                tableroTicketsCtrl.plantillaArea = respuesta;
+                if (tableroTicketsCtrl.plantillaArea.length == 0) {
+                    AdeaServicios.alerta("error", "No existen recursos registrados para el área seleccionada");
+                }
+
+            });
+            promesa.catch(function (error) {
+                AdeaServicios.alerta("error", "Error al consultar los recursos del área: " + error.data);
+            });
+        }
+
         function consultaTotales(usuarioAsignado, idArea, idCategoria) {
             $log.info('---consultaTotales---');
 
             tableroTicketsCtrl.tablero = {};
-//            tableroTicketsCtrl.tablero.nueva = {porcentaje: 10, nombreEstatus: "Nueva", noTickets: 100, estatus: "1"};
-//            tableroTicketsCtrl.tablero.mas_datos = {porcentaje: 20, nombreEstatus: "Mas datos", noTickets: 200, estatus: "2"};
-//            tableroTicketsCtrl.tablero.confirmada = {porcentaje: 30, nombreEstatus: "Confirmada", noTickets: 300, estatus: "3"};
-//            tableroTicketsCtrl.tablero.atendida = {porcentaje: 40, nombreEstatus: "Atendida", noTickets: 400, estatus: "4"};
-//            tableroTicketsCtrl.tablero.suspendida = {porcentaje: 50, nombreEstatus: "Suspendida", noTickets: 500, estatus: "5"};
-//            tableroTicketsCtrl.tablero.cerrada = {porcentaje: 60, nombreEstatus: "Cerrada", noTickets: 600, estatus: "6"};
-//            tableroTicketsCtrl.tablero.asignada = {porcentaje: 70, nombreEstatus: "Asignada", noTickets: 700, estatus: "7"};
-//            tableroTicketsCtrl.tablero.analisis_dat = {porcentaje: 80, nombreEstatus: "Analisis DAT", noTickets: 800, estatus: "8"};
 
             var params = {
                 usuarioAsignado: usuarioAsignado,
@@ -141,9 +185,10 @@
                 AdeaServicios.alerta("error", "Error al consultar el tablero");
             });
         }
-		
+
         function consultaDetalle(status) {
             $log.info('---consultaDetalle---');
+            tableroTicketsCtrl.status = status;
             var usuarioAsignado;
             var idArea;
             var idCategoria;
@@ -153,7 +198,11 @@
                 idArea = null;
                 idCategoria = null;
             } else {
-                usuarioAsignado = null;
+                if (tableroTicketsCtrl.usuarioAsignado != undefined && tableroTicketsCtrl.usuarioAsignado != null) {
+                    usuarioAsignado = tableroTicketsCtrl.usuarioAsignado;
+                } else {
+                    usuarioAsignado = null;
+                }
                 idArea = tableroTicketsCtrl.user.idArea;
                 idCategoria = tableroTicketsCtrl.user.idCategoria;
             }
@@ -178,16 +227,21 @@
             });
         }
 
-        //tableroTicketsCtrl.bbusqueda = true;
         function mostrar_action() {
+            $log.info('mostrar_action---');
+            $log.info(tableroTicketsCtrl.user.imostrar);
             tableroTicketsCtrl.bcombos = false;
             tableroTicketsCtrl.bareas = false;
+            tableroTicketsCtrl.bbusquedaUsuario = false;
             tableroTicketsCtrl.detallelist = [];
-            if (tableroTicketsCtrl.user.imostrar == 1) {
+            
+            if (tableroTicketsCtrl.user.imostrar == "1") {
                 tableroTicketsCtrl.bcombos = true;
                 tableroTicketsCtrl.bareas = true;
                 tableroTicketsCtrl.user.idArea = null;
                 tableroTicketsCtrl.user.idCategoria = null;
+                tableroTicketsCtrl.usuarioAsignado = undefined;
+                tableroTicketsCtrl.bbusquedaUsuario = true;
             } else {
                 consultaTotales(tableroTicketsCtrl.user.usuario, null, null);
                 consultaDetalle("7");
@@ -210,6 +264,7 @@
                     $log.info("Categorias");
                     $log.info(respuesta);
                     tableroTicketsCtrl.categoriaslist = respuesta;
+                    consultaPlantillaArea();
                 });
 
                 promesa.catch(function (error) {
@@ -250,7 +305,7 @@
                 }, 1000);
             }
         }
-		
+
         function regresar() {
             tableroTicketsCtrl.btablero = true;
         }

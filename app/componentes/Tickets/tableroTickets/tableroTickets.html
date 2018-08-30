@@ -1,16 +1,16 @@
 <toaster-container
-toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
+    toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trustedHtml'}"></toaster-container>
 
 <div ng-if="false" class="row" style="margin-bottom: 25px;">
-        <div class="col-md-10" style=""></div>
-        <div class="col-md-2" style="">
-            <label>No. Ticket:</label> 
-            <input id="numticket" name="numticket"
-                   maxlength="10" type="text" class="form-control input-md"
-                   ng-keyup="$event.keyCode == 13 && tableroTicketsCtrl.buscarTicket()"
-                   ng-pattern="/^[0-9]*$/" ng-model="tableroTicketsCtrl.idticketbusqueda"
-                   ng-required="true">
-        </div>
+    <div class="col-md-10" style=""></div>
+    <div class="col-md-2" style="">
+        <label>No. Ticket:</label> 
+        <input id="numticket" name="numticket"
+               maxlength="10" type="text" class="form-control input-md"
+               ng-keyup="$event.keyCode == 13 && tableroTicketsCtrl.buscarTicket()"
+               ng-pattern="/^[0-9]*$/" ng-model="tableroTicketsCtrl.idticketbusqueda"
+               ng-required="true">
+    </div>
 </div>
 
 <detalle-tickets ng-if="tableroTicketsCtrl.bbuscar"
@@ -42,7 +42,7 @@ toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trus
                                     class="form-control input-md" id="mostrar" name="mostrar"
                                     ng-change="tableroTicketsCtrl.mostrar_action()"
                                     ng-model="tableroTicketsCtrl.user.imostrar">
-                                    <option value="">Asignados</option>
+                                    <option value="">Asignados a mi</option>
                                     <option value="1">Por categorías</option>
                                 </select>
                             </div>
@@ -50,33 +50,33 @@ toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trus
                                 <div ng-if="tableroTicketsCtrl.bcombos"
                                      ng-class="{ 'has-success': form.area.$dirty || form.area.$valid ,
                              'has-error': form.area.$dirty && form.area.$invalid}">
-                                <label class="control-label">*Áreas:</label> 
-                                <select
-                                    class="form-control input-md" id="area" name="area"
-                                    ng-required="true"
-                                    ng-disabled="!tableroTicketsCtrl.bareas"
-                                    ng-change="tableroTicketsCtrl.areas_action()"
-                                    ng-model="tableroTicketsCtrl.user.idArea"
-                                    ng-options="opt.idArea as opt.nombre for opt in tableroTicketsCtrl.areaslist">
-                                    <option value="">Selecciona el área</option>
-                                </select>
-                            </div>
+                                    <label class="control-label">*Áreas:</label> 
+                                    <select
+                                        class="form-control input-md" id="area" name="area"
+                                        ng-required="true"
+                                        ng-disabled="!tableroTicketsCtrl.bareas"
+                                        ng-change="tableroTicketsCtrl.areas_action()"
+                                        ng-model="tableroTicketsCtrl.user.idArea"
+                                        ng-options="opt.idArea as opt.nombre for opt in tableroTicketsCtrl.areaslist">
+                                        <option value="">Selecciona el área</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <div ng-if="tableroTicketsCtrl.bcombos"
                                      ng-class="{ 'has-success': form.categoria.$dirty || form.categoria.$valid ,
                              'has-error': form.categoria.$dirty && form.categoria.$invalid}">
-                                <label class="control-label">*Categorías:</label> 
-                                <select
-                                    class="form-control input-md" id="categoria" name="categoria"
-                                    ng-disabled="!tableroTicketsCtrl.bcategorias"
-                                    ng-change="tableroTicketsCtrl.categorias_action()"
-                                    ng-model="tableroTicketsCtrl.user.idCategoria"
-                                    ng-options="opt.idCategoria as opt.nombreCategoria for opt in tableroTicketsCtrl.categoriaslist">
-                                    <option value="">Selecciona la categoría</option>
-                                </select>
+                                    <label class="control-label">*Categorías:</label> 
+                                    <select
+                                        class="form-control input-md" id="categoria" name="categoria"
+                                        ng-disabled="!tableroTicketsCtrl.bcategorias"
+                                        ng-change="tableroTicketsCtrl.categorias_action()"
+                                        ng-model="tableroTicketsCtrl.user.idCategoria"
+                                        ng-options="opt.idCategoria as opt.nombreCategoria for opt in tableroTicketsCtrl.categoriaslist">
+                                        <option value="">Selecciona la categoría</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
                             <div class="col-md-3">
                                 <label>No. Ticket:</label> 
                                 <input id="numticket" name="numticket"
@@ -256,6 +256,29 @@ toaster-options="{'position-class': 'toast-top-right', 'body-output-type': 'trus
                     </span>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row" style="margin: auto;">
+        <div class="col-md-4"
+             ng-if="tableroTicketsCtrl.bbusquedaUsuario">
+            <label style="float: left; margin-top: 10px;" class=" control-label">Mostrar asignados a:</label>
+            <ui-select id="asignado" name="asignado"
+                       ng-model="tableroTicketsCtrl.usuarioAsignado"
+                       ng-change="tableroTicketsCtrl.busqueda_asignado_change()"
+                       style="min-width: 300px; float: left; margin-left: 15px;" title="Todos los usuarios"> 
+                <ui-select-match placeholder="Todos los usuarios">{{$select.selected.nombre}}
+                </ui-select-match>
+                <ui-select-choices
+                    repeat="recurso.login as recurso in tableroTicketsCtrl.plantillaArea | propsFilter: {nombre: $select.search, login: $select.search}">
+                    <div ng-bind-html="recurso.nombre | highlight: $select.search"></div>
+                </ui-select-choices> 
+            </ui-select>
+            <button ng-click="tableroTicketsCtrl.quitar_usuario_asignado()"
+                    style="float: left; margin-left: 15px;" 
+                    title="Quitar usuario asignado"
+                    class="btn btn-default" type="button">
+                <i class="fa fa-times" title="Quitar usuario asignado"></i>
+            </button>
         </div>
     </div>
     <div class="row" style="margin: auto;">
