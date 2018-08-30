@@ -78,9 +78,9 @@
 	
 					<div class="col-md-12">
 						<adea-tabla dt-data-source="planeacionProyectoCtrl.soporte"
-							config="planeacionProyectoCtrl.tblSubProyectos"
-							registro-seleccionado="planeacionProyectoCtrl.soporteSeleccionado"
-							seleccionar-registro="planeacionProyectoCtrl.seleccionarSoporte(reg);">
+							config="planeacionProyectoCtrl.tblSubSoporte"
+							registro-seleccionado="planeacionProyectoCtrl.subProyectoSeleccionado"
+							seleccionar-registro="planeacionProyectoCtrl.seleccionarSubProyecto(reg);">
 	
 						</adea-tabla>
 					</div>
@@ -147,4 +147,6 @@
 	ng-include="'app/componentes/proyectos/mantenimiento/altaRecursoActividad.html'"></div>
 <div
 	ng-include="'app/componentes/proyectos/mantenimiento/eliminarActividadPlantilla.html'"></div>
+<div
+	ng-include="'app/componentes/proyectos/mantenimiento/detalleTicket.html'"></div>
 

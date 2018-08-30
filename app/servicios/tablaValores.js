@@ -20,6 +20,20 @@
                 {valor: "costo", titulo: "Costo", alinear: "center", filtro:"moneda"}
             ]
         })
+        
+        .value("tblSubSoporte", {
+            columnas: [
+            	{valor: "idTicket", titulo: "Ticket", alinear: "center"},
+                {valor: "descEstatus", titulo: "Estatus", alinear: "center"},
+                {valor: "nombre", titulo: "Nombre"},
+                {valor: "fecIni", titulo: "Fecha Inicio", filtro: "date", formato: "dd/MM/yyyy", alinear: "center"},
+                {valor: "fecFin", titulo: "Fecha Fin", filtro: "date", formato: "dd/MM/yyyy", alinear: "center"},
+                {valor: "nombreLider", titulo: "Lider"},
+                {valor: "diferencia", titulo: "Duración (Dias)", alinear: "center"},
+                {valor: "descTipoSub", titulo: "Tipo Suproyecto", alinear: "center"},
+                {valor: "costo", titulo: "Costo", alinear: "center", filtro:"moneda"}
+            ]
+        })
 
         /**
          *
@@ -44,7 +58,6 @@
                 {valor: "nombreActividad", titulo: "Tarea"},
                 {valor: "fecIni", titulo: "Fecha Inicio", filtro: "fechaSFecha", alinear: "center"},
                 {valor: "fecFin", titulo: "Fecha Fin", filtro: "fechaSFecha", alinear: "center"},
-                {valor: "descTicket", titulo: "Ticket", alinear: "center", filtro: "cadenaVacia"},
                 {valor: "descArea", titulo: "Area", alinear: "center", filtro: "cadenaVacia"},
                 {valor: "porcAvance", titulo: "% Avance", alinear: "center", filtro: "cadenaVacia"},
                 {valor: "descPred", titulo: "Predecesora", alinear: "center", filtro: "cadenaVacia"},

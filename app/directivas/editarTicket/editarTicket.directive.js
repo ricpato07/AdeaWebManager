@@ -359,7 +359,7 @@
                 AdeaServicios.alerta("error", "Error al consulta la Bitacora del Ticket: " + error.data);
             });
         }
-
+                
         function noHaCambiado() {
             var bndCambio = false;
             if (!angular.equals(editarTicketsCtrl.miTicketSeleccionado, editarTicketsCtrl.miTicketEditable)) {
@@ -368,14 +368,14 @@
 
             return bndCambio;
         }
-
+        
         function modificarTicket() {
             $log.info("modificarTicket -- editarTicket.directive ----");
             var promesa = ticketServicios.modificacionDatosGrl(editarTicketsCtrl.miTicketEditable).$promise;
 
             promesa.then(function (respuesta) {
-                AdeaServicios.alerta("success", "El ticket se actualizó correctamente.");
-                $scope.modificarTicket();
+               AdeaServicios.alerta("success", "El ticket se actualizó correctamente.");
+               $scope.modificarTicket(); 
             });
 
             promesa.catch(function (error) {

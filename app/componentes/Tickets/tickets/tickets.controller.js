@@ -30,11 +30,110 @@
         ticketCtrl.buscarTicket = buscarTicket;
         ticketCtrl.consultaProyectos = consultaProyectos;
         ticketCtrl.consultaCategorias = consultaCategorias;
+        ticketCtrl.generarPlaneacion = generarPlaneacion;
+        consultaDiasFestivos();
+        
+        ticketCtrl.tooltip = '{{task.model.name}} - {{task.model.progress.percent}}%</br>' +
+        '<small>' +
+        '{{task.isMilestone() === true && getFromLabel() || getFromLabel() + \' - \' + getToLabel()}}' +
+        '</small>';
+
+
+        ticketCtrl.formatters = {
+        'model.from': function (value, column, row) {
+            if (value) {
+                return $filter('fechaSFecha')(value);
+            }
+            return value;
+        },
+        'model.to': function (value, column, row) {
+            if (value) {
+                return $filter('fechaSFecha')(value);
+            }
+            return value;
+        }
+        };
+
+        ticketCtrl.headersLabels = {
+        year: 'Año',
+        quarter: 'Quarter',
+        month: 'Mes',
+        week: 'Semana',
+        day: 'Dia',
+        hour: 'Hora',
+        minute: 'Minuto'
+        };
+
+        ticketCtrl.headersFormats = {
+        year: 'YYYY',
+        quarter: '[Q]Q YYYY',
+        month: 'MM/YYYY',
+        week: 'w',
+        day: 'D',
+        hour: 'H',
+        minute: 'H:mm',
+        second: 'H:mm:ss',
+        millisecond: 'H:mm:ss:SSS'
+        };
+        
+        ticketCtrl.timeFrames = {
+                day: {
+                    start: moment('8:00', 'HH:mm'),
+                        end: moment('18:00', 'HH:mm'),
+                        working: true, 
+                        default: true 
+                    },
+                noon: {
+                    start: moment('14:00', 'HH:mm'),
+                    end: moment('15:00', 'HH:mm'),
+                    magnet: false, 
+                    working: false, 
+                    default: true 
+                },
+                closed: {
+                    magnet: false, 
+                    working: false, 
+                    color: '#c3dff4', 
+                    classes: ['gantt-closed-timeframe'] 
+                },
+                weekend: {
+                    working: false
+                },
+                holiday: {
+                    working: false,
+                    color: 'red',
+                    classes: ['gantt-timeframe-holiday']
+                }
+        };
+        
+        
+        ticketCtrl.dateFrames = {
+                
+        		holidays: { 
+					 evaluator: function (date) {
+						var bnd = false;
+						angular.forEach(ticketCtrl.diasFestivos, function (obj1) {
+							if(obj1.holiday === date.valueOf()){
+								bnd = true;
+							}
+						 });    
+						 return bnd;
+                    },
+                    targets: ['holiday']
+				 },
+                 weekend: {
+                     evaluator: function(date) { 
+                         return date.isoWeekday() === 6 || date.isoWeekday() === 7;
+                     },
+                     targets: ['closed'] 
+                }
+        };
         
         ticketCtrl.bndArchivos = true;
         ticketCtrl.modoVista = 'C';
         ticketCtrl.bndAdmin = false;
         ticketCtrl.modoGuardar = true;
+        ticketCtrl.indexTabActive = 0;
         
         activar();
         
@@ -133,6 +232,7 @@
         	$log.info('buscarTicket');
         	$log.info(idTicket);
         	ticketCtrl.miTicketEditable = null;
+        	ticketCtrl.indexTabActive = 0;
         	$window.scrollTo(0, 0);
         		var params = {
             			idTicket: idTicket 
@@ -159,6 +259,7 @@
     	            	consultaBitacora();
     	            	ticketCtrl.idTicketBusqueda = null;
     	            	ticketCtrl.consultaProyectos(ticketCtrl.miTicketEditable.idCliente);
+    	            	consultaActividades();
     	        	}else{
     	        		$log.info('no hay');
     	        		AdeaServicios.alerta("error", "No existe el ticket con el numero indicado");
@@ -746,7 +847,43 @@
             }
         }
         
+        function consultaActividades() {
+        	$log.info('consultaActividadesProy');
+        	ticketCtrl.listActividadesSubProy = null;
+        	
+        	var params = {pIdTicket: ticketCtrl.miTicketEditable.idTicket};
+
+            var promesa = proyectoServicios.consultaActividades(params).$promise;
+
+            promesa.then(function (respuesta) {
+            	ticketCtrl.listActividadesSubProy = respuesta;
+            	ticketCtrl.listActividadesSubProy = $filter('ordenarListMilis')(ticketCtrl.listActividadesSubProy);
+            	
+            });
+
+            promesa.catch(function (error) {
+                AdeaServicios.alerta("error", "Error al consulta de Áreas: " + error.data);
+            })
+        }
         
+        function generarPlaneacion(){
+        	ticketCtrl.actvidadesGantt = proyectoServicios.construirGrafica(ticketCtrl.listActividadesSubProy);
+        }
+        
+        function consultaDiasFestivos(){
+			
+			var promesaList = AdeaServicios.consultaDiasFestivos().$promise;
+			
+			promesaList.then(function (respuesta) {
+
+				ticketCtrl.diasFestivos = respuesta;
+			});
+	            
+			promesaList.catch(function (error) {
+				AdeaServicios.alerta("error", "Error al consulta los dias festivos: " + error.data);
+			})
+			
+		}
     }
 })
 ();

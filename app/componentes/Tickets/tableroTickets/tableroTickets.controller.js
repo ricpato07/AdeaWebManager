@@ -30,17 +30,17 @@
         /*
          * 
          Datos de prueba
-         */
+         */        
 //        tableroTicketsCtrl.bbusqueda = true;
 //        tableroTicketsCtrl.bbusquedacorrecta = true;
         /**/
-
+        
         function init() {
             tableroTicketsCtrl.bareas = false;
             tableroTicketsCtrl.bcategorias = false;
             usuarioLogueado();
         }
-
+		
         function usuarioLogueado() {
             var area_item = undefined;
             var promesa = tableroServicios.getUser().$promise;
@@ -185,7 +185,7 @@
                 AdeaServicios.alerta("error", "Error al consultar el tablero");
             });
         }
-
+		
         function consultaDetalle(status) {
             $log.info('---consultaDetalle---');
             tableroTicketsCtrl.status = status;
@@ -201,7 +201,7 @@
                 if (tableroTicketsCtrl.usuarioAsignado != undefined && tableroTicketsCtrl.usuarioAsignado != null) {
                     usuarioAsignado = tableroTicketsCtrl.usuarioAsignado;
                 } else {
-                    usuarioAsignado = null;
+                usuarioAsignado = null;
                 }
                 idArea = tableroTicketsCtrl.user.idArea;
                 idCategoria = tableroTicketsCtrl.user.idCategoria;
@@ -305,7 +305,7 @@
                 }, 1000);
             }
         }
-
+		
         function regresar() {
             tableroTicketsCtrl.btablero = true;
         }

@@ -1,0 +1,23 @@
+<div class="modal fade" id="detTicket" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<form class="form-horizontal" name="form" novalidate>
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true" style="width: 20px;">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Detalle de Ticket {{planeacionProyectoCtrl.subproyectoEditable.idTicket}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row" ng-if="planeacionProyectoCtrl.bndDetalle">
+						<div class="col-md-12">
+							<ticket-detalle modo="'C'"
+								id-ticket="planeacionProyectoCtrl.subproyectoEditable.idTicket"></ticket-detalle>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

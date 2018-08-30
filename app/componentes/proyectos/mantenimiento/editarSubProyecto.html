@@ -19,14 +19,19 @@
 
 			<form class="form-horizontal" name="form" novalidate>
 
-				<div class="row">
+				<div class="row" style="font-size: 14px;">
 					<div class="col-md-6">
 						<label class=" control-label">Cliente:</label> <label
 							class=" control-label">{{planeacionProyectoCtrl.cliente.nomCliente}}</label>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-3">
 						<label class=" control-label">Proyecto:</label> <label
 							class=" control-label">{{planeacionProyectoCtrl.proyecto.nombre}}</label>
+					</div>
+					<div class="col-md-3" style="text-align: right;">
+						<a role="button" style="color: #275379; font-size: 17px; font-weight: bold;"
+							ng-click="planeacionProyectoCtrl.detalleTicket()"
+							tooltip>Ticket: {{planeacionProyectoCtrl.subproyectoEditable.idTicket}}</a>
 					</div>
 				</div>
 				<br />
@@ -72,7 +77,7 @@
 							ng-model="planeacionProyectoCtrl.subproyectoEditable.fecIni"
 							is-open="planeacionProyectoCtrl.fechaIni.abierto"
 							close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
-							ng-required="true"
+							ng-required="true" ng-disabled="planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 							datepicker-options="{dateDisabled: planeacionProyectoCtrl.disabled}" />
 
 
@@ -82,7 +87,7 @@
                              'has-success': form.fecFin.$dirty || form.fecFin.$valid ,
                              'has-error': form.fecFin.$dirty && form.fecFin.$invalid}">
 						<label class=" control-label" for="fecFin">*Fecha Fin:</label> <input
-							ng-disabled="planeacionProyectoCtrl.subproyectoEditable.fecIni == null"
+							ng-disabled="planeacionProyectoCtrl.subproyectoEditable.fecIni == null || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 							type="text" class="form-control" id="fecFin" name="fecFin"
 							uib-datepicker-popup="dd/MM/yyyy"
 							ng-click="planeacionProyectoCtrl.abrirFechaFin()"
@@ -143,7 +148,7 @@
 
 					</div>
 					
-					<div class="col-md-6"
+					<div class="col-md-6" ng-if="planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2"
 						ng-class="{
                              'has-success': form.presupuesto.$dirty || form.presupuesto.$valid ,
                              'has-error': form.presupuesto.$dirty && form.presupuesto.$invalid}">
@@ -158,7 +163,7 @@
 					</div>
 				</div>
 				<br />
-				<div class="row">
+				<div class="row" ng-if="planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2">
 					<div class="col-md-6"
 						ng-class="{'has-success': form.porHora.$dirty || form.porHora.$valid ,
                              'has-error': form.porHora.$dirty && form.porHora.$invalid}">

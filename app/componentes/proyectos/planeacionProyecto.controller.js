@@ -5,9 +5,9 @@
         .module('adeaModule')
         .controller('PlaneacionProyectoController', PlaneacionProyectoController);
 
-    PlaneacionProyectoController.$inject = ['$log', '$q', 'tblSubProyectos', 'proyectoServicios', 'AdeaServicios', 'tblActividadesPlan', '$filter', '$timeout', 'DTColumnDefBuilder', 'tblReprogramacion', '$location', 'tblRecursosSubproyecto'];
+    PlaneacionProyectoController.$inject = ['$log', '$q', 'tblSubProyectos', 'proyectoServicios', 'AdeaServicios', 'tblActividadesPlan', '$filter', '$timeout', 'DTColumnDefBuilder', 'tblReprogramacion', '$location', 'tblRecursosSubproyecto', 'tblSubSoporte'];
 
-    function PlaneacionProyectoController($log, $q, tblSubProyectos, proyectoServicios, AdeaServicios, tblActividadesPlan, $filter, $timeout, DTColumnDefBuilder, tblReprogramacion, $location, tblRecursosSubproyecto) {
+    function PlaneacionProyectoController($log, $q, tblSubProyectos, proyectoServicios, AdeaServicios, tblActividadesPlan, $filter, $timeout, DTColumnDefBuilder, tblReprogramacion, $location, tblRecursosSubproyecto, tblSubSoporte) {
 
         var planeacionProyectoCtrl = this;
         
@@ -26,6 +26,7 @@
         planeacionProyectoCtrl.tblReprogramacion = tblReprogramacion;
         planeacionProyectoCtrl.tblActividadesPlan = tblActividadesPlan;
         planeacionProyectoCtrl.tblRecursosSubproyecto = tblRecursosSubproyecto;
+        planeacionProyectoCtrl.tblSubSoporte = tblSubSoporte;
         
         // Declaracion de Funciones
         planeacionProyectoCtrl.consultaProyectos = consultaProyectos;
@@ -78,6 +79,7 @@
         planeacionProyectoCtrl.validaRangos = validaRangos;
         planeacionProyectoCtrl.seleccionRecursos = seleccionRecursos;
         planeacionProyectoCtrl.seleccionaTab = seleccionaTab;
+        planeacionProyectoCtrl.detalleTicket = detalleTicket;
         
         // Inicializacion de Variables
         planeacionProyectoCtrl.subProyecto = {};
@@ -108,6 +110,7 @@
     	planeacionProyectoCtrl.subProyectos = [];
     	planeacionProyectoCtrl.soporte = [];
         var promesaSel = null;
+        planeacionProyectoCtrl.bndDetalle = false;
         
         // Inicializacion de Objetos para Fecha
         planeacionProyectoCtrl.abrirFechaFin = function () {
@@ -394,6 +397,7 @@
             planeacionProyectoCtrl.listActividades = [];
             planeacionProyectoCtrl.actividadSeleccionada = null;
             planeacionProyectoCtrl.actividadEditable = null;
+            planeacionProyectoCtrl.bndDetalle = false;
             if (planeacionProyectoCtrl.modoVista == 'A') {
                 planeacionProyectoCtrl.subProyecto = {};
                 planeacionProyectoCtrl.subProyecto.idTicket = planeacionProyectoCtrl.proyecto.idTicket;
@@ -408,7 +412,7 @@
                 consultaAreasAwm();
             } else if (planeacionProyectoCtrl.modoVista == 'P'){
             	planeacionProyectoCtrl.fecActiveIni = new Date(planeacionProyectoCtrl.subproyectoEditable.fecIni);
-                planeacionProyectoCtrl.actividad.idTicket = planeacionProyectoCtrl.subProyectoSeleccionado.idTicket;
+                //planeacionProyectoCtrl.actividad.idTicket = planeacionProyectoCtrl.subProyectoSeleccionado.idTicket;
                 planeacionProyectoCtrl.fecActIni = moment(planeacionProyectoCtrl.subproyectoEditable.fecIni);
                 planeacionProyectoCtrl.fecActFin = moment(planeacionProyectoCtrl.subproyectoEditable.fecFin);
                 planeacionProyectoCtrl.indexTabActive = 0;
@@ -565,16 +569,18 @@
 
         function modificarSubproyecto() {
         	
-        	var fecFinUltimaAct = planeacionProyectoCtrl.listActividadesSubProy[planeacionProyectoCtrl.listActividadesSubProy.length - 1].fecFin;
-        	var dateFin = new Date(fecFinUltimaAct);
-        	dateFin.setHours(0,0,0,0);
         	
-        	var fecIniPrimerAct = planeacionProyectoCtrl.listActividadesSubProy[0].fecIni;
-        	var dateIni = new Date(fecIniPrimerAct);
-        	dateIni.setHours(0,0,0,0);
- 
-        	
-        	if(planeacionProyectoCtrl.subproyectoEditable.fecIni > dateIni.getTime() || planeacionProyectoCtrl.subproyectoEditable.fecFin < dateFin.getTime()){
+        	if(planeacionProyectoCtrl.listActividadesSubProy.length > 0){
+        		var fecFinUltimaAct = planeacionProyectoCtrl.listActividadesSubProy[planeacionProyectoCtrl.listActividadesSubProy.length - 1].fecFin;
+            	var dateFin = new Date(fecFinUltimaAct);
+            	dateFin.setHours(0,0,0,0);
+            	
+            	var fecIniPrimerAct = planeacionProyectoCtrl.listActividadesSubProy[0].fecIni;
+            	var dateIni = new Date(fecIniPrimerAct);
+            	dateIni.setHours(0,0,0,0);
+        	}
+
+        	if(planeacionProyectoCtrl.listActividadesSubProy.length > 0 && (planeacionProyectoCtrl.subproyectoEditable.fecIni > dateIni.getTime() || planeacionProyectoCtrl.subproyectoEditable.fecFin < dateFin.getTime())){
         		 AdeaServicios.alerta("error", "La fecha de Finalización del Subproyecto no es valida ya que hay actividades planeadas para esas fechas");
         	}else{
         		planeacionProyectoCtrl.subProyectoMod = {};
@@ -617,8 +623,6 @@
                 })
         		
         	}
-
-           
         }
 
         function consultaAreas() {
@@ -731,19 +735,19 @@
                     angular.element('#conflictFecha').modal('show');
                 } else {
 
-                    if (planeacionProyectoCtrl.actividad.idTicket != null) {
+                    /*if (planeacionProyectoCtrl.actividad.idTicket != null) {
                         var filtro = _.filter(planeacionProyectoCtrl.listTickets, function (act) {
 
                             return act.idTicket == planeacionProyectoCtrl.actividad.idTicket;
                         });
 
                         planeacionProyectoCtrl.actividad.descTicket = filtro[0].resumen;
-                    }
+                    }*/
 
                     planeacionProyectoCtrl.listActividadPlan.push(planeacionProyectoCtrl.actividad);
                     planeacionProyectoCtrl.listActividadPlan = $filter('ordenarList')(planeacionProyectoCtrl.listActividadPlan);
                     planeacionProyectoCtrl.actividad = {};
-                    planeacionProyectoCtrl.actividad.idTicket = planeacionProyectoCtrl.subProyecto.idTicket;
+                    //planeacionProyectoCtrl.actividad.idTicket = planeacionProyectoCtrl.subProyecto.idTicket;
                 }
             } else {
                 AdeaServicios.alerta("error", "La actividad Seleccionada ya" +
@@ -774,13 +778,13 @@
 	                    angular.element('#conflictFecha').modal('show');
 	                } else {
 	
-	                    if (planeacionProyectoCtrl.actividad.idTicket != null) {
+	                    /*if (planeacionProyectoCtrl.actividad.idTicket != null) {
 	                        var filtro = _.filter(planeacionProyectoCtrl.listTickets, function (act) {
 	                            return act.idTicket == planeacionProyectoCtrl.actividad.idTicket;
 	                        });
 	
 	                        planeacionProyectoCtrl.actividad.descTicket = filtro[0].resumen;
-	                    }
+	                    }*/
 	                    
 	                    addActividad();
 	                                   
@@ -876,7 +880,7 @@
             	planeacionProyectoCtrl.listActividadesSubProy.push(respuesta);
             	planeacionProyectoCtrl.listActividadesSubProy = $filter('ordenarList')(planeacionProyectoCtrl.listActividadesSubProy);
             	planeacionProyectoCtrl.actividad = {};
-                planeacionProyectoCtrl.actividad.idTicket = planeacionProyectoCtrl.subproyectoEditable.idTicket;
+                //planeacionProyectoCtrl.actividad.idTicket = planeacionProyectoCtrl.subproyectoEditable.idTicket;
                 planeacionProyectoCtrl.actividad.recursos = [];
                 planeacionProyectoCtrl.plantillaArea = [];
                 angular.element('#conflictFecha').modal('hide');
@@ -1742,7 +1746,11 @@
         	planeacionProyectoCtrl.soporteSeleccionado = null; 
         	planeacionProyectoCtrl.subProyectoSeleccionado = null;
         }
-
+        
+        function detalleTicket(){
+        	 angular.element('#detTicket').modal('show');
+        	 planeacionProyectoCtrl.bndDetalle = true;
+        }
         
     }
 })
