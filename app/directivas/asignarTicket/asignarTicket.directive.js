@@ -393,7 +393,7 @@
 
                 asignarTicketCtrl.plantillaArea = respuesta;
                 if (asignarTicketCtrl.plantillaArea.length == 0) {
-                    AdeaServicios.alerta("error", "No existen recursos registrados para el area seleccionada");
+                    AdeaServicios.alerta("error", "No existen recursos registrados para el área seleccionada");
                 }
 
             });
