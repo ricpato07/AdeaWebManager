@@ -148,7 +148,8 @@
             	method: 'POST', headers: {'Content-Type': 'application/json'}, isArray: true,
             	params: {
             		pIdSubProyecto: '@pIdSubProyecto',
-            		pIdActividad: '@pIdActividad'
+            		pIdActividad: '@pIdActividad',
+            		pIdTicket: '@pIdTicket'
                 }
             },
             getRango : {
@@ -307,7 +308,8 @@
             eliminarActPlantilla: eliminarActPlantilla,
             consultaClientesGeneral: consultaClientesGeneral,
             consultaRango: consultaRango, 
-            consultaRecursosSubproyecto: consultaRecursosSubproyecto
+            consultaRecursosSubproyecto: consultaRecursosSubproyecto,
+            construirGrafica: construirGrafica
         };
 
         return serviciosProyectos;
@@ -487,6 +489,55 @@
         
         function consultaRecursosSubproyecto(params){
         	return subproyecto.getRecursosSubproyecto({servicio: 'consultaRecursosSubProyecto.action'}, params);
+        }
+        
+        function construirGrafica(lista){
+        	
+        	var actividades = [];
+            angular.forEach(lista, function (obj) {
+                var actividad = {};
+                var tareas = [];
+                var tarea = {};
+                
+                actividad.name = obj.nombreActividad;
+                actividad.height = '3em';
+                actividad.sortable = false;
+                actividad.from = obj.fecIni;
+                actividad.to = obj.fecFin;
+
+                tarea.name = obj.nombreActividad;
+                
+                if (moment(obj.fecFin) < moment() && obj.porcAvance < 100) {
+                    tarea.color = '#fb0808'
+                } else {
+                    tarea.color = '#93c47d'
+                }
+                
+                tarea.from = obj.fecIni;
+                tarea.to = obj.fecFin;
+                tarea.id = obj.idActividad;
+                tarea.progress = {}
+				tarea.progress.percent = obj.porcAvance;
+				  
+				if (moment(obj.fecFin) > moment() && obj.porcAvance < 100) {
+					tarea.progress.color = '#1a4c04'; 
+				} else if (moment(obj.fecFin) < moment() && obj.porcAvance < 100) {
+				    tarea.progress.color = '#f39c12'; 
+				}		
+				
+				if(obj.predecesora != null && obj.predecesora != undefined){
+					tarea.dependencies = [{from: obj.predecesora}];
+				}
+				
+				
+                tareas.push(tarea);
+
+
+                actividad.tasks = tareas;
+                actividades.push(actividad);
+            });
+            
+            return actividades;
         }
         
     }

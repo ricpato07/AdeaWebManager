@@ -19,10 +19,18 @@
 		tableroRecursosCtrl.filtrarActividades = filtrarActividades;
 		tableroRecursosCtrl.validaForm = validaForm;
 		tableroRecursosCtrl.construyeObjGantt = construyeObjGantt;
+		tableroRecursosCtrl.consultaClientes = consultaClientes;
+		tableroRecursosCtrl.consultaProyectos = consultaProyectos;
+		tableroRecursosCtrl.consultaSubProyectos = consultaSubProyectos;
+		tableroRecursosCtrl.setDateActMod = setDateActMod;
+		tableroRecursosCtrl.disabled = disabled;
+		tableroRecursosCtrl.seleccionaSubproyecto = seleccionaSubproyecto;
 		
 		tableroRecursosCtrl.filtro = {};
 		tableroRecursosCtrl.fechaFin = {abiertoL: false};
 		tableroRecursosCtrl.fechaIni = {abierto: false};
+		tableroRecursosCtrl.fechaFinActMod = {abierto: false};
+		tableroRecursosCtrl.fechaIniActMod = {abierto: false};
 		
 		
 		tableroRecursosCtrl.abrirFechaIni = function () {
@@ -132,7 +140,20 @@
             'from': '<i class="fa fa-calendar"></i> {{getHeader()}}',
             'to': '<i class="fa fa-calendar"></i> {{getHeader()}}'
         }
-		 
+		
+		function setDateActMod() {
+			tableroRecursosCtrl.actividad.fecFin = null;
+			tableroRecursosCtrl.fecFinAct = tableroRecursosCtrl.actividad.fecIni;
+        }
+		
+		tableroRecursosCtrl.abrirFechaIniActMod = function () {
+			tableroRecursosCtrl.fechaIniActMod.abierto = true;
+        };
+        
+        tableroRecursosCtrl.abrirFechaFinActMod = function () {
+        	tableroRecursosCtrl.fechaFinActMod.abierto = true;
+        };
+		
 		activa();
 		
 		function activa(){
@@ -141,7 +162,20 @@
 		}
 		
 		
-		
+		function disabled(data) {
+            var date = data.date,
+                mode = data.mode;
+            var bndDay = false; 
+            
+            angular.forEach(tableroRecursosCtrl.diasFestivos, function (obj) {
+            	if(data.date.getTime() == obj.holiday){
+            		bndDay = true;
+            	}
+            });
+
+
+            return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6)) || bndDay ;
+        }
 
 		function consultaDiasFestivos(){
 			
@@ -331,6 +365,11 @@
 				tableroRecursosCtrl.actividadesRecList = respuesta;
 				if(tableroRecursosCtrl.actividadesRecList.length == 0){
 					AdeaServicios.alerta("error", "La persona Seleccionada no cuenta con actividades Asignadas");
+				}else{
+					tableroRecursosCtrl.costoGral = 0;
+					angular.forEach(tableroRecursosCtrl.actividadesRecList, function (obj1) {	
+						tableroRecursosCtrl.costoGral = tableroRecursosCtrl.costoGral + obj1.costoAct;
+			    	});
 				}
 			});
 	            
@@ -488,14 +527,15 @@
                     tarea.to = obj.fecFin;
                     tarea.id = obj.idActividad;
                     tarea.nombre = obj.recurso;
-                   /* tarea.progress = {}
-    				tarea.progress.percent = obj.porcAvance;
-    				  
-    				if (moment(obj.fecFin) > moment() && obj.porcAvance < 100) {
-    					tarea.progress.color = '#1a4c04'; 
-    				} else if (moment(obj.fecFin) < moment() && obj.porcAvance < 100) {
-    				    tarea.progress.color = '#f39c12'; 
-    				}		*/
+                   /*
+					 * tarea.progress = {} tarea.progress.percent =
+					 * obj.porcAvance;
+					 * 
+					 * if (moment(obj.fecFin) > moment() && obj.porcAvance <
+					 * 100) { tarea.progress.color = '#1a4c04'; } else if
+					 * (moment(obj.fecFin) < moment() && obj.porcAvance < 100) {
+					 * tarea.progress.color = '#f39c12'; }
+					 */
     				
     				if(obj.predecesora != null && obj.predecesora != undefined){
     					tarea.dependencies = [{from: obj.predecesora}];
@@ -517,14 +557,15 @@
                     tarea.to = obj.fecFin;
                     tarea.id = obj.idActividadPlantilla;
                     tarea.nombre = obj.recurso;
-                   /* tarea.progress = {}
-    				tarea.progress.percent = obj.porcAvance;
-    				  
-    				if (moment(obj.fecFin) > moment() && obj.porcAvance < 100) {
-    					tarea.progress.color = '#1a4c04'; 
-    				} else if (moment(obj.fecFin) < moment() && obj.porcAvance < 100) {
-    				    tarea.progress.color = '#f39c12'; 
-    				}		*/
+                   /*
+					 * tarea.progress = {} tarea.progress.percent =
+					 * obj.porcAvance;
+					 * 
+					 * if (moment(obj.fecFin) > moment() && obj.porcAvance <
+					 * 100) { tarea.progress.color = '#1a4c04'; } else if
+					 * (moment(obj.fecFin) < moment() && obj.porcAvance < 100) {
+					 * tarea.progress.color = '#f39c12'; }
+					 */
     				
     				object.tasks.push(tarea);
                 }
@@ -533,6 +574,74 @@
             
             tableroRecursosCtrl.actividadesGantt = actividades;
 			
+		}
+		
+		function consultaClientes() {
+
+            var promesa = proyectoServicios.consultaClientes().$promise;
+
+            promesa.then(function (respuesta) {
+            	tableroRecursosCtrl.listClientes = respuesta;
+            });
+
+            promesa.catch(function (error) {
+                AdeaServicios.alerta("error", "Error al consulta los clientes");
+            });
+        }
+		
+		function consultaProyectos() {
+			tableroRecursosCtrl.listProyectos = [];
+ 
+            if (AdeaServicios.validarDato(tableroRecursosCtrl.actividad.cliente.idClienteDetalle)) {
+
+                var params = {pidCliente: tableroRecursosCtrl.actividad.cliente.idClienteDetalle};
+
+                var promesa = proyectoServicios.consultaProyecto(params).$promise;
+
+                promesa.then(function (respuesta) {
+                	tableroRecursosCtrl.listProyectos = respuesta;
+
+
+                    if (tableroRecursosCtrl.listProyectos.length == 0) {
+                    	tableroRecursosCtrl.subProyectoSeleccionado = null;
+                        AdeaServicios.alerta("error", "No existen Proyectos del cliente seleccionado");
+                    }
+                });
+
+                promesa.catch(function (error) {
+                    AdeaServicios.alerta("error", "Error al consulta de Proyectos: " + error.data.error);
+                })
+            }
+        }
+		
+		function consultaSubProyectos() {
+        	
+            if (AdeaServicios.validarDato(tableroRecursosCtrl.actividad.proyecto)) {
+
+                var params = {pidProyecto: tableroRecursosCtrl.actividad.proyecto.idProyecto};
+
+                var promesa = proyectoServicios.consultaSubProyecto(params).$promise;
+
+                promesa.then(function (respuesta) {
+                    if (respuesta.length == 0) {
+                        AdeaServicios.alerta("error", "No existen SubProyectos del proyecto seleccionado: " + tableroRecursosCtrl.proyecto.nombre);
+                        tableroRecursosCtrl.subProyectoSeleccionado = null;
+                    } else{
+                    	tableroRecursosCtrl.subProyectos = respuesta;
+                    }
+                });
+
+                promesa.catch(function (error) {
+                    AdeaServicios.alerta("error", "Error al consulta los Subproyectos: " + error.data.error);
+                })
+
+            }
+        }
+		
+		function seleccionaSubproyecto (){
+			tableroRecursosCtrl.fecActIni = moment(tableroRecursosCtrl.actividad.subproyecto.fecIni);
+			tableroRecursosCtrl.fecActFin = moment(tableroRecursosCtrl.actividad.subproyecto.fecFin);
+			tableroRecursosCtrl.fecActiveIni = new Date(tableroRecursosCtrl.actividad.subproyecto.fecIni);
 		}
 	}
 })();

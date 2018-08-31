@@ -5,10 +5,11 @@
 			ng-class="{
                              'has-success': form.nombreAct.$dirty || form.nombreAct.$valid ,
                              'has-error': form.nombreAct.$dirty && form.nombreAct.$invalid}">
-			<label class="control-label">*Nombre Actividad:</label> <input ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+			<label class="control-label">*Nombre Actividad:</label> <input
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C' || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 				id="nombreAct" name="nombreAct" type="text" maxlength="100"
 				class="form-control input-md" ng-required="true"
-				ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+				ng-pattern="/^[0-9a-zA-Z_-\s,:.áéíóúÁÉÍÓÚñÑ\(\)]*$/"
 				ng-model="planeacionProyectoCtrl.actividadEditable.nombreActividad">
 		</div>
 
@@ -17,7 +18,8 @@
                              'has-error': form.fecIniA.$dirty && form.fecIniA.$invalid}">
 			<label class=" control-label" for="fecIniA">*Fecha Inicio:</label> <input
 				type="text" class="form-control" id="fecIniA" name="fecIniA"
-				uib-datepicker-popup="dd/MM/yyyy" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+				uib-datepicker-popup="dd/MM/yyyy"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C' || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 				ng-change="planeacionProyectoCtrl.setDateActMod()"
 				ng-click="planeacionProyectoCtrl.abrirFechaIniActMod()"
 				ng-model="planeacionProyectoCtrl.actividadEditable.fecIni"
@@ -32,7 +34,8 @@
                              'has-error': form.fecFinA.$dirty && form.fecFinA.$invalid}">
 			<label class=" control-label" for="fecFinA">*Fecha Fin:</label> <input
 				type="text" class="form-control" id="fecFinA" name="fecFinA"
-				uib-datepicker-popup="dd/MM/yyyy" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+				uib-datepicker-popup="dd/MM/yyyy"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C' || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 				ng-click="planeacionProyectoCtrl.abrirFechaFinActMod()"
 				ng-model="planeacionProyectoCtrl.actividadEditable.fecFin"
 				is-open="planeacionProyectoCtrl.fechaFinActMod.abierto"
@@ -48,9 +51,10 @@
 			ng-class="{
                              'has-success': form.areaAWM.$dirty || form.areaAWM.$valid ,
                              'has-error': form.areaAWM.$dirty && form.areaAWM.$invalid}">
-			<label class="control-label">*Seleccione una Area:</label> <select
+			<label class="control-label">*Seleccione una Área:</label> <select
 				class="form-control input-md" id="areaAWM" name="areaAWM"
-				ng-required="true" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+				ng-required="true"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C' || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 				ng-change="planeacionProyectoCtrl.obtenerArea(planeacionProyectoCtrl.actividadEditable.idArea)"
 				ng-model="planeacionProyectoCtrl.actividadEditable.idArea"
 				ng-options="opt.idArea as opt.nombre for opt in planeacionProyectoCtrl.subproyectoEditable.areas">
@@ -58,7 +62,7 @@
 			</select>
 
 		</div>
-		<div class="col-md-4"
+		<!-- <div class="col-md-4"
 			ng-class="{'has-success': form.ticket.$dirty || form.ticket.$valid ,
                              'has-error': form.ticket.$dirty && form.ticket.$invalid}">
 
@@ -71,7 +75,7 @@
 				repeat="ticket.idTicket as ticket in planeacionProyectoCtrl.listTickets | propsFilter: {resumen: $select.search, idTicket: $select.search}">
 			<div ng-bind-html="ticket.resumen | highlight: $select.search"></div>
 			</ui-select-choices> </ui-select>
-		</div>
+		</div> -->
 		<div class="col-md-4"
 			ng-if="(planeacionProyectoCtrl.areaMod.nombre == 'SISTEMAS DESARROLLO' || planeacionProyectoCtrl.areaMod.nombre == 'SOPORTE APLICATIVO')"
 			ng-class="{
@@ -79,10 +83,23 @@
                              'has-error': form.tecnologias.$dirty && form.tecnologias.$invalid}">
 			<label class="control-label">*Seleccione una Tecnología:</label> <select
 				class="form-control input-md" id="tecnologias" name="areaAWM"
-				ng-required="true" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+				ng-required="true"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C' || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
 				ng-model="planeacionProyectoCtrl.actividadEditable.tecnologia"
 				ng-options="opt.claveCat as opt.descripcionCat for opt in planeacionProyectoCtrl.tecnologias">
 				<option value="">Seleccione</option>
+			</select>
+
+		</div>
+		<div class="col-md-4"
+			ng-class="{'has-success': form.actividadPre.$dirty || form.actividadPre.$valid ,
+                             'has-error': form.actividadPre.$dirty && form.actividadPre.$invalid}">
+			<label class="control-label">Actividad Predecesora:</label> <select
+				class="form-control input-md" id="actividadPre" name="actividadPre"
+				ng-model="planeacionProyectoCtrl.actividadEditable.predecesora"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C' || planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 1"
+				ng-options="opt.idActividad as opt.nombreActividad for opt in planeacionProyectoCtrl.listActividadesSub">
+				<option value="">Seleccione Actividad</option>
 			</select>
 
 		</div>
@@ -96,7 +113,8 @@
                              'has-error': form.estatusAct.$dirty && form.estatusAct.$invalid}">
 			<label class="control-label">*Seleccione una Estatus:</label> <select
 				class="form-control input-md" id="estatusAct" name="estatusAct"
-				ng-required="true" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+				ng-required="true"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
 				ng-model="planeacionProyectoCtrl.actividadEditable.estatus"
 				ng-options="opt.claveCat as opt.descripcionCat for opt in planeacionProyectoCtrl.estatusActividades">
 				<option value="">Seleccione</option>
@@ -110,20 +128,9 @@
 			<label class="control-label">*% Avance:</label> <input id="avance"
 				name="avance" type="number" maxlength="3"
 				class="form-control input-md" ng-required="true" max="100"
-				ng-pattern="/^[0-9]*$/" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
+				ng-pattern="/^[0-9]*$/"
+				ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
 				ng-model="planeacionProyectoCtrl.actividadEditable.porcAvance">
-		</div>
-
-		<div class="col-md-4"
-			ng-class="{'has-success': form.actividadPre.$dirty || form.actividadPre.$valid ,
-                             'has-error': form.actividadPre.$dirty && form.actividadPre.$invalid}">
-			<label class="control-label">Actividad Predecesora:</label> <select
-				class="form-control input-md" id="actividadPre" name="actividadPre"
-				ng-model="planeacionProyectoCtrl.actividadEditable.predecesora" ng-disabled="planeacionProyectoCtrl.actividadSeleccionada.estatus == 'C'"
-				ng-options="opt.idActividad as opt.nombreActividad for opt in planeacionProyectoCtrl.listActividadesSub">
-				<option value="">Seleccione Actividad</option>
-			</select>
-
 		</div>
 
 	</div>
@@ -134,9 +141,9 @@
 				class="btn btn-primary"
 				ng-click="planeacionProyectoCtrl.setModeEliminar()"
 				data-toggle="modal" data-placement="midle"
-				ng-if="planeacionProyectoCtrl.actividadSeleccionada != null && planeacionProyectoCtrl.actividadSeleccionada.estatus == 'A'"
+				ng-if="planeacionProyectoCtrl.actividadSeleccionada != null && planeacionProyectoCtrl.actividadSeleccionada.estatus == 'A' && planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2"
 				tooltip title="Eliminar Actividad"> Eliminar Actividad </a> <a
-				ng-if="form.$valid && planeacionProyectoCtrl.noHaCambiadoActividad() && planeacionProyectoCtrl.actividadSeleccionada.estatus != 'C'"
+				ng-if="(form.$valid && planeacionProyectoCtrl.noHaCambiadoActividad() && planeacionProyectoCtrl.actividadSeleccionada.estatus != 'C')"
 				type="button" ng-click="planeacionProyectoCtrl.editActividad()"
 				class="btn btn-primary"> Modificar Datos Actividad </a>
 		</div>
@@ -147,7 +154,7 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="row"
-				ng-if="planeacionProyectoCtrl.plantillaSeleccionada == null || planeacionProyectoCtrl.plantillaSeleccionada ==undefined || planeacionProyectoCtrl.plantillaSeleccionada.length == 0 ">
+				ng-if="planeacionProyectoCtrl.plantillaSeleccionada == null || planeacionProyectoCtrl.plantillaSeleccionada == undefined || planeacionProyectoCtrl.plantillaSeleccionada.length == 0 ">
 				<h4
 					style="margin-left: 15px; padding-bottom: 5px; margin-top: 0; border-bottom: 1px solid #337ab7;">Asignar
 					Recursos</h4>
@@ -188,7 +195,8 @@
 								Recurso Asignado : &nbsp;<strong>{{planeacionProyectoCtrl.plantillaSeleccionada[0].nombre}}</strong>
 							</h4>
 						</div>
-						<div class="col-md-1" style="padding-top: 8px;" ng-if="planeacionProyectoCtrl.actividadSeleccionada.estatus != 'C'">
+						<div class="col-md-1" style="padding-top: 8px;"
+							ng-if="planeacionProyectoCtrl.actividadSeleccionada.estatus != 'C' && planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2">
 							<a
 								style="color: red; padding-right: 15px; cursor: pointer; font-size: 22px !important;"
 								title="Eliminar"

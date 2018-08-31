@@ -92,7 +92,7 @@
 					ng-if="planeacionProyectoCtrl.subGeneral.length > 0" index="2"
 					heading="Planeaci&oacute;n"> <br />
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-md-12" ng-if="planeacionProyectoCtrl.data.length > 0">
 						<div style="font-size: 12px;" gantt
 							data=planeacionProyectoCtrl.data headers="['month', 'week']"
 							headers-formats="planeacionProyectoCtrl.headersFormats"

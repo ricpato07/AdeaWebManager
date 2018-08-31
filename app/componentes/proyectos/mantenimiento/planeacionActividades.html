@@ -5,27 +5,31 @@
 		<div class="panel-heading" style="height: 35px; margin-top: -12px;">
 			<a
 				style="color: white; padding-right: 29px; cursor: pointer; font-size: 20px !important;"
-				ng-click="planeacionProyectoCtrl.cambioModo('C')" title="Regresar a Subproyectos"
-				class="fa fa-mail-reply"></a> <i style="font-size: 14px !important;"
-				class="fa fa-book"> &nbsp;&nbsp;Planeación de Tareas:
+				ng-click="planeacionProyectoCtrl.cambioModo('C')"
+				title="Regresar a Subproyectos" class="fa fa-mail-reply"></a> <i
+				style="font-size: 14px !important;" class="fa fa-book">
+				&nbsp;&nbsp;Planeación de Tareas:
 				{{planeacionProyectoCtrl.cliente.nomCliente}}&nbsp;|&nbsp;{{planeacionProyectoCtrl.subProyectoSeleccionado.nombre}}</i>
 		</div>
+		
 		<a class="fa fa-angle-up pull-right" role="button"
 			style="font-size: 35px; color: white; margin-top: -32px; margin-right: -2px;"
 			data-toggle="tooltip" tooltip title="Ocultar" data-placement="top"
-			ng-if="!planeacionProyectoCtrl.mostrarActividades"
+			ng-if="!planeacionProyectoCtrl.mostrarActividades && planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2"
 			ng-click="planeacionProyectoCtrl.mostrarActividades = true;"> </a> 
-		<a class="fa fa-angle-down pull-right" role="button"
+		<a
+			class="fa fa-angle-down pull-right" role="button"
 			style="font-size: 17px; color: white; margin-top: -24px; margin-right: -2px;"
 			data-toggle="tooltip" tooltip title="Registrar Actividad"
 			data-placement="top"
-			ng-if="planeacionProyectoCtrl.mostrarActividades"
-			ng-click="planeacionProyectoCtrl.registrarActividades()"> Registrar Actividad</a>
+			ng-if="planeacionProyectoCtrl.mostrarActividades && planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2"
+			ng-click="planeacionProyectoCtrl.registrarActividades()">
+			Registrar Actividad</a>
 	</div>
 
 
 
-	<div class="panel-body"
+	<div class="panel-body" ng-if="planeacionProyectoCtrl.subproyectoEditable.tipoFlujo == 2"
 		uib-collapse="planeacionProyectoCtrl.mostrarActividades">
 		<div class="row"
 			style="width: 100%; border-bottom: 1px solid #3a709e;">
@@ -43,15 +47,15 @@
 					<label class="control-label">*Nombre Tarea:</label> <input
 						id="nombreAct" name="nombreAct" type="text" maxlength="100"
 						class="form-control input-md" ng-required="true"
-						ng-pattern="/^[0-9a-zA-Z_-\s,.áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
+						ng-pattern="/^[0-9a-zA-Z_-\s,áéíóúÁÉÍÓÚñÑ:\(\)]*$/"
 						ng-model="planeacionProyectoCtrl.actividad.nombreActividad">
 				</div>
 				<div class="col-md-3"
 					ng-class="{
                              'has-success': form.fecIniA.$dirty || form.fecIniA.$valid ,
                              'has-error': form.fecIniA.$dirty && form.fecIniA.$invalid}">
-					<label class=" control-label" for="fecIniA">*Fecha Inicio:</label> <input
-						type="text" class="form-control" id="fecIniA" name="fecIniA"
+					<label class=" control-label" for="fecIniA">*Fecha Inicio:</label>
+					<input type="text" class="form-control" id="fecIniA" name="fecIniA"
 						uib-datepicker-popup="dd/MM/yyyy"
 						ng-change="planeacionProyectoCtrl.setDateAct()" ng-required="true"
 						ng-click="planeacionProyectoCtrl.abrirFechaIniAct()"
@@ -83,7 +87,7 @@
 					ng-class="{
                              'has-success': form.areaAWM.$dirty || form.areaAWM.$valid ,
                              'has-error': form.areaAWM.$dirty && form.areaAWM.$invalid}">
-					<label class="control-label">*Seleccione una Area:</label> <select
+					<label class="control-label">*Seleccione una Área:</label> <select
 						class="form-control input-md" id="areaAWM" name="areaAWM"
 						ng-required="true"
 						ng-model="planeacionProyectoCtrl.actividad.area"
@@ -94,7 +98,7 @@
 				</div>
 
 
-				<div class="col-md-4"
+				<!-- <div class="col-md-4"
 					ng-class="{
                              'has-success': form.ticketA.$dirty || form.ticketA.$valid ,
                              'has-error': form.ticketA.$dirty && form.ticketA.$invalid}">
@@ -108,7 +112,7 @@
 						repeat="ticket.idTicket as ticket in planeacionProyectoCtrl.listTickets | propsFilter: {resumen: $select.search, idTicket: $select.search}">
 					<div ng-bind-html="ticket.resumen | highlight: $select.search"></div>
 					</ui-select-choices> </ui-select>
-				</div>
+				</div> -->
 
 				<div class="col-md-4"
 					ng-class="{
@@ -124,9 +128,9 @@
 
 				</div>
 
-			</div>
+				<!-- </div>
 			<br />
-			<div class="row">
+			<div class="row"> -->
 				<div class="col-md-4"
 					ng-if="planeacionProyectoCtrl.actividad.area.nombre == 'SISTEMAS DESARROLLO' || planeacionProyectoCtrl.actividad.area.nombre == 'SOPORTE APLICATIVO'"
 					ng-class="{
@@ -141,8 +145,10 @@
 					</select>
 
 				</div>
-
-				<div class="col-md-8 text-right" ng-if="form.$valid">
+			</div>
+			<br />
+			<div class="row">
+				<div class="col-md-12 text-right" ng-if="form.$valid">
 					<a class="btn btn-primary " style="margin-top: 23px;" role="button"
 						ng-click="planeacionProyectoCtrl.planearActividadMod()" tooltip
 						title="Planear Tarea" data-placement="midle">Planear Tarea </a>
@@ -198,17 +204,17 @@
 			formatter="{'model.name': 'Nombre', 'model.from': 'De', 'model.to': 'Hasta'}"
 			formatters="planeacionProyectoCtrl.formatters"></gantt-table>
 		<gantt-progress></gantt-progress>
-		<gantt-tooltips content="planeacionProyectoCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
+		<gantt-tooltips content="planeacionProyectoCtrl.tooltip"
+			date-format="'MMM DD'"></gantt-tooltips>
 		<gantt-dependencies enabled="true" conflict-checker="true"></gantt-dependencies>
 	</div>
 </div>
 </uib-tab> <uib-tab ng-if="planeacionProyectoCtrl.recursosSubproyecto.length > 0"
-	ng-click="planeacionProyectoCtrl.seleccionRecursos()"
-	index="2" heading="Personas Asignadas"> 
-	<div class="row">
-		<adea-tabla
-			dt-data-source="planeacionProyectoCtrl.recursosSubproyecto"
-			config="planeacionProyectoCtrl.tblRecursosSubproyecto" paginar="false">
-	</div>
-	
+	ng-click="planeacionProyectoCtrl.seleccionRecursos()" index="2"
+	heading="Personas Asignadas">
+<div class="row">
+	<adea-tabla dt-data-source="planeacionProyectoCtrl.recursosSubproyecto"
+		config="planeacionProyectoCtrl.tblRecursosSubproyecto" paginar="false">
+</div>
+
 </uib-tab> </uib-tabset>

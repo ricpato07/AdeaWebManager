@@ -1742,7 +1742,7 @@
         }
         
         function seleccionaTab(){
-        	planeacionProyectoCtrl.data = null;
+        	planeacionProyectoCtrl.data = [];
         	planeacionProyectoCtrl.soporteSeleccionado = null; 
         	planeacionProyectoCtrl.subProyectoSeleccionado = null;
         }

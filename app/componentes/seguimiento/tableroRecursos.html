@@ -18,7 +18,7 @@
 							ng-class="{
                              'has-success': form.area.$dirty || form.area.$valid ,
                              'has-error': form.area.$dirty && form.area.$invalid}">
-							<label class="control-label">*Seleccione un Area:</label> <select
+							<label class="control-label">*Seleccione un Área:</label> <select
 								class="form-control input-md" id="area" name="area"
 								ng-required="true" ng-model="tableroRecursosCtrl.filtro.area"
 								ng-change="tableroRecursosCtrl.consultaPlantillaArea()"
@@ -90,41 +90,94 @@
 		</div>
 	</div>
 
+	<div class="panel panel-default panel-primary"
+		ng-if="tableroRecursosCtrl.items.length > 0">
+		<div class="panel-heading" style="height: 35px;">
+			<h4 class="panel-title pull-left" style="margin-top: 0px;">
+				<i class="fa fa-tasks"> &nbsp;&nbsp;Detalle de Tareas</i>
+			</h4>
+		</div>
 
-	<br />
-	<div class="row" ng-if="tableroRecursosCtrl.items.length > 0">
-		<uib-tabset> 
-		
-		<uib-tab index="0" heading="Tablero">
-			<br/>
-			<ds-kanban-board items="tableroRecursosCtrl.items"
-				groups="tableroRecursosCtrl.groups" state-label="'Estatus'"
-				states="tableroRecursosCtrl.states" are-items-read-only="true"
-				are-groups-read-only="true" can-move-item="false"
-				can-move-group="false"> </ds-kanban-board> 
-		</uib-tab> 
-		
-		<uib-tab
-			ng-click="tableroRecursosCtrl.construyeObjGantt(tableroRecursosCtrl.actividadesRecList)"
-			index="1" heading="Grafico"> <br />
-			
-			<div style="font-size: 12px;" gantt
-				data=tableroRecursosCtrl.actividadesGantt headers="['month', 'week']"
-				headers-formats="tableroRecursosCtrl.headersFormats"
-				time-frames=tableroRecursosCtrl.timeFrames
-				date-frames=tableroRecursosCtrl.dateFrames
-				time-frames-non-working-mode=visible>
-				<gantt-tree header="'Actividad'" header-content="tableroRecursosCtrl.headersContentTree"></gantt-tree>
-				<gantt-table columns="['from', 'to']"
-					headers="{'model.name': 'Nombre', 'from': 'De', 'to': 'Hasta'}"
-					formatters="tableroRecursosCtrl.formatters"
-					header-contents="tableroRecursosCtrl.columnsHeaderContents"></gantt-table>
-				<gantt-progress></gantt-progress>
-				<gantt-tooltips content="tableroRecursosCtrl.tooltip" date-format="'MMM DD'"></gantt-tooltips>
-				<gantt-dependencies conflict-checker="true"></gantt-dependencies>
+
+		<div class="panel-body">
+
+			<div class="row" ng-if="tableroRecursosCtrl.items.length > 0">
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-yellow"><i
+							class="fa fa-tasks"></i></span>
+
+						<div class="info-box-content">
+							<span class="info-box-text">Total de Actividades</span> <span
+								class="info-box-number">{{tableroRecursosCtrl.items.length}}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="info-box">
+						<span class="info-box-icon bg-green"><i
+							class="fa fa-dollar"></i></span>
+
+						<div class="info-box-content">
+							<span class="info-box-text">Costo</span> <span
+								class="info-box-number">{{tableroRecursosCtrl.costoGral | moneda}}</span>
+						</div>
+						<!-- /.info-box-content -->
+					</div>
+				</div>
+
+			</div>
+			<br />
+			<div class="row" ng-if="tableroRecursosCtrl.items.length > 0">
+
+				<div class="col-md-12">
+					<uib-tabset> <uib-tab index="0" heading="Tablero">
+					<br />
+					<ds-kanban-board items="tableroRecursosCtrl.items"
+						groups="tableroRecursosCtrl.groups" state-label="'Estatus'"
+						states="tableroRecursosCtrl.states" are-items-read-only="true"
+						are-groups-read-only="true" can-move-item="false"
+						can-move-group="false"> </ds-kanban-board> </uib-tab> 
+						
+					<uib-tab
+						ng-click="tableroRecursosCtrl.construyeObjGantt(tableroRecursosCtrl.actividadesRecList)"
+						index="1" heading="Grafico"> <br />
+
+					<div style="font-size: 12px;" gantt
+						data=tableroRecursosCtrl.actividadesGantt
+						headers="['month', 'week']"
+						headers-formats="tableroRecursosCtrl.headersFormats"
+						time-frames=tableroRecursosCtrl.timeFrames
+						date-frames=tableroRecursosCtrl.dateFrames
+						time-frames-non-working-mode=visible>
+						<gantt-tree header="'Actividad'"
+							header-content="tableroRecursosCtrl.headersContentTree"></gantt-tree>
+						<gantt-table columns="['from', 'to']"
+							headers="{'model.name': 'Nombre', 'from': 'De', 'to': 'Hasta'}"
+							formatters="tableroRecursosCtrl.formatters"
+							header-contents="tableroRecursosCtrl.columnsHeaderContents"></gantt-table>
+						<gantt-progress></gantt-progress>
+						<gantt-tooltips content="tableroRecursosCtrl.tooltip"
+							date-format="'MMM DD'"></gantt-tooltips>
+						<gantt-dependencies conflict-checker="true"></gantt-dependencies>
+					</div>
+
+					</uib-tab> 
+					
+					<uib-tab ng-click="tableroRecursosCtrl.consultaClientes()" index="3" heading="Planeación"> <br />
+						<div ng-include="'app/componentes/seguimiento/mantenimiento/modificarActividad.html'"></div>
+					</uib-tab>
+					
+					</uib-tabset>
+				</div>
 			</div>
 
-		</uib-tab> </uib-tabset>
+
+		</div>
+
 	</div>
+
+
 
 </div>

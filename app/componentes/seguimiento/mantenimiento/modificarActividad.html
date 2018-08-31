@@ -1,0 +1,133 @@
+<form class="form-horizontal" name="form" novalidate>
+
+	<div class="row">
+		<div class="col-md-4">
+			<label class="control-label">Seleccione un Cliente:</label> <select
+				class="form-control input-md" id="cliente" name="cliente"
+				ng-required="true" ng-model="tableroRecursosCtrl.actividad.cliente"
+				ng-change="tableroRecursosCtrl.consultaProyectos()"
+				ng-options="opt as opt.nomCliente for opt in tableroRecursosCtrl.listClientes">
+				<option value="">Seleccione</option>
+			</select>
+
+		</div>
+		<div class="col-md-4">
+			<label class="control-label">Seleccione un Proyecto:</label> <select
+				class="form-control input-md" id="proyecto" name="proyecto"
+				ng-required="true"
+				ng-change="tableroRecursosCtrl.consultaSubProyectos()"
+				ng-model="tableroRecursosCtrl.actividad.proyecto"
+				ng-options="opt as opt.nombre  for opt in tableroRecursosCtrl.listProyectos">
+				<option value="">Seleccione</option>
+			</select>
+		</div>
+		
+		<div class="col-md-4">
+			<label class="control-label">Seleccione un Sub-Proyecto:</label> <select
+				class="form-control input-md" id="subproyecto" name="subproyecto"
+				ng-required="true"
+				ng-change="tableroRecursosCtrl.seleccionaSubproyecto()"
+				ng-model="tableroRecursosCtrl.actividad.subproyecto"
+				ng-options="opt as opt.nombre for opt in tableroRecursosCtrl.subProyectos">
+				<option value="">Seleccione</option>
+			</select>
+		</div>
+
+
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-4"
+			ng-class="{
+                             'has-success': form.nombreAct.$dirty || form.nombreAct.$valid ,
+                             'has-error': form.nombreAct.$dirty && form.nombreAct.$invalid}">
+			<label class="control-label">*Nombre Actividad:</label> <input
+				id="nombreAct" name="nombreAct" type="text" maxlength="100"
+				class="form-control input-md" ng-required="true"
+				ng-pattern="/^[0-9a-zA-Z_-\s,:.áéíóúÁÉÍÓÚñÑ\(\)]*$/"
+				ng-model="tableroRecursosCtrl.actividad.nombreActividad">
+		</div>
+		--{{tableroRecursosCtrl.fecActiveIni}}--
+		<div class="col-md-4"
+			ng-class="{'has-success': form.fecIniA.$dirty || form.fecIniA.$valid ,
+                             'has-error': form.fecIniA.$dirty && form.fecIniA.$invalid}">
+			<label class=" control-label" for="fecIniA">*Fecha Inicio:</label> <input
+				type="text" class="form-control" id="fecIniA" name="fecIniA"
+				uib-datepicker-popup="dd/MM/yyyy"
+				ng-disabled="tableroRecursosCtrl.actividad.subproyecto == null && tableroRecursosCtrl.actividad.subproyecto == undefined"
+				ng-change="tableroRecursosCtrl.setDateActMod()"
+				ng-click="tableroRecursosCtrl.abrirFechaIniActMod()"
+				ng-model="tableroRecursosCtrl.actividad.fecIni"
+				is-open="tableroRecursosCtrl.fechaIniActMod.abierto"
+				close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+				ng-required="true"
+				datepicker-options="{minDate: tableroRecursosCtrl.fecActIni, maxDate: tableroRecursosCtrl.fecActFin, dateDisabled: tableroRecursosCtrl.disabled,  initDate: tableroRecursosCtrl.fecActiveIn}" />
+		</div>
+
+		<div class="col-md-4"
+			ng-class="{'has-success': form.fecFinA.$dirty || form.fecFinA.$valid,
+                             'has-error': form.fecFinA.$dirty && form.fecFinA.$invalid}">
+			<label class=" control-label" for="fecFinA">*Fecha Fin:</label> <input
+				type="text" class="form-control" id="fecFinA" name="fecFinA"
+				uib-datepicker-popup="dd/MM/yyyy"
+				ng-disabled="tableroRecursosCtrl.actividad.fecIni == null && tableroRecursosCtrl.actividad.fecIni == undefined"
+				ng-click="tableroRecursosCtrl.abrirFechaFinActMod()"
+				ng-model="tableroRecursosCtrl.actividad.fecFin"
+				is-open="tableroRecursosCtrl.fechaFinActMod.abierto"
+				close-text="Cerrar" clear-text="Borrar" current-text="Hoy"
+				ng-required="true"
+				datepicker-options="{minDate: tableroRecursosCtrl.actividad.fecIni, maxDate: tableroRecursosCtrl.fecActFin, dateDisabled: tableroRecursosCtrl.disabled, initDate: tableroRecursosCtrl.actividad.fecIni}" />
+
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col-md-4"
+			ng-class="{
+                             'has-success': form.areaAWM.$dirty || form.areaAWM.$valid ,
+                             'has-error': form.areaAWM.$dirty && form.areaAWM.$invalid}">
+			<label class="control-label">*Seleccione una Área:</label> <select
+				class="form-control input-md" id="areaAWM" name="areaAWM"
+				ng-required="true"
+				ng-change="tableroRecursosCtrl.obtenerArea(tableroRecursosCtrl.actividadEditable.idArea)"
+				ng-model="tableroRecursosCtrl.actividad.idArea"
+				ng-options="opt.idArea as opt.nombre for opt in tableroRecursosCtrl.subproyectoEditable.areas">
+				<option value="">Seleccione</option>
+			</select>
+
+		</div>
+
+		<div class="col-md-4"
+			ng-if="(tableroRecursosCtrl.areaMod.nombre == 'SISTEMAS DESARROLLO' || tableroRecursosCtrl.areaMod.nombre == 'SOPORTE APLICATIVO')"
+			ng-class="{
+                             'has-success': form.tecnologias.$dirty || form.tecnologias.$valid ,
+                             'has-error': form.tecnologias.$dirty && form.tecnologias.$invalid}">
+			<label class="control-label">*Seleccione una Tecnología:</label> <select
+				class="form-control input-md" id="tecnologias" name="areaAWM"
+				ng-required="true"
+				ng-model="tableroRecursosCtrl.actividad.tecnologia"
+				ng-options="opt.claveCat as opt.descripcionCat for opt in tableroRecursosCtrl.tecnologias">
+				<option value="">Seleccione</option>
+			</select>
+
+		</div>
+		<div class="col-md-4"
+			ng-class="{'has-success': form.actividadPre.$dirty || form.actividadPre.$valid ,
+                             'has-error': form.actividadPre.$dirty && form.actividadPre.$invalid}">
+			<label class="control-label">Actividad Predecesora:</label> <select
+				class="form-control input-md" id="actividadPre" name="actividadPre"
+				ng-model="tableroRecursosCtrl.actividadEditable.predecesora"
+				ng-disabled="tableroRecursosCtrl.actividadSeleccionada.estatus == 'C' || tableroRecursosCtrl.subproyectoEditable.tipoFlujo == 1"
+				ng-options="opt.idActividad as opt.nombreActividad for opt in tableroRecursosCtrl.listActividadesSub">
+				<option value="">Seleccione Actividad</option>
+			</select>
+
+		</div>
+	</div>
+
+</form>
+
+
+
+
+
